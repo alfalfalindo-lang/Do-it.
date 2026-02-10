@@ -1,59 +1,75 @@
-let tarefas = JSON.parse(localStorage.getItem("tarefas")) || [];
-
-function mostrarFormulario() {
-    document.getElementById("formulario").classList.toggle("hidden");
+* {
+  font-family: Arial, sans-serif;
+  box-sizing: border-box;
 }
 
-function adicionar() {
-    const texto = document.getElementById("texto").value;
-    const data = document.getElementById("data").value;
-    const prioridade = document.getElementById("prioridade").value;
-
-    if (!texto || !data) {
-        alert("Preencha tudo!");
-        return;
-    }
-
-    tarefas.push({
-        texto,
-        data,
-        prioridade,
-        feito: false
-    });
-
-    salvar();
-    mostrar();
+body {
+  margin: 0;
+  display: flex;
+  background: #f2f2f2;
 }
 
-function marcar(index) {
-    tarefas[index].feito = !tarefas[index].feito;
-    salvar();
-    mostrar();
+.sidebar {
+  width: 200px;
+  background: #111;
+  color: white;
+  padding: 20px;
 }
 
-function mostrar() {
-    const lista = document.getElementById("lista");
-    lista.innerHTML = "";
-
-    tarefas.forEach((t, i) => {
-        const li = document.createElement("li");
-        li.classList.add(t.prioridade);
-        if (t.feito) li.classList.add("feito");
-
-        li.innerHTML = `
-            <div class="check" onclick="marcar(${i})"></div>
-            <div>
-                <strong>${t.texto}</strong><br>
-                <small>${t.data}</small>
-            </div>
-        `;
-
-        lista.appendChild(li);
-    });
+.sidebar button {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 10px;
+  background: #222;
+  color: white;
+  border: none;
+  cursor: pointer;
 }
 
-function salvar() {
-    localStorage.setItem("tarefas", JSON.stringify(tarefas));
+.main {
+  flex: 1;
+  padding: 20px;
 }
 
-mostrar();
+.top {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.task {
+  background: white;
+  margin-top: 15px;
+  padding: 15px;
+  display: flex;
+  align-items: center;
+  border-left: 8px solid gray;
+}
+
+.task.done {
+  background: #e8ffe8;
+  text-decoration: line-through;
+}
+
+.ball {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #444;
+  border-radius: 50%;
+  margin-right: 15px;
+  cursor: pointer;
+}
+
+.ball.done {
+  background: green;
+}
+
+.red { border-left-color: red; }
+.yellow { border-left-color: gold; }
+.green { border-left-color: green; }
+
+.date {
+  margin-left: auto;
+  font-size: 12px;
+  color: gray;
+}
+
