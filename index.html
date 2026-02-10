@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>do it</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="app">
+
+    <!-- BARRA LATERAL ESQUERDA -->
+    <aside class="sidebar">
+        <div class="bolinha vermelho" title="Importante"></div>
+        <div class="bolinha amarelo" title="Dá pra fazer"></div>
+        <div class="bolinha verde" title="Se eu quiser eu faço"></div>
+    </aside>
+
+    <!-- CONTEÚDO -->
+    <main class="conteudo">
+        <header>
+            <h1>do it</h1>
+            <button class="novo" onclick="mostrarFormulario()">+ novo</button>
+        </header>
+
+        <div id="formulario" class="form hidden">
+            <input type="text" id="texto" placeholder="O que você precisa fazer?">
+            <input type="date" id="data">
+
+            <select id="prioridade">
+                <option value="vermelho">Importante</option>
+                <option value="amarelo">Dá pra fazer</option>
+                <option value="verde">Se eu quiser eu faço</option>
+            </select>
+
+            <button onclick="adicionar()">Adicionar</button>
+        </div>
+
+        <ul id="lista"></ul>
+    </main>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
