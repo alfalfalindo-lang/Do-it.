@@ -1,46 +1,28 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <title>do it</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <title>Do It</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div class="app">
+<div class="sidebar">
+  <h2>Do It</h2>
+  <button onclick="filtro('metas')">Metas</button>
+  <button onclick="filtro('incompletas')">Incompletas</button>
+  <button onclick="filtro('mes')">Mês</button>
+</div>
 
-    <!-- BARRA LATERAL ESQUERDA -->
-    <aside class="sidebar">
-        <div class="bolinha vermelho" title="Importante"></div>
-        <div class="bolinha amarelo" title="Dá pra fazer"></div>
-        <div class="bolinha verde" title="Se eu quiser eu faço"></div>
-    </aside>
+<div class="main">
+  <div class="top">
+    <button onclick="novaTarefa()">Novo</button>
+  </div>
 
-    <!-- CONTEÚDO -->
-    <main class="conteudo">
-        <header>
-            <h1>do it</h1>
-            <button class="novo" onclick="mostrarFormulario()">+ novo</button>
-        </header>
-
-        <div id="formulario" class="form hidden">
-            <input type="text" id="texto" placeholder="O que você precisa fazer?">
-            <input type="date" id="data">
-
-            <select id="prioridade">
-                <option value="vermelho">Importante</option>
-                <option value="amarelo">Dá pra fazer</option>
-                <option value="verde">Se eu quiser eu faço</option>
-            </select>
-
-            <button onclick="adicionar()">Adicionar</button>
-        </div>
-
-        <ul id="lista"></ul>
-    </main>
-
+  <div id="lista"></div>
 </div>
 
 <script src="script.js"></script>
 </body>
 </html>
+
