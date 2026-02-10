@@ -7,7 +7,7 @@
 </head>
 <body>
 
-  <!-- Barra lateral -->
+  <!-- Sidebar -->
   <aside class="sidebar">
     <div class="bolinhas">
       <span class="red"></span>
@@ -33,19 +33,19 @@
   <!-- Botão Post-it -->
   <button id="postItBtn" class="postit-btn">POST-IT</button>
 
-  <!-- Modal nova tarefa -->
+  <!-- Modal -->
   <div class="modal" id="modal">
-    <div class="modal-box grande">
+    <div class="modal-box">
+      <button class="fechar-modal">×</button>
       <h3>Novo lembrete</h3>
 
-      <input type="text" id="titulo" placeholder="O que você quer fazer?">
-
-      <input type="date" id="data">
+      <input id="titulo" type="text" placeholder="O que você quer fazer?">
+      <input id="data" type="date">
 
       <div class="importancia">
-        <span data-cor="red" class="red"></span>
-        <span data-cor="yellow" class="yellow"></span>
-        <span data-cor="green" class="green"></span>
+        <span class="red" data-cor="red"></span>
+        <span class="yellow" data-cor="yellow"></span>
+        <span class="green" data-cor="green"></span>
       </div>
 
       <button id="criar">Criar</button>
