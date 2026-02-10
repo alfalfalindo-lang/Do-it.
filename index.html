@@ -11,8 +11,14 @@
 
 <div class="sidebar">
   <h1>Do It</h1>
+
+  <div class="dots">
+    <div class="dot red" onclick="novaTarefa('importante')"></div>
+    <div class="dot yellow" onclick="novaTarefa('medio')"></div>
+    <div class="dot green" onclick="novaTarefa('leve')"></div>
+  </div>
+
   <button onclick="filtro('todas')">Todas</button>
-  <button onclick="filtro('metas')">Metas</button>
   <button onclick="filtro('incompletas')">Incompletas</button>
   <button onclick="filtro('mes')">Mês</button>
 
@@ -25,7 +31,6 @@
 </div>
 
 <div class="main">
-  <button class="novo" onclick="novaTarefa()">+ Novo</button>
   <div id="lista"></div>
 </div>
 
