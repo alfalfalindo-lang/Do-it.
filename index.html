@@ -7,7 +7,7 @@
 </head>
 <body>
 
-  <!-- Barra lateral esquerda -->
+  <!-- Barra lateral -->
   <aside class="sidebar">
     <div class="bolinhas">
       <span class="red"></span>
@@ -15,42 +15,37 @@
       <span class="green"></span>
     </div>
 
-    <h2>Do It</h2>
-    <p>Tarefas</p>
-    <p>Inconcluídas</p>
+    <button id="novoBtn">＋ Novo</button>
   </aside>
 
-  <!-- Conteúdo principal -->
+  <!-- Área principal -->
   <main class="main">
     <header class="topo">
-      <div class="data">
-        <span id="dia"></span>
-        <strong id="mes"></strong>
+      <div class="calendario">
+        <span id="mes"></span>
+        <strong id="dia"></strong>
       </div>
-      <button id="novoBtn">Novo</button>
     </header>
 
-    <section class="tarefas" id="listaTarefas"></section>
+    <section id="listaTarefas"></section>
   </main>
 
   <!-- Botão Post-it -->
-  <button id="postItBtn">🗒</button>
+  <button id="postItBtn" class="postit-btn">POST-IT</button>
 
-  <!-- Modal Nova Tarefa -->
+  <!-- Modal nova tarefa -->
   <div class="modal" id="modal">
-    <div class="modal-box">
+    <div class="modal-box grande">
       <h3>Novo lembrete</h3>
 
       <input type="text" id="titulo" placeholder="O que você quer fazer?">
 
-      <label>Data</label>
       <input type="date" id="data">
 
-      <label>Importância</label>
       <div class="importancia">
-        <button data-cor="red">Importante</button>
-        <button data-cor="yellow">Dá pra fazer</button>
-        <button data-cor="green">Se eu quiser</button>
+        <span data-cor="red" class="red"></span>
+        <span data-cor="yellow" class="yellow"></span>
+        <span data-cor="green" class="green"></span>
       </div>
 
       <button id="criar">Criar</button>
@@ -60,4 +55,3 @@
   <script src="script.js"></script>
 </body>
 </html>
-
