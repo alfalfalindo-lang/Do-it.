@@ -5,26 +5,31 @@ let filtroAtual = "todas";
 const lista = document.getElementById("lista");
 const resumo = document.getElementById("resumo");
 
-const hoje = new Date();
-document.getElementById("dia").innerText = hoje.getDate();
-document.getElementById("mes").innerText =
-  hoje.toLocaleString("pt-BR", { month: "short" }).toUpperCase();
+const hoje = new Date().toISOString().split("T")[0];
 
+/* marca atrasadas */
 tarefas.forEach(t => {
-  if (!t.feita && t.data < hoje.toISOString().split("T")[0]) {
-    t.atrasada = true;
-  }
+  if (!t.feita && t.data < hoje) t.atrasada = true;
 });
 
 render();
 renderPostIts();
 
-function novaTarefa() {
-  const texto = prompt("O que fazer?");
-  const tipo = prompt("importante / medio / leve");
+/* criar tarefa pela bolinha */
+function novaTarefa(tipo) {
+  const texto = prompt("O que você quer fazer?");
+  if (!texto) return;
+
   const data = prompt("Data (YYYY-MM-DD)");
 
-  tarefas.push({ texto, tipo, data, feita: false, atrasada: false });
+  tarefas.push({
+    texto,
+    tipo,
+    data,
+    feita: false,
+    atrasada: false
+  });
+
   salvar();
   render();
 }
@@ -35,6 +40,7 @@ function render() {
 
   tarefas.forEach(t => {
     if (filtroAtual === "incompletas" && !t.atrasada) return;
+    if (filtroAtual === "mes" && t.data.slice(0,7) !== hoje.slice(0,7)) return;
 
     const div = document.createElement("div");
     div.className = "task";
@@ -54,8 +60,17 @@ function render() {
       render();
     };
 
+    const text = document.createElement("span");
+    text.innerText = t.texto;
+
+    const date = document.createElement("span");
+    date.className = "date";
+    date.innerText = t.data;
+
     div.appendChild(ball);
-    div.appendChild(document.createTextNode(t.texto));
+    div.appendChild(text);
+    div.appendChild(date);
+
     lista.appendChild(div);
 
     if (t.feita) feitas++;
@@ -73,54 +88,4 @@ function salvar() {
   localStorage.setItem("tarefas", JSON.stringify(tarefas));
 }
 
-/* Post-its */
-function novoPostIt() {
-  const texto = prompt("Texto do post-it:");
-  if (!texto) return;
-
-  postits.push({ texto, x: 300, y: 300 });
-  salvarPostIts();
-  renderPostIts();
-}
-
-function renderPostIts() {
-  document.querySelectorAll(".postit").forEach(p => p.remove());
-
-  postits.forEach((p, i) => {
-    const div = document.createElement("div");
-    div.className = "postit";
-    div.style.left = p.x + "px";
-    div.style.top = p.y + "px";
-    div.innerHTML = `<span class="close">×</span>${p.texto}`;
-
-    div.querySelector(".close").onclick = () => {
-      postits.splice(i, 1);
-      salvarPostIts();
-      renderPostIts();
-    };
-
-    div.onmousedown = e => {
-      const dx = e.clientX - div.offsetLeft;
-      const dy = e.clientY - div.offsetTop;
-
-      document.onmousemove = ev => {
-        div.style.left = ev.clientX - dx + "px";
-        div.style.top = ev.clientY - dy + "px";
-        p.x = ev.clientX - dx;
-        p.y = ev.clientY - dy;
-      };
-
-      document.onmouseup = () => {
-        document.onmousemove = null;
-        salvarPostIts();
-      };
-    };
-
-    document.body.appendChild(div);
-  });
-}
-
-function salvarPostIts() {
-  localStorage.setItem("postits", JSON.stringify(postits));
-}
-
+/* post-its continuam iguais */
