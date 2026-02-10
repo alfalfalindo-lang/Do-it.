@@ -7,22 +7,30 @@
 </head>
 <body>
 
+<div class="grid-bg"></div>
+
 <div class="sidebar">
-  <h2>Do It</h2>
+  <h1>Do It</h1>
+  <button onclick="filtro('todas')">Todas</button>
   <button onclick="filtro('metas')">Metas</button>
   <button onclick="filtro('incompletas')">Incompletas</button>
   <button onclick="filtro('mes')">Mês</button>
+
+  <div class="resumo" id="resumo"></div>
+</div>
+
+<div class="calendar">
+  <div id="mes"></div>
+  <div id="dia"></div>
 </div>
 
 <div class="main">
-  <div class="top">
-    <button onclick="novaTarefa()">Novo</button>
-  </div>
-
+  <button class="novo" onclick="novaTarefa()">+ Novo</button>
   <div id="lista"></div>
 </div>
+
+<button class="novo-postit" onclick="novoPostIt()">Post-it</button>
 
 <script src="script.js"></script>
 </body>
 </html>
-
