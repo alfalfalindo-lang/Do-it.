@@ -3,6 +3,13 @@ body {
     font-family: "Segoe UI", sans-serif;
 }
 
+.container {
+    display: flex;                   /* Ativa o modo de layout flexível */
+    justify-content: center;         /* Alinha horizontalmente ao centro */
+    align-items: center;             /* Alinha verticalmente ao centro */
+    height: 100vh;
+}
+
 .app {
     display: flex;
     width: 420px;
