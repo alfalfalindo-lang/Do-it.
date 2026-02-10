@@ -1,91 +1,47 @@
-let tarefas = JSON.parse(localStorage.getItem("tarefas")) || [];
-let postits = JSON.parse(localStorage.getItem("postits")) || [];
-let filtroAtual = "todas";
+const modal = document.getElementById("modal");
+const novoBtn = document.getElementById("novoBtn");
+const criarBtn = document.getElementById("criar");
+const lista = document.getElementById("listaTarefas");
 
-const lista = document.getElementById("lista");
-const resumo = document.getElementById("resumo");
+let corSelecionada = "red";
 
-const hoje = new Date().toISOString().split("T")[0];
+// Data estilo calendário Apple
+const hoje = new Date();
+document.getElementById("dia").innerText = hoje.getDate();
+document.getElementById("mes").innerText =
+  hoje.toLocaleString("pt-BR", { month: "short" }).toUpperCase();
 
-/* marca atrasadas */
-tarefas.forEach(t => {
-  if (!t.feita && t.data < hoje) t.atrasada = true;
+// Abrir modal
+novoBtn.onclick = () => modal.style.display = "flex";
+
+// Escolher importância
+document.querySelectorAll(".importancia button").forEach(btn => {
+  btn.onclick = () => corSelecionada = btn.dataset.cor;
 });
 
-render();
-renderPostIts();
+// Criar tarefa
+criarBtn.onclick = () => {
+  const titulo = document.getElementById("titulo").value;
+  if (!titulo) return;
 
-/* criar tarefa pela bolinha */
-function novaTarefa(tipo) {
-  const texto = prompt("O que você quer fazer?");
-  if (!texto) return;
+  const tarefa = document.createElement("div");
+  tarefa.className = "tarefa";
+  tarefa.style.borderColor = corSelecionada;
 
-  const data = prompt("Data (YYYY-MM-DD)");
+  tarefa.innerHTML = `
+    <span>${titulo}</span>
+    <input type="checkbox">
+  `;
 
-  tarefas.push({
-    texto,
-    tipo,
-    data,
-    feita: false,
-    atrasada: false
-  });
+  tarefa.querySelector("input").onclick = () => {
+    tarefa.classList.toggle("feita");
+  };
 
-  salvar();
-  render();
-}
+  lista.appendChild(tarefa);
 
-function render() {
-  lista.innerHTML = "";
-  let feitas = 0;
+  modal.style.display = "none";
+  document.getElementById("titulo").value = "";
+};
 
-  tarefas.forEach(t => {
-    if (filtroAtual === "incompletas" && !t.atrasada) return;
-    if (filtroAtual === "mes" && t.data.slice(0,7) !== hoje.slice(0,7)) return;
-
-    const div = document.createElement("div");
-    div.className = "task";
-    if (t.feita) div.classList.add("done");
-
-    if (t.tipo === "importante") div.classList.add("red");
-    else if (t.tipo === "medio") div.classList.add("yellow");
-    else div.classList.add("green");
-
-    const ball = document.createElement("div");
-    ball.className = "ball";
-    if (t.feita) ball.classList.add("done");
-
-    ball.onclick = () => {
-      t.feita = !t.feita;
-      salvar();
-      render();
-    };
-
-    const text = document.createElement("span");
-    text.innerText = t.texto;
-
-    const date = document.createElement("span");
-    date.className = "date";
-    date.innerText = t.data;
-
-    div.appendChild(ball);
-    div.appendChild(text);
-    div.appendChild(date);
-
-    lista.appendChild(div);
-
-    if (t.feita) feitas++;
-  });
-
-  resumo.innerText = `✔ ${feitas} / ${tarefas.length}`;
-}
-
-function filtro(f) {
-  filtroAtual = f;
-  render();
-}
-
-function salvar() {
-  localStorage.setItem("tarefas", JSON.stringify(tarefas));
-}
-
-/* post-its continuam iguais */
+ 
+ 
