@@ -1,75 +1,66 @@
-* {
-  font-family: Arial, sans-serif;
-  box-sizing: border-box;
+const lista = document.getElementById("lista");
+let tarefas = [];
+let filtroAtual = "todas";
+
+function novaTarefa() {
+  const texto = prompt("O que você quer fazer?");
+  if (!texto) return;
+
+  const tipo = prompt("Importância: importante / medio / leve");
+  const data = prompt("Data (ex: 03/2026)");
+
+  const tarefa = {
+    texto,
+    tipo,
+    data,
+    feita: false
+  };
+
+  tarefas.push(tarefa);
+  render();
 }
 
-body {
-  margin: 0;
-  display: flex;
-  background: #f2f2f2;
+function render() {
+  lista.innerHTML = "";
+
+  tarefas.forEach((tarefa, index) => {
+    if (filtroAtual === "incompletas" && tarefa.feita) return;
+
+    const task = document.createElement("div");
+    task.className = "task";
+
+    if (tarefa.tipo === "importante") task.classList.add("red");
+    else if (tarefa.tipo === "medio") task.classList.add("yellow");
+    else task.classList.add("green");
+
+    if (tarefa.feita) task.classList.add("done");
+
+    const ball = document.createElement("div");
+    ball.className = "ball";
+    if (tarefa.feita) ball.classList.add("done");
+
+    ball.onclick = () => {
+      tarefa.feita = !tarefa.feita;
+      render();
+    };
+
+    const text = document.createElement("span");
+    text.innerText = tarefa.texto;
+
+    const date = document.createElement("span");
+    date.className = "date";
+    date.innerText = tarefa.data;
+
+    task.appendChild(ball);
+    task.appendChild(text);
+    task.appendChild(date);
+
+    lista.appendChild(task);
+  });
 }
 
-.sidebar {
-  width: 200px;
-  background: #111;
-  color: white;
-  padding: 20px;
-}
-
-.sidebar button {
-  width: 100%;
-  margin-bottom: 10px;
-  padding: 10px;
-  background: #222;
-  color: white;
-  border: none;
-  cursor: pointer;
-}
-
-.main {
-  flex: 1;
-  padding: 20px;
-}
-
-.top {
-  display: flex;
-  justify-content: flex-end;
-}
-
-.task {
-  background: white;
-  margin-top: 15px;
-  padding: 15px;
-  display: flex;
-  align-items: center;
-  border-left: 8px solid gray;
-}
-
-.task.done {
-  background: #e8ffe8;
-  text-decoration: line-through;
-}
-
-.ball {
-  width: 20px;
-  height: 20px;
-  border: 2px solid #444;
-  border-radius: 50%;
-  margin-right: 15px;
-  cursor: pointer;
-}
-
-.ball.done {
-  background: green;
-}
-
-.red { border-left-color: red; }
-.yellow { border-left-color: gold; }
-.green { border-left-color: green; }
-
-.date {
-  margin-left: auto;
-  font-size: 12px;
-  color: gray;
+function filtro(tipo) {
+  filtroAtual = tipo;
+  render();
 }
 
