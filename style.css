@@ -131,4 +131,22 @@ body {
   right: 20px;
   padding: 12px;
 }
+/* tudo que já tinha continua igual */
 
+/* bolinhas da barra */
+.dots {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.dot {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.dot.red { background: red; }
+.dot.yellow { background: gold; }
+.dot.green { background: green; }
