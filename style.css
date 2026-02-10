@@ -1,104 +1,75 @@
+* {
+  font-family: Arial, sans-serif;
+  box-sizing: border-box;
+}
+
 body {
-    background: #f4f4f4;
-    font-family: "Segoe UI", sans-serif;
+  margin: 0;
+  display: flex;
+  background: #f2f2f2;
 }
 
-.app {
-    display: flex;
-    width: 420px;
-    margin: 40px auto;
-    background: white;
-    border-radius: 16px;
-    overflow: hidden;
-    height: 100vh
-}
-
-/* BARRA LATERAL */
 .sidebar {
-    width: 50px;
-    background: #111;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding-top: 20px;
-    gap: 15px;
+  width: 200px;
+  background: #111;
+  color: white;
+  padding: 20px;
 }
 
-.bolinha {
-    width: 14px;
-    height: 14px;
-    border-radius: 50%;
+.sidebar button {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 10px;
+  background: #222;
+  color: white;
+  border: none;
+  cursor: pointer;
 }
 
-.vermelho { background: #e74c3c; }
-.amarelo { background: #f1c40f; }
-.verde { background: #2ecc71; }
-
-/* CONTEÚDO */
-.conteudo {
-    flex: 1;
-    padding: 20px;
+.main {
+  flex: 1;
+  padding: 20px;
 }
 
-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+.top {
+  display: flex;
+  justify-content: flex-end;
 }
 
-h1 {
-    font-size: 28px;
-    font-weight: 600;
+.task {
+  background: white;
+  margin-top: 15px;
+  padding: 15px;
+  display: flex;
+  align-items: center;
+  border-left: 8px solid gray;
 }
 
-.novo {
-    border: none;
-    background: none;
-    font-weight: bold;
-    cursor: pointer;
+.task.done {
+  background: #e8ffe8;
+  text-decoration: line-through;
 }
 
-.form {
-    margin-top: 15px;
+.ball {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #444;
+  border-radius: 50%;
+  margin-right: 15px;
+  cursor: pointer;
 }
 
-.hidden {
-    display: none;
+.ball.done {
+  background: green;
 }
 
-input, select, button {
-    width: 100%;
-    margin-top: 8px;
-    padding: 8px;
-    border-radius: 8px;
-    border: 1px solid #ccc;
+.red { border-left-color: red; }
+.yellow { border-left-color: gold; }
+.green { border-left-color: green; }
+
+.date {
+  margin-left: auto;
+  font-size: 12px;
+  color: gray;
 }
 
-ul {
-    margin-top: 20px;
-    padding: 0;
-}
-
-li {
-    list-style: none;
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
-    padding: 8px;
-    border-radius: 10px;
-}
-
-.check {
-    width: 16px;
-    height: 16px;
-    border-radius: 50%;
-    border: 2px solid #2ecc71;
-    margin-right: 10px;
-    cursor: pointer;
-}
-
-.feito {
-    background: #eafaf1;
-    color: green;
-    text-decoration: line-through;
-}
