@@ -1,0 +1,103 @@
+body {
+    background: #f4f4f4;
+    font-family: "Segoe UI", sans-serif;
+}
+
+.app {
+    display: flex;
+    width: 420px;
+    margin: 40px auto;
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+/* BARRA LATERAL */
+.sidebar {
+    width: 50px;
+    background: #111;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 20px;
+    gap: 15px;
+}
+
+.bolinha {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+}
+
+.vermelho { background: #e74c3c; }
+.amarelo { background: #f1c40f; }
+.verde { background: #2ecc71; }
+
+/* CONTEÚDO */
+.conteudo {
+    flex: 1;
+    padding: 20px;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+h1 {
+    font-size: 28px;
+    font-weight: 600;
+}
+
+.novo {
+    border: none;
+    background: none;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.form {
+    margin-top: 15px;
+}
+
+.hidden {
+    display: none;
+}
+
+input, select, button {
+    width: 100%;
+    margin-top: 8px;
+    padding: 8px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
+
+ul {
+    margin-top: 20px;
+    padding: 0;
+}
+
+li {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    padding: 8px;
+    border-radius: 10px;
+}
+
+.check {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 2px solid #2ecc71;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.feito {
+    background: #eafaf1;
+    color: green;
+    text-decoration: line-through;
+}
