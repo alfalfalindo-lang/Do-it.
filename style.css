@@ -5,15 +5,15 @@
   font-family: -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
-/* Fundo quadriculado preto */
+/* Fundo quadriculado: linhas pretas, fundo branco */
 body {
   display: flex;
   height: 100vh;
   background:
-    linear-gradient(#222 1px, transparent 1px),
-    linear-gradient(90deg, #222 1px, transparent 1px);
+    linear-gradient(#000 1px, transparent 1px),
+    linear-gradient(90deg, #000 1px, transparent 1px);
   background-size: 30px 30px;
-  background-color: #000;
+  background-color: #fff;
 }
 
 /* Sidebar */
@@ -21,15 +21,21 @@ body {
   width: 220px;
   background: #000;
   padding: 20px;
-  border-right: 1px solid #333;
+  border-right: 1px solid #222;
+}
+
+/* Bolinhas maiores e verticais */
+.bolinhas {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 30px;
 }
 
 .bolinhas span {
-  width: 12px;
-  height: 12px;
+  width: 18px;
+  height: 18px;
   border-radius: 50%;
-  display: inline-block;
-  margin-right: 6px;
 }
 
 .red { background: #ff5f56; }
@@ -37,111 +43,37 @@ body {
 .green { background: #27c93f; }
 
 #novoBtn {
-  margin-top: 30px;
+  margin-top: 20px;
   width: 100%;
-  padding: 10px;
+  padding: 12px;
   background: #111;
   color: white;
-  border: 1px solid #333;
+  border: none;
   cursor: pointer;
-  border-radius: 6px;
+  border-radius: 12px;
 }
 
 /* Main */
 .main {
   flex: 1;
-  padding: 20px;
-  color: white;
+  padding: 24px;
+  color: black;
 }
 
 /* Calendário Apple style */
 .calendario {
-  width: 60px;
+  width: 64px;
   text-align: center;
   background: white;
   color: black;
-  border-radius: 8px;
+  border-radius: 14px;
   overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
 .calendario span {
-  display: block;
-  background: red;
-  color: white;
-  font-size: 12px;
-  padding: 2px;
-}
+  display
 
-.calendario strong {
-  font-size: 24px;
-}
-
-/* Tarefas */
-.tarefa {
-  background: #111;
-  padding: 12px;
-  margin-top: 12px;
-  border-left: 6px solid;
-  border-radius: 6px;
-  display: flex;
-  justify-content: space-between;
-}
-
-/* Post-it botão */
-.postit-btn {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  width: 90px;
-  height: 90px;
-  background: #ffe066;
-  border: none;
-  border-radius: 6px;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-/* Post-it */
-.postit {
-  position: absolute;
-  width: 200px;
-  height: 200px;
-  background: #ffe066;
-  padding: 10px;
-  cursor: move;
-}
-
-/* Modal */
-.modal {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.6);
-  display: none;
-  justify-content: center;
-  align-items: center;
-}
-
-.modal-box.grande {
-  background: #111;
-  padding: 30px;
-  width: 400px;
-  border-radius: 12px;
-}
-
-.modal-box input {
-  width: 100%;
-  margin: 10px 0;
-  padding: 8px;
-}
-
-.importancia span {
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  display: inline-block;
-  margin-right: 10px;
-  cursor: pointer;
-}
 
 
  
