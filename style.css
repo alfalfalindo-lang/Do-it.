@@ -2,26 +2,26 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
+/* Fundo quadriculado preto */
 body {
   display: flex;
   height: 100vh;
-  background: repeating-linear-gradient(
-    0deg,
-    #f5f5f5,
-    #f5f5f5 24px,
-    #eaeaea 25px
-  );
+  background:
+    linear-gradient(#222 1px, transparent 1px),
+    linear-gradient(90deg, #222 1px, transparent 1px);
+  background-size: 30px 30px;
+  background-color: #000;
 }
 
 /* Sidebar */
 .sidebar {
   width: 220px;
-  background: #fff;
+  background: #000;
   padding: 20px;
-  border-right: 1px solid #ddd;
+  border-right: 1px solid #333;
 }
 
 .bolinhas span {
@@ -29,96 +29,119 @@ body {
   height: 12px;
   border-radius: 50%;
   display: inline-block;
-  margin-right: 5px;
+  margin-right: 6px;
 }
 
 .red { background: #ff5f56; }
 .yellow { background: #ffbd2e; }
 .green { background: #27c93f; }
 
+#novoBtn {
+  margin-top: 30px;
+  width: 100%;
+  padding: 10px;
+  background: #111;
+  color: white;
+  border: 1px solid #333;
+  cursor: pointer;
+  border-radius: 6px;
+}
+
 /* Main */
 .main {
   flex: 1;
   padding: 20px;
-}
-
-.topo {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-#novoBtn {
-  padding: 8px 16px;
-  border: none;
-  background: black;
   color: white;
-  cursor: pointer;
-  border-radius: 6px;
+}
+
+/* Calendário Apple style */
+.calendario {
+  width: 60px;
+  text-align: center;
+  background: white;
+  color: black;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.calendario span {
+  display: block;
+  background: red;
+  color: white;
+  font-size: 12px;
+  padding: 2px;
+}
+
+.calendario strong {
+  font-size: 24px;
 }
 
 /* Tarefas */
-.tarefas {
-  margin-top: 30px;
-}
-
 .tarefa {
-  background: white;
+  background: #111;
   padding: 12px;
-  margin-bottom: 10px;
+  margin-top: 12px;
   border-left: 6px solid;
   border-radius: 6px;
   display: flex;
   justify-content: space-between;
-  align-items: center;
-}
-
-.tarefa.feita {
-  background: #eaffea;
-  text-decoration: line-through;
 }
 
 /* Post-it botão */
-#postItBtn {
+.postit-btn {
   position: fixed;
   bottom: 20px;
   right: 20px;
-  width: 70px;
-  height: 70px;
+  width: 90px;
+  height: 90px;
   background: #ffe066;
   border: none;
-  border-radius: 8px;
-  font-size: 30px;
+  border-radius: 6px;
+  font-weight: bold;
   cursor: pointer;
+}
+
+/* Post-it */
+.postit {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  background: #ffe066;
+  padding: 10px;
+  cursor: move;
 }
 
 /* Modal */
 .modal {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.4);
+  background: rgba(0,0,0,0.6);
   display: none;
   justify-content: center;
   align-items: center;
 }
 
-.modal-box {
-  background: white;
-  padding: 20px;
-  width: 300px;
-  border-radius: 10px;
+.modal-box.grande {
+  background: #111;
+  padding: 30px;
+  width: 400px;
+  border-radius: 12px;
 }
 
 .modal-box input {
   width: 100%;
-  margin: 8px 0;
-  padding: 6px;
+  margin: 10px 0;
+  padding: 8px;
 }
 
-.importancia button {
-  margin-right: 5px;
+.importancia span {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 10px;
+  cursor: pointer;
 }
 
 
- 
  
