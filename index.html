@@ -7,35 +7,57 @@
 </head>
 <body>
 
-<div class="grid-bg"></div>
+  <!-- Barra lateral esquerda -->
+  <aside class="sidebar">
+    <div class="bolinhas">
+      <span class="red"></span>
+      <span class="yellow"></span>
+      <span class="green"></span>
+    </div>
 
-<div class="sidebar">
-  <h1>Do It</h1>
+    <h2>Do It</h2>
+    <p>Tarefas</p>
+    <p>Inconcluídas</p>
+  </aside>
 
-  <div class="dots">
-    <div class="dot red" onclick="novaTarefa('importante')"></div>
-    <div class="dot yellow" onclick="novaTarefa('medio')"></div>
-    <div class="dot green" onclick="novaTarefa('leve')"></div>
+  <!-- Conteúdo principal -->
+  <main class="main">
+    <header class="topo">
+      <div class="data">
+        <span id="dia"></span>
+        <strong id="mes"></strong>
+      </div>
+      <button id="novoBtn">Novo</button>
+    </header>
+
+    <section class="tarefas" id="listaTarefas"></section>
+  </main>
+
+  <!-- Botão Post-it -->
+  <button id="postItBtn">🗒</button>
+
+  <!-- Modal Nova Tarefa -->
+  <div class="modal" id="modal">
+    <div class="modal-box">
+      <h3>Novo lembrete</h3>
+
+      <input type="text" id="titulo" placeholder="O que você quer fazer?">
+
+      <label>Data</label>
+      <input type="date" id="data">
+
+      <label>Importância</label>
+      <div class="importancia">
+        <button data-cor="red">Importante</button>
+        <button data-cor="yellow">Dá pra fazer</button>
+        <button data-cor="green">Se eu quiser</button>
+      </div>
+
+      <button id="criar">Criar</button>
+    </div>
   </div>
 
-  <button onclick="filtro('todas')">Todas</button>
-  <button onclick="filtro('incompletas')">Incompletas</button>
-  <button onclick="filtro('mes')">Mês</button>
-
-  <div class="resumo" id="resumo"></div>
-</div>
-
-<div class="calendar">
-  <div id="mes"></div>
-  <div id="dia"></div>
-</div>
-
-<div class="main">
-  <div id="lista"></div>
-</div>
-
-<button class="novo-postit" onclick="novoPostIt()">Post-it</button>
-
-<script src="script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
+
