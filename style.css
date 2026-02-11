@@ -1,187 +1,192 @@
-body {
-  margin: 0;
-  font-family: sans-serif;
+body{
+  margin:0;
+  display:flex;
+  font-family:sans-serif;
   background:
-    linear-gradient(#f2f2f2 1px, transparent 1px),
-    linear-gradient(90deg, #f2f2f2 1px, transparent 1px);
-  background-size: 40px 40px;
-  background-color: white;
-  display: flex;
+  linear-gradient(#f3f3f3 1px, transparent 1px),
+  linear-gradient(90deg,#f3f3f3 1px, transparent 1px);
+  background-size:40px 40px;
+  background-color:white;
 }
 
 /* SIDEBAR */
-.sidebar {
-  width: 240px;
-  background: black;
-  color: white;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  border-radius: 0 30px 30px 0;
+.sidebar{
+  width:240px;
+  background:black;
+  color:white;
+  padding:30px 20px;
+  display:flex;
+  flex-direction:column;
+  height:100vh;
+  position:fixed;
 }
 
-.topo-sidebar {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  margin-bottom: 30px;
+.topo-sidebar{
+  display:flex;
+  align-items:center;
+  gap:15px;
+  margin-bottom:40px;
 }
 
-.logo {
-  font-family: 'ITC American Typewriter', serif;
-  font-size: 22px;
+.logo{
+  font-family:'ITC American Typewriter',serif;
+  font-size:22px;
 }
 
-.bolinhas {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
+.bolinhas{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
 }
 
-.bola {
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
+.bola{
+  width:22px;
+  height:22px;
+  border-radius:50%;
 }
 
-.vermelha { background: #ff3b30; }
-.amarela { background: #ffcc00; }
-.verde { background: #34c759; }
+.vermelha{background:#ff3b30;}
+.amarela{background:#ffcc00;}
+.verde{background:#34c759;}
 
-.sidebar button {
-  margin-bottom: 15px;
-  padding: 12px;
-  border-radius: 14px;
-  border: none;
-  cursor: pointer;
-  font-weight: bold;
+.sidebar button{
+  margin-bottom:15px;
+  padding:12px;
+  border-radius:14px;
+  border:none;
+  cursor:pointer;
+  font-weight:bold;
 }
 
-/* CONTEÚDO */
-.conteudo {
-  flex: 1;
-  padding: 40px;
+/* MAIN */
+.main{
+  margin-left:260px;
+  padding:50px;
+  width:100%;
 }
 
-.calendario-topo {
-  font-size: 18px;
-  margin-bottom: 30px;
+.data-topo{
+  position:absolute;
+  top:30px;
+  right:40px;
+  font-size:18px;
+  font-weight:500;
 }
 
 /* TAREFAS */
-.tarefa {
-  background: white;
-  padding: 18px;
-  border-radius: 20px;
-  margin-bottom: 15px;
-  cursor: pointer;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-  transition: 0.2s;
+.tarefa{
+  background:white;
+  padding:20px;
+  border-radius:22px;
+  margin-bottom:20px;
+  box-shadow:0 8px 20px rgba(0,0,0,0.08);
+  cursor:pointer;
+  transition:0.2s;
 }
 
-.tarefa.feita {
-  text-decoration: line-through;
-  opacity: 0.6;
+.tarefa:hover{
+  transform:scale(1.02);
 }
 
-.tarefa .data {
-  font-size: 13px;
-  margin-top: 8px;
-  opacity: 0.6;
+.tarefa.feita{
+  text-decoration:line-through;
+  opacity:0.6;
+}
+
+.tarefa .data{
+  margin-top:8px;
+  font-size:13px;
+  opacity:0.6;
 }
 
 /* MODAL */
-.modal {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.4);
-  justify-content: center;
-  align-items: center;
+.modal{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.4);
+  justify-content:center;
+  align-items:center;
 }
 
-.modal-box {
-  background: white;
-  padding: 40px;
-  border-radius: 30px;
-  width: 400px;
-  position: relative;
+.modal-box{
+  background:white;
+  padding:40px;
+  border-radius:30px;
+  width:400px;
+  position:relative;
 }
 
-.modal-box input, select {
-  width: 100%;
-  margin-top: 15px;
-  padding: 12px;
-  border-radius: 14px;
-  border: 1px solid #ccc;
+.modal-box input, select{
+  width:100%;
+  padding:12px;
+  margin-top:15px;
+  border-radius:14px;
+  border:1px solid #ccc;
 }
 
-.modal-box button {
-  margin-top: 20px;
-  padding: 12px;
-  width: 100%;
-  border-radius: 14px;
-  border: none;
-  background: black;
-  color: white;
+.modal-box button{
+  margin-top:20px;
+  padding:12px;
+  width:100%;
+  border-radius:14px;
+  border:none;
+  background:black;
+  color:white;
 }
 
-.fechar, .fechar-notas {
-  position: absolute;
-  top: 15px;
-  right: 20px;
-  border: none;
-  background: none;
-  font-size: 22px;
-  cursor: pointer;
+.fechar{
+  position:absolute;
+  top:15px;
+  right:20px;
+  background:none;
+  border:none;
+  font-size:22px;
+  cursor:pointer;
 }
 
-/* NOTAS */
-.notas-box {
-  background: #fafafa;
-  padding: 30px;
-  border-radius: 30px;
-  width: 500px;
-  position: relative;
+/* CORES */
+.cores{
+  display:flex;
+  gap:15px;
+  margin-top:15px;
 }
 
-.bloco-notas {
-  border: 2px solid #ccc;
-  border-radius: 20px;
-  padding: 20px;
-  background:
-    repeating-linear-gradient(
-      to bottom,
-      #ffffff,
-      #ffffff 28px,
-      #e9e9e9 29px
-    );
+.cor{
+  width:25px;
+  height:25px;
+  border-radius:50%;
+  border:none;
+  cursor:pointer;
 }
 
-textarea {
-  width: 100%;
-  height: 300px;
-  border: none;
-  resize: none;
-  outline: none;
-  background: transparent;
+/* POST IT */
+.postit{
+  width:200px;
+  height:200px;
+  background:#ffeb3b;
+  position:absolute;
+  padding:15px;
+  border-radius:12px;
+  box-shadow:0 10px 25px rgba(0,0,0,0.2);
+  cursor:move;
 }
 
-.controle-notas {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  margin-top: 15px;
+.postit textarea{
+  width:100%;
+  height:140px;
+  border:none;
+  background:transparent;
+  resize:none;
+  outline:none;
 }
 
-.controle-notas button {
-  padding: 8px 12px;
-  border-radius: 10px;
-  border: none;
-  cursor: pointer;
+.postit .fechar-post{
+  position:absolute;
+  top:8px;
+  right:10px;
+  cursor:pointer;
 }
-
-
 
 
 
