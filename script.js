@@ -13,7 +13,7 @@ document.getElementById("dia").innerText = hoje.getDate();
 document.getElementById("mes").innerText =
   hoje.toLocaleString("pt-BR", { month: "short" }).toUpperCase();
 
-/* Modal */
+/* Modal tarefa */
 novoBtn.onclick = () => modal.style.display = "flex";
 fecharModal.onclick = () => modal.style.display = "none";
 
@@ -32,15 +32,16 @@ criarBtn.onclick = () => {
   tarefa.className = "tarefa";
   tarefa.style.borderColor = corSelecionada;
 
- tarefa.innerHTML = `
-  <div>
-    <div>${titulo}</div>
-    <small>${data ? new Date(data).toLocaleDateString("pt-BR") : ""}</small>
-  </div>
-`;
+  tarefa.innerHTML = `
+    <div>
+      <div>${titulo}</div>
+      <small>${data ? new Date(data).toLocaleDateString("pt-BR") : ""}</small>
+    </div>
+  `;
+
   tarefa.onclick = () => {
-  tarefa.classList.toggle("concluida");
-};
+    tarefa.classList.toggle("concluida");
+  };
 
   lista.appendChild(tarefa);
   modal.style.display = "none";
@@ -74,10 +75,10 @@ postItBtn.onclick = () => {
       postit.style.transform = "";
     };
   };
-
   document.onmouseup = () => document.onmousemove = null;
 };
-/* ===== SISTEMA DE NOTAS ===== */
+
+/* ===== NOTAS ===== */
 
 const notasBtn = document.getElementById("notasBtn");
 const modalNotas = document.getElementById("modalNotas");
@@ -92,22 +93,18 @@ const novaPagina = document.getElementById("novaPagina");
 let paginas = [""];
 let paginaAtualIndex = 0;
 
-/* Abrir e fechar */
 notasBtn.onclick = () => modalNotas.style.display = "flex";
 fecharNotas.onclick = () => modalNotas.style.display = "none";
 
-/* Atualizar página */
 function atualizarPagina() {
   textarea.value = paginas[paginaAtualIndex];
   numeroPagina.innerText = paginaAtualIndex + 1;
 }
 
-/* Salvar automaticamente ao digitar */
 textarea.oninput = () => {
   paginas[paginaAtualIndex] = textarea.value;
 };
 
-/* Navegação */
 paginaAnterior.onclick = () => {
   if (paginaAtualIndex > 0) {
     paginaAtualIndex--;
