@@ -32,13 +32,15 @@ criarBtn.onclick = () => {
   tarefa.className = "tarefa";
   tarefa.style.borderColor = corSelecionada;
 
-  tarefa.innerHTML = `
-    <div>
-      <div>${titulo}</div>
-      <small>${data ? new Date(data).toLocaleDateString("pt-BR") : ""}</small>
-    </div>
-    <input type="checkbox">
-  `;
+ tarefa.innerHTML = `
+  <div>
+    <div>${titulo}</div>
+    <small>${data ? new Date(data).toLocaleDateString("pt-BR") : ""}</small>
+  </div>
+`;
+  tarefa.onclick = () => {
+  tarefa.classList.toggle("concluida");
+};
 
   lista.appendChild(tarefa);
   modal.style.display = "none";
