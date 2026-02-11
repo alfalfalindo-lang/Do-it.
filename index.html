@@ -1,48 +1,56 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
 <meta charset="UTF-8">
-<title>Do It</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>do it</title>
+
+<link href="https://fonts.cdnfonts.com/css/itc-american-typewriter" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
+
 </head>
 <body>
 
-<aside class="sidebar">
-  <div class="bolinhas">
-    <span class="red"></span>
-    <span class="yellow"></span>
-    <span class="green"></span>
+<div class="sidebar">
+
+  <div class="topo-sidebar">
+    <div class="bolinhas">
+      <div class="bola vermelha"></div>
+      <div class="bola amarela"></div>
+      <div class="bola verde"></div>
+    </div>
+    <h1 class="logo">do it</h1>
   </div>
 
-  <button id="novoBtn">＋ Novo</button>
+  <button id="novoBtn">Novo</button>
   <button id="notasBtn">Notas</button>
-</aside>
 
-<main class="main">
-  <header class="topo">
-    <div class="calendario">
-      <span id="mes"></span>
-      <strong id="dia"></strong>
-    </div>
-  </header>
+</div>
 
-  <section id="listaTarefas"></section>
-</main>
+<div class="conteudo">
+  <div class="calendario-topo" id="dataAtual"></div>
+  <div id="listaTarefas"></div>
+</div>
 
-<button id="postItBtn" class="postit-btn">POST-IT</button>
-
-<!-- Modal Tarefa -->
+<!-- Modal Nova Tarefa -->
 <div class="modal" id="modal">
   <div class="modal-box">
-    <button class="fechar-modal">×</button>
-    <h3>Novo lembrete</h3>
-    <input id="titulo" type="text" placeholder="O que você quer fazer?">
-    <input id="data" type="date">
+    <button class="fechar">×</button>
 
-    <div class="importancia">
-      <span class="red" data-cor="red"></span>
-      <span class="yellow" data-cor="yellow"></span>
-      <span class="green" data-cor="green"></span>
+    <h2>Nova tarefa</h2>
+
+    <input type="text" id="titulo" placeholder="Digite sua tarefa">
+
+    <div class="opcoes">
+      <select id="data">
+        <option value="">Selecionar data</option>
+      </select>
+
+      <select id="importancia">
+        <option value="vermelha">Importante</option>
+        <option value="amarela">Dá pra fazer</option>
+        <option value="verde">Se quiser eu faço</option>
+      </select>
     </div>
 
     <button id="criar">Criar</button>
