@@ -1,188 +1,153 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-}
-
 body {
-  height: 100vh;
-  display: flex;
+  margin: 0;
+  font-family: sans-serif;
   background:
-    linear-gradient(#f3f3f3 1px, transparent 1px),
-    linear-gradient(90deg, #f3f3f3 1px, transparent 1px);
-  background-size: 32px 32px;
-  background-color: #fff;
+    linear-gradient(#f2f2f2 1px, transparent 1px),
+    linear-gradient(90deg, #f2f2f2 1px, transparent 1px);
+  background-size: 40px 40px;
+  background-color: white;
+  display: flex;
 }
 
+/* SIDEBAR */
 .sidebar {
-  width: 220px;
-  padding: 24px;
-  background: #000;
+  width: 240px;
+  background: black;
+  color: white;
+  padding: 20px;
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  border-radius: 0 30px 30px 0;
+}
+
+.topo-sidebar {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 30px;
+}
+
+.logo {
+  font-family: 'ITC American Typewriter', serif;
+  font-size: 22px;
 }
 
 .bolinhas {
   display: flex;
   flex-direction: column;
-  gap: 14px;
-  margin-bottom: 10px;
+  gap: 12px;
 }
 
-.bolinhas span {
-  width: 18px;
-  height: 18px;
+.bola {
+  width: 22px;
+  height: 22px;
   border-radius: 50%;
 }
 
-.red { background: #ff5f56; }
-.yellow { background: #ffbd2e; }
-.green { background: #27c93f; }
+.vermelha { background: #ff3b30; }
+.amarela { background: #ffcc00; }
+.verde { background: #34c759; }
 
-button {
-  border-radius: 14px;
-}
-
-#novoBtn, #notasBtn {
+.sidebar button {
+  margin-bottom: 15px;
   padding: 12px;
-  border: none;
-  background: #111;
-  color: white;
-  cursor: pointer;
-}
-
-.main {
-  flex: 1;
-  padding: 28px;
-}
-
-.calendario {
-  width: 64px;
   border-radius: 14px;
-  overflow: hidden;
-  background: white;
-  text-align: center;
-  box-shadow: 0 6px 16px rgba(0,0,0,0.1);
-}
-
-.calendario span {
-  display: block;
-  background: #ff3b30;
-  color: white;
-  font-size: 12px;
-  padding: 4px;
-}
-
-.calendario strong {
-  font-size: 26px;
-}
-
-.tarefa {
-  margin-top: 16px;
-  padding: 14px;
-  border-left: 6px solid;
-  border-radius: 18px;
-  background: white;
-  display: flex;
-  justify-content: space-between;
-  cursor: pointer;
-  box-shadow: 0 6px 16px rgba(0,0,0,0.08);
-}
-
-.tarefa small {
-  color: #777;
-}
-
-.concluida {
-  opacity: 0.6;
-  text-decoration: line-through;
-}
-
-.postit-btn {
-  position: fixed;
-  right: 24px;
-  bottom: 24px;
-  width: 90px;
-  height: 90px;
-  background: #ffe066;
   border: none;
-  border-radius: 18px;
+  cursor: pointer;
   font-weight: bold;
-  cursor: pointer;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
 }
 
-.postit {
-  position: absolute;
-  width: 220px;
-  height: 220px;
-  background: #fff6a8;
-  border-radius: 20px;
-  padding: 14px;
-  box-shadow: 0 10px 24px rgba(0,0,0,0.25);
-  cursor: move;
+/* CONTEÚDO */
+.conteudo {
+  flex: 1;
+  padding: 40px;
 }
 
-.postit button {
-  position: absolute;
-  top: 8px;
-  right: 10px;
-  background: none;
-  border: none;
+.calendario-topo {
   font-size: 18px;
-  cursor: pointer;
+  margin-bottom: 30px;
 }
 
+/* TAREFAS */
+.tarefa {
+  background: white;
+  padding: 18px;
+  border-radius: 20px;
+  margin-bottom: 15px;
+  cursor: pointer;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  transition: 0.2s;
+}
+
+.tarefa.feita {
+  text-decoration: line-through;
+  opacity: 0.6;
+}
+
+.tarefa .data {
+  font-size: 13px;
+  margin-top: 8px;
+  opacity: 0.6;
+}
+
+/* MODAL */
 .modal {
+  display: none;
   position: fixed;
   inset: 0;
-  display: none;
+  background: rgba(0,0,0,0.4);
   justify-content: center;
   align-items: center;
-  background: rgba(0,0,0,0.4);
 }
 
-.modal-box, .notas-box {
-  position: relative;
-  width: 420px;
-  padding: 32px;
+.modal-box {
   background: white;
-  border-radius: 22px;
-  box-shadow: 0 12px 30px rgba(0,0,0,0.3);
+  padding: 40px;
+  border-radius: 30px;
+  width: 400px;
+  position: relative;
 }
 
-.modal-box input {
+.modal-box input, select {
   width: 100%;
-  margin: 12px 0;
-  padding: 10px;
+  margin-top: 15px;
+  padding: 12px;
   border-radius: 14px;
   border: 1px solid #ccc;
 }
 
-.fechar-modal, .fechar-notas {
+.modal-box button {
+  margin-top: 20px;
+  padding: 12px;
+  width: 100%;
+  border-radius: 14px;
+  border: none;
+  background: black;
+  color: white;
+}
+
+.fechar, .fechar-notas {
   position: absolute;
-  top: 14px;
-  right: 18px;
+  top: 15px;
+  right: 20px;
   border: none;
   background: none;
   font-size: 22px;
   cursor: pointer;
 }
 
-.importancia span {
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
-  display: inline-block;
-  margin-right: 14px;
-  cursor: pointer;
+/* NOTAS */
+.notas-box {
+  background: #fafafa;
+  padding: 30px;
+  border-radius: 30px;
+  width: 500px;
+  position: relative;
 }
 
 .bloco-notas {
   border: 2px solid #ccc;
-  border-radius: 18px;
+  border-radius: 20px;
   padding: 20px;
   background:
     repeating-linear-gradient(
@@ -193,29 +158,31 @@ button {
     );
 }
 
-.bloco-notas textarea {
+textarea {
   width: 100%;
   height: 300px;
   border: none;
   resize: none;
   outline: none;
   background: transparent;
-  font-size: 16px;
 }
 
 .controle-notas {
   display: flex;
   justify-content: center;
-  gap: 14px;
-  margin-top: 16px;
+  gap: 10px;
+  margin-top: 15px;
 }
 
 .controle-notas button {
   padding: 8px 12px;
+  border-radius: 10px;
   border: none;
-  background: #ddd;
   cursor: pointer;
 }
+
+
+
 
 
 
