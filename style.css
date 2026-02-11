@@ -3,8 +3,8 @@ body{
   display:flex;
   font-family:sans-serif;
   background:
-  linear-gradient(#f3f3f3 1px, transparent 1px),
-  linear-gradient(90deg,#f3f3f3 1px, transparent 1px);
+  linear-gradient(#f0f0f0 1px, transparent 1px),
+  linear-gradient(90deg,#f0f0f0 1px, transparent 1px);
   background-size:40px 40px;
   background-color:white;
 }
@@ -55,37 +55,51 @@ body{
   border-radius:14px;
   border:none;
   cursor:pointer;
-  font-weight:bold;
 }
 
 /* MAIN */
 .main{
   margin-left:260px;
-  padding:50px;
+  padding:60px;
   width:100%;
 }
 
-.data-topo{
+/* DATA estilo app calendário */
+.calendar-style{
   position:absolute;
   top:30px;
   right:40px;
-  font-size:18px;
-  font-weight:500;
+  text-align:center;
+  font-family:'ITC American Typewriter',serif;
+}
+
+.calendar-style .month{
+  background:#ff3b30;
+  color:white;
+  padding:4px 12px;
+  border-radius:8px 8px 0 0;
+  font-size:14px;
+}
+
+.calendar-style .day{
+  background:white;
+  border:1px solid #ddd;
+  padding:10px 20px;
+  border-radius:0 0 12px 12px;
+  font-size:28px;
 }
 
 /* TAREFAS */
 .tarefa{
   background:white;
   padding:20px;
-  border-radius:22px;
+  border-radius:20px;
   margin-bottom:20px;
-  box-shadow:0 8px 20px rgba(0,0,0,0.08);
+  box-shadow:0 6px 18px rgba(0,0,0,0.08);
   cursor:pointer;
-  transition:0.2s;
-}
-
-.tarefa:hover{
-  transform:scale(1.02);
+  display:flex;
+  align-items:center;
+  gap:15px;
 }
 
 .tarefa.feita{
@@ -93,10 +107,10 @@ body{
   opacity:0.6;
 }
 
-.tarefa .data{
-  margin-top:8px;
-  font-size:13px;
-  opacity:0.6;
+.bolinha-tarefa{
+  width:16px;
+  height:16px;
+  border-radius:50%;
 }
 
 /* MODAL */
@@ -117,7 +131,7 @@ body{
   position:relative;
 }
 
-.modal-box input, select{
+.modal-box input{
   width:100%;
   padding:12px;
   margin-top:15px;
@@ -125,17 +139,24 @@ body{
   border:1px solid #ccc;
 }
 
-.modal-box button{
+.botoes-modal{
+  display:flex;
+  gap:10px;
   margin-top:20px;
-  padding:12px;
-  width:100%;
-  border-radius:14px;
-  border:none;
-  background:black;
-  color:white;
 }
 
-.fechar{
+.botoes-modal button{
+  flex:1;
+  padding:12px;
+  border-radius:14px;
+  border:none;
+  cursor:pointer;
+}
+
+#cancelar{background:#ddd;}
+#criar{background:black;color:white;}
+
+.fechar, .fechar-notas{
   position:absolute;
   top:15px;
   right:20px;
@@ -145,19 +166,43 @@ body{
   cursor:pointer;
 }
 
-/* CORES */
-.cores{
-  display:flex;
-  gap:15px;
-  margin-top:15px;
+/* NOTAS */
+.notas-box{
+  background:#fafafa;
+  padding:30px;
+  border-radius:30px;
+  width:500px;
+  position:relative;
+  font-family:'ITC American Typewriter',serif;
 }
 
-.cor{
-  width:25px;
-  height:25px;
-  border-radius:50%;
+.bloco-notas{
+  border:2px solid #ccc;
+  border-radius:20px;
+  padding:20px;
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      #ffffff,
+      #ffffff 28px,
+      #e9e9e9 29px
+    );
+}
+
+textarea{
+  width:100%;
+  height:300px;
   border:none;
-  cursor:pointer;
+  resize:none;
+  outline:none;
+  background:transparent;
+}
+
+.controle-notas{
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  margin-top:15px;
 }
 
 /* POST IT */
@@ -177,8 +222,6 @@ body{
   height:140px;
   border:none;
   background:transparent;
-  resize:none;
-  outline:none;
 }
 
 .postit .fechar-post{
@@ -188,7 +231,12 @@ body{
   cursor:pointer;
 }
 
+/* LIXEIRA */
+.lixeira{
+  position:fixed;
+  bottom:30px;
+  right:40px;
+  font-size:35px;
+  cursor:pointer;
+}
 
-
-
- 
