@@ -77,3 +77,55 @@ postItBtn.onclick = () => {
 
   document.onmouseup = () => document.onmousemove = null;
 };
+/* ===== SISTEMA DE NOTAS ===== */
+
+const notasBtn = document.getElementById("notasBtn");
+const modalNotas = document.getElementById("modalNotas");
+const fecharNotas = document.querySelector(".fechar-notas");
+const textarea = document.getElementById("paginaAtual");
+const numeroPagina = document.getElementById("numeroPagina");
+
+const paginaAnterior = document.getElementById("paginaAnterior");
+const proximaPagina = document.getElementById("proximaPagina");
+const novaPagina = document.getElementById("novaPagina");
+
+let paginas = [""];
+let paginaAtualIndex = 0;
+
+/* Abrir e fechar */
+notasBtn.onclick = () => modalNotas.style.display = "flex";
+fecharNotas.onclick = () => modalNotas.style.display = "none";
+
+/* Atualizar página */
+function atualizarPagina() {
+  textarea.value = paginas[paginaAtualIndex];
+  numeroPagina.innerText = paginaAtualIndex + 1;
+}
+
+/* Salvar automaticamente ao digitar */
+textarea.oninput = () => {
+  paginas[paginaAtualIndex] = textarea.value;
+};
+
+/* Navegação */
+paginaAnterior.onclick = () => {
+  if (paginaAtualIndex > 0) {
+    paginaAtualIndex--;
+    atualizarPagina();
+  }
+};
+
+proximaPagina.onclick = () => {
+  if (paginaAtualIndex < paginas.length - 1) {
+    paginaAtualIndex++;
+    atualizarPagina();
+  }
+};
+
+novaPagina.onclick = () => {
+  paginas.push("");
+  paginaAtualIndex = paginas.length - 1;
+  atualizarPagina();
+};
+
+atualizarPagina();
