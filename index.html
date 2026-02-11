@@ -1,61 +1,55 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <title>Do It</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<title>Do It</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <!-- Sidebar -->
-  <aside class="sidebar">
-    <div class="bolinhas">
-      <span class="red"></span>
-      <span class="yellow"></span>
-      <span class="green"></span>
-    </div>
-
-    <button id="novoBtn">＋ Novo</button>
-  </aside>
-  <button id="notasBtn">Notas</button>
-
-
-  <!-- Área principal -->
-  <main class="main">
-    <header class="topo">
-      <div class="calendario">
-        <span id="mes"></span>
-        <strong id="dia"></strong>
-      </div>
-    </header>
-
-    <section id="listaTarefas"></section>
-  </main>
-
-  <!-- Botão Post-it -->
-  <button id="postItBtn" class="postit-btn">POST-IT</button>
-
-  <!-- Modal -->
-  <div class="modal" id="modal">
-    <div class="modal-box">
-      <button class="fechar-modal">×</button>
-      <h3>Novo lembrete</h3>
-
-      <input id="titulo" type="text" placeholder="O que você quer fazer?">
-      <input id="data" type="date">
-
-      <div class="importancia">
-        <span class="red" data-cor="red"></span>
-        <span class="yellow" data-cor="yellow"></span>
-        <span class="green" data-cor="green"></span>
-      </div>
-
-      <button id="criar">Criar</button>
-    </div>
+<aside class="sidebar">
+  <div class="bolinhas">
+    <span class="red"></span>
+    <span class="yellow"></span>
+    <span class="green"></span>
   </div>
 
-  <script src="script.js"></script>
-  <!-- Modal Notas -->
+  <button id="novoBtn">＋ Novo</button>
+  <button id="notasBtn">Notas</button>
+</aside>
+
+<main class="main">
+  <header class="topo">
+    <div class="calendario">
+      <span id="mes"></span>
+      <strong id="dia"></strong>
+    </div>
+  </header>
+
+  <section id="listaTarefas"></section>
+</main>
+
+<button id="postItBtn" class="postit-btn">POST-IT</button>
+
+<!-- Modal Tarefa -->
+<div class="modal" id="modal">
+  <div class="modal-box">
+    <button class="fechar-modal">×</button>
+    <h3>Novo lembrete</h3>
+    <input id="titulo" type="text" placeholder="O que você quer fazer?">
+    <input id="data" type="date">
+
+    <div class="importancia">
+      <span class="red" data-cor="red"></span>
+      <span class="yellow" data-cor="yellow"></span>
+      <span class="green" data-cor="green"></span>
+    </div>
+
+    <button id="criar">Criar</button>
+  </div>
+</div>
+
+<!-- Modal Notas -->
 <div class="modal" id="modalNotas">
   <div class="notas-box">
     <button class="fechar-notas">×</button>
@@ -72,5 +66,9 @@
     </div>
   </div>
 </div>
+
+<script src="script.js"></script>
 </body>
 </html>
+
+ 
