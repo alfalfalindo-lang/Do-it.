@@ -29,21 +29,29 @@
 
 <div class="main">
 
-  <div class="data-topo" id="dataTopo"></div>
+  <div class="calendar-style">
+    <div class="month" id="mesTopo"></div>
+    <div class="day" id="diaTopo"></div>
+  </div>
 
   <div id="listaTarefas"></div>
 
 </div>
 
+<!-- Lixeira -->
+<div class="lixeira" id="lixeira">🗑</div>
+
 <!-- Modal Nova Tarefa -->
 <div class="modal" id="modal">
   <div class="modal-box">
+
     <button class="fechar">×</button>
+
     <h2>Nova tarefa</h2>
 
     <input type="text" id="titulo" placeholder="Digite sua tarefa">
 
-    <select id="data"></select>
+    <input type="date" id="data">
 
     <div class="cores">
       <button class="cor vermelha" data-cor="vermelha"></button>
@@ -51,7 +59,29 @@
       <button class="cor verde" data-cor="verde"></button>
     </div>
 
-    <button id="criar">Criar</button>
+    <div class="botoes-modal">
+      <button id="cancelar">Cancelar</button>
+      <button id="criar">Criar</button>
+    </div>
+
+  </div>
+</div>
+
+<!-- Modal Notas -->
+<div class="modal" id="modalNotas">
+  <div class="notas-box">
+    <button class="fechar-notas">×</button>
+
+    <div class="bloco-notas">
+      <textarea id="paginaAtual"></textarea>
+    </div>
+
+    <div class="controle-notas">
+      <button id="paginaAnterior">◀</button>
+      <span id="numeroPagina">1</span>
+      <button id="proximaPagina">▶</button>
+      <button id="novaPagina">＋</button>
+    </div>
   </div>
 </div>
 
@@ -59,4 +89,3 @@
 </body>
 </html>
 
- 
