@@ -7,7 +7,6 @@
 
 <link href="https://fonts.cdnfonts.com/css/itc-american-typewriter" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
-
 </head>
 <body>
 
@@ -24,54 +23,35 @@
 
   <button id="novoBtn">Novo</button>
   <button id="notasBtn">Notas</button>
+  <button id="postitBtn">Post-it</button>
 
 </div>
 
-<div class="conteudo">
-  <div class="calendario-topo" id="dataAtual"></div>
+<div class="main">
+
+  <div class="data-topo" id="dataTopo"></div>
+
   <div id="listaTarefas"></div>
+
 </div>
 
 <!-- Modal Nova Tarefa -->
 <div class="modal" id="modal">
   <div class="modal-box">
     <button class="fechar">×</button>
-
     <h2>Nova tarefa</h2>
 
     <input type="text" id="titulo" placeholder="Digite sua tarefa">
 
-    <div class="opcoes">
-      <select id="data">
-        <option value="">Selecionar data</option>
-      </select>
+    <select id="data"></select>
 
-      <select id="importancia">
-        <option value="vermelha">Importante</option>
-        <option value="amarela">Dá pra fazer</option>
-        <option value="verde">Se quiser eu faço</option>
-      </select>
+    <div class="cores">
+      <button class="cor vermelha" data-cor="vermelha"></button>
+      <button class="cor amarela" data-cor="amarela"></button>
+      <button class="cor verde" data-cor="verde"></button>
     </div>
 
     <button id="criar">Criar</button>
-  </div>
-</div>
-
-<!-- Modal Notas -->
-<div class="modal" id="modalNotas">
-  <div class="notas-box">
-    <button class="fechar-notas">×</button>
-
-    <div class="bloco-notas">
-      <textarea id="paginaAtual" placeholder="Escreva suas anotações..."></textarea>
-    </div>
-
-    <div class="controle-notas">
-      <button id="paginaAnterior">◀</button>
-      <span id="numeroPagina">1</span>
-      <button id="proximaPagina">▶</button>
-      <button id="novaPagina">＋</button>
-    </div>
   </div>
 </div>
 
