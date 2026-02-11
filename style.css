@@ -5,7 +5,6 @@
   font-family: -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
-/* Fundo quadriculado branco (bem sutil) */
 body {
   height: 100vh;
   display: flex;
@@ -16,21 +15,20 @@ body {
   background-color: #fff;
 }
 
-/* Sidebar */
 .sidebar {
   width: 220px;
   padding: 24px;
   background: #000;
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 18px;
 }
 
-/* Bolinhas */
 .bolinhas {
   display: flex;
   flex-direction: column;
   gap: 14px;
+  margin-bottom: 10px;
 }
 
 .bolinhas span {
@@ -43,22 +41,23 @@ body {
 .yellow { background: #ffbd2e; }
 .green { background: #27c93f; }
 
-#novoBtn {
-  padding: 12px;
+button {
   border-radius: 14px;
+}
+
+#novoBtn, #notasBtn {
+  padding: 12px;
   border: none;
   background: #111;
   color: white;
   cursor: pointer;
 }
 
-/* Main */
 .main {
   flex: 1;
   padding: 28px;
 }
 
-/* Calendário Apple-like */
 .calendario {
   width: 64px;
   border-radius: 14px;
@@ -80,7 +79,6 @@ body {
   font-size: 26px;
 }
 
-/* Tarefas */
 .tarefa {
   margin-top: 16px;
   padding: 14px;
@@ -89,6 +87,7 @@ body {
   background: white;
   display: flex;
   justify-content: space-between;
+  cursor: pointer;
   box-shadow: 0 6px 16px rgba(0,0,0,0.08);
 }
 
@@ -96,7 +95,11 @@ body {
   color: #777;
 }
 
-/* Post-it botão */
+.concluida {
+  opacity: 0.6;
+  text-decoration: line-through;
+}
+
 .postit-btn {
   position: fixed;
   right: 24px;
@@ -111,7 +114,6 @@ body {
   box-shadow: 0 8px 20px rgba(0,0,0,0.2);
 }
 
-/* Post-it */
 .postit {
   position: absolute;
   width: 220px;
@@ -133,7 +135,6 @@ body {
   cursor: pointer;
 }
 
-/* Modal */
 .modal {
   position: fixed;
   inset: 0;
@@ -143,7 +144,7 @@ body {
   background: rgba(0,0,0,0.4);
 }
 
-.modal-box {
+.modal-box, .notas-box {
   position: relative;
   width: 420px;
   padding: 32px;
@@ -160,7 +161,7 @@ body {
   border: 1px solid #ccc;
 }
 
-.fechar-modal {
+.fechar-modal, .fechar-notas {
   position: absolute;
   top: 14px;
   right: 18px;
@@ -170,7 +171,6 @@ body {
   cursor: pointer;
 }
 
-/* Importância */
 .importancia span {
   width: 22px;
   height: 22px;
@@ -179,31 +179,7 @@ body {
   margin-right: 14px;
   cursor: pointer;
 }
-.concluida {
-  opacity: 0.6;
-  text-decoration: line-through;
-}
-/* Botão Notas */
-#notasBtn {
-  padding: 12px;
-  border-radius: 14px;
-  border: none;
-  background: #222;
-  color: white;
-  cursor: pointer;
-}
 
-/* Modal Notas */
-.notas-box {
-  position: relative;
-  width: 500px;
-  padding: 30px;
-  background: #fafafa;
-  border-radius: 22px;
-  box-shadow: 0 12px 30px rgba(0,0,0,0.3);
-}
-
-/* Folha de caderno */
 .bloco-notas {
   border: 2px solid #ccc;
   border-radius: 18px;
@@ -227,7 +203,6 @@ body {
   font-size: 16px;
 }
 
-/* Controles */
 .controle-notas {
   display: flex;
   justify-content: center;
@@ -237,19 +212,11 @@ body {
 
 .controle-notas button {
   padding: 8px 12px;
-  border-radius: 10px;
   border: none;
   background: #ddd;
   cursor: pointer;
 }
 
-.fechar-notas {
-  position: absolute;
-  top: 14px;
-  right: 18px;
-  border: none;
-  background: none;
-  font-size: 22px;
-  cursor: pointer;
-}
 
+
+ 
