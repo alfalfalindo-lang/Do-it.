@@ -17,6 +17,8 @@
 
     <button id="novoBtn">＋ Novo</button>
   </aside>
+  <button id="notasBtn">Notas</button>
+
 
   <!-- Área principal -->
   <main class="main">
@@ -53,5 +55,22 @@
   </div>
 
   <script src="script.js"></script>
+  <!-- Modal Notas -->
+<div class="modal" id="modalNotas">
+  <div class="notas-box">
+    <button class="fechar-notas">×</button>
+
+    <div class="bloco-notas">
+      <textarea id="paginaAtual" placeholder="Escreva suas anotações..."></textarea>
+    </div>
+
+    <div class="controle-notas">
+      <button id="paginaAnterior">◀</button>
+      <span id="numeroPagina">1</span>
+      <button id="proximaPagina">▶</button>
+      <button id="novaPagina">＋</button>
+    </div>
+  </div>
+</div>
 </body>
 </html>
