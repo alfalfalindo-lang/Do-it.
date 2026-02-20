@@ -1,168 +1,120 @@
-body{
-  margin:0;
-  display:flex;
-  font-family:sans-serif;
-  background:white;
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: #f4f4f4;
 }
 
-/* SIDEBAR */
-.sidebar{
-  width:250px;
-  background:#111;
-  color:white;
-  padding:30px 20px;
-  display:flex;
-  flex-direction:column;
-  height:100vh;
-  position:fixed;
+/* Topbar */
+.topbar {
+  background-color: #e0e0e0;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
 }
 
-.logo-area{
-  display:flex;
-  align-items:center;
-  gap:15px;
-  margin-bottom:30px;
+.bolinha {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin-right: 6px;
 }
 
-.logo{
-  font-size:22px;
+.vermelha { background: #ff5f57; }
+.amarela { background: #febc2e; }
+.verde { background: #28c840; }
+
+.logo {
+  margin-left: 10px;
+  font-weight: bold;
 }
 
-.bolinhas{
-  display:flex;
-  flex-direction:column;
-  gap:10px;
+/* Layout */
+.container {
+  display: flex;
+  height: calc(100vh - 35px);
 }
 
-.bola{
-  width:18px;
-  height:18px;
-  border-radius:50%;
+.sidebar {
+  width: 220px;
+  background: white;
+  border-right: 1px solid #ddd;
+  padding: 15px;
 }
 
-.vermelha{background:#ff3b30;}
-.amarela{background:#ffcc00;}
-.verde{background:#34c759;}
-
-.novo-btn{
-  width:45px;
-  height:45px;
-  border-radius:50%;
-  border:none;
-  background:white;
-  font-size:22px;
-  cursor:pointer;
-  margin-bottom:30px;
+.sidebar button {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 8px;
+  border: none;
+  background: #f0f0f0;
+  cursor: pointer;
+  border-radius: 6px;
 }
 
-.menu button{
-  width:100%;
-  padding:12px;
-  margin-bottom:10px;
-  border-radius:14px;
-  border:none;
-  background:#222;
-  color:white;
-  cursor:pointer;
+.sidebar button:hover {
+  background: #ddd;
 }
 
-/* MAIN */
-.main{
-  margin-left:270px;
-  padding:60px;
-  width:100%;
+.main {
+  flex: 1;
+  padding: 20px;
 }
 
-/* CALENDAR STYLE */
-.calendar-style{
-  position:absolute;
-  top:30px;
-  right:40px;
-  text-align:center;
+/* Nova tarefa */
+.nova-tarefa {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
 }
 
-.month{
-  background:#ff3b30;
-  color:white;
-  padding:4px 10px;
-  border-radius:8px 8px 0 0;
-  font-size:14px;
+.nova-tarefa input,
+.nova-tarefa select {
+  padding: 8px;
 }
 
-.day{
-  background:white;
-  border:1px solid #ddd;
-  padding:10px 20px;
-  border-radius:0 0 12px 12px;
-  font-size:28px;
+.btn-novo {
+  padding: 8px 15px;
+  border: none;
+  background: #28c840;
+  color: white;
+  border-radius: 20px;
+  cursor: pointer;
 }
 
-/* LISTA */
-.item{
-  background:white;
-  padding:20px;
-  border-radius:20px;
-  margin-bottom:15px;
-  box-shadow:0 5px 15px rgba(0,0,0,0.08);
-  cursor:pointer;
-  display:flex;
-  align-items:center;
-  gap:15px;
+.btn-novo:hover {
+  background: #20a837;
 }
 
-.item.feita{
-  text-decoration:line-through;
-  opacity:0.6;
+/* Item */
+.item {
+  background: white;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  border: 1px solid #ddd;
+  transition: 0.2s;
 }
 
-.bolinha{
-  width:15px;
-  height:15px;
-  border-radius:50%;
+.item:hover {
+  background: #f9f9f9;
 }
 
-/* MODAL */
-.modal{
-  display:none;
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,0.4);
-  justify-content:center;
-  align-items:center;
+.item.done {
+  text-decoration: line-through;
+  opacity: 0.6;
 }
 
-.modal-box{
-  background:white;
-  padding:40px;
-  border-radius:25px;
-  width:400px;
-  position:relative;
+/* Prioridade */
+.prioridade {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  margin-left: 10px;
 }
 
-.modal-box input{
-  width:100%;
-  padding:12px;
-  margin-top:15px;
-  border-radius:14px;
-  border:1px solid #ccc;
-}
-
-.modal-box button{
-  margin-top:20px;
-  padding:12px;
-  width:100%;
-  border-radius:14px;
-  border:none;
-  background:black;
-  color:white;
-}
-
-.fechar{
-  position:absolute;
-  top:15px;
-  right:20px;
-  background:none;
-  border:none;
-  font-size:20px;
-  cursor:pointer;
-}
+.importante { background: #ffcccc; }
+.medio { background: #fff3cd; }
+.tranquilo { background: #d4edda; }
