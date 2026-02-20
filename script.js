@@ -1,99 +1,143 @@
-let tarefas = [];
-let metas = [];
-let modo = "tarefas";
+const novoBtn=document.getElementById("novoBtn");
+const notasBtn=document.getElementById("notasBtn");
+const postitBtn=document.getElementById("postitBtn");
+const modal=document.getElementById("modal");
+const cancelar=document.getElementById("cancelar");
+const fechar=document.querySelector(".fechar");
+const criar=document.getElementById("criar");
+const lista=document.getElementById("listaTarefas");
+const titulo=document.getElementById("titulo");
+const dataInput=document.getElementById("data");
+const lixeira=document.getElementById("lixeira");
 
-function atualizarData() {
-  let hoje = new Date();
-  document.getElementById("dataHoje").innerText =
-    hoje.toLocaleDateString("pt-BR");
+let corSelecionada="vermelha";
+
+/* DATA TOPO */
+const hoje=new Date();
+document.getElementById("mesTopo").innerText=
+hoje.toLocaleDateString("pt-BR",{month:"long"});
+document.getElementById("diaTopo").innerText=hoje.getDate();
+
+/* Selecionar cor */
+document.querySelectorAll(".cor").forEach(btn=>{
+ btn.onclick=()=>corSelecionada=btn.dataset.cor;
+});
+
+/* Modal */
+novoBtn.onclick=()=>modal.style.display="flex";
+cancelar.onclick=()=>modal.style.display="none";
+fechar.onclick=()=>modal.style.display="none";
+
+/* Criar tarefa */
+criar.onclick=()=>{
+ if(!titulo.value)return;
+
+ const div=document.createElement("div");
+ div.className="tarefa";
+
+ const bolinha=document.createElement("div");
+ bolinha.className="bolinha-tarefa";
+ bolinha.style.background=
+ corSelecionada==="vermelha"?"#ff3b30":
+ corSelecionada==="amarela"?"#ffcc00":"#34c759";
+
+ const texto=document.createElement("div");
+ texto.innerHTML=`<strong>${titulo.value}</strong><br><small>${dataInput.value}</small>`;
+
+ div.appendChild(bolinha);
+ div.appendChild(texto);
+
+ div.onclick=()=>div.classList.toggle("feita");
+
+ lista.appendChild(div);
+
+ titulo.value="";
+ modal.style.display="none";
+};
+
+/* POST IT */
+postitBtn.onclick=()=>{
+ const post=document.createElement("div");
+ post.className="postit";
+ post.style.top="200px";
+ post.style.left="300px";
+
+ post.innerHTML=`
+ <div class="fechar-post">×</div>
+ <textarea></textarea>
+ `;
+
+ document.body.appendChild(post);
+
+ post.querySelector(".fechar-post").onclick=()=>post.remove();
+
+ post.onmousedown=function(e){
+   document.onmousemove=function(e2){
+     post.style.left=e2.pageX-100+"px";
+     post.style.top=e2.pageY-100+"px";
+   };
+   document.onmouseup=function(){
+     document.onmousemove=null;
+   };
+ };
+
+ post.onmouseup=function(){
+   const lixoRect=lixeira.getBoundingClientRect();
+   const postRect=post.getBoundingClientRect();
+
+   if(
+     postRect.right>lixoRect.left &&
+     postRect.left<lixoRect.right &&
+     postRect.bottom>lixoRect.top &&
+     postRect.top<lixoRect.bottom
+   ){
+     post.remove();
+   }
+ };
+};
+
+/* NOTAS */
+const modalNotas=document.getElementById("modalNotas");
+const fecharNotas=document.querySelector(".fechar-notas");
+const textarea=document.getElementById("paginaAtual");
+const numeroPagina=document.getElementById("numeroPagina");
+const paginaAnterior=document.getElementById("paginaAnterior");
+const proximaPagina=document.getElementById("proximaPagina");
+const novaPagina=document.getElementById("novaPagina");
+
+let paginas=[""];
+let paginaAtual=0;
+
+notasBtn.onclick=()=>modalNotas.style.display="flex";
+fecharNotas.onclick=()=>modalNotas.style.display="none";
+
+function atualizarPagina(){
+ textarea.value=paginas[paginaAtual];
+ numeroPagina.innerText=paginaAtual+1;
 }
-atualizarData();
 
-function adicionar() {
-  let texto = document.getElementById("texto").value;
-  let prioridade = document.getElementById("prioridade").value;
-  let data = document.getElementById("data").value;
+textarea.oninput=()=>{
+ paginas[paginaAtual]=textarea.value;
+};
 
-  if (!texto) return;
+paginaAnterior.onclick=()=>{
+ if(paginaAtual>0){
+  paginaAtual--;
+  atualizarPagina();
+ }
+};
 
-  let item = { texto, prioridade, data, concluida: false };
+proximaPagina.onclick=()=>{
+ if(paginaAtual<paginas.length-1){
+  paginaAtual++;
+  atualizarPagina();
+ }
+};
 
-  if (modo === "metas") metas.push(item);
-  else tarefas.push(item);
+novaPagina.onclick=()=>{
+ paginas.push("");
+ paginaAtual=paginas.length-1;
+ atualizarPagina();
+};
 
-  document.getElementById("texto").value = "";
-  renderizar();
-}
-
-function renderizar() {
-  let lista = document.getElementById("lista");
-  lista.innerHTML = "";
-
-  let array = modo === "metas" ? metas : tarefas;
-
-  array.forEach(item => {
-    let div = document.createElement("div");
-    div.className = "item";
-    if (item.concluida) div.classList.add("done");
-
-    div.innerHTML = `
-      ${item.texto}
-      <span class="prioridade ${item.prioridade}">${item.prioridade}</span>
-      ${item.data ? "<small> - " + item.data + "</small>" : ""}
-    `;
-
-    div.onclick = () => {
-      item.concluida = !item.concluida;
-      if (modo === "incompletas") renderizarIncompletas();
-      else renderizar();
-    };
-
-    lista.appendChild(div);
-  });
-}
-
-function mostrarTarefas() {
-  modo = "tarefas";
-  renderizar();
-}
-
-function mostrarMetas() {
-  modo = "metas";
-  renderizar();
-}
-
-function mostrarIncompletas() {
-  modo = "incompletas";
-  renderizarIncompletas();
-}
-
-function renderizarIncompletas() {
-  let lista = document.getElementById("lista");
-  lista.innerHTML = "";
-
-  tarefas.filter(t => !t.concluida).forEach(item => {
-    let div = document.createElement("div");
-    div.className = "item";
-
-    div.innerHTML = `
-      ${item.texto}
-      <span class="prioridade ${item.prioridade}">${item.prioridade}</span>
-      ${item.data ? "<small> - " + item.data + "</small>" : ""}
-    `;
-
-    div.onclick = () => {
-      item.concluida = true;
-      renderizarIncompletas();
-    };
-
-    lista.appendChild(div);
-  });
-}
-
-function abrirNotas() {
-  document.getElementById("notasModal").style.display = "flex";
-}
-
-function fecharNotas() {
-  document.getElementById("notasModal").style.display = "none";
-}
+atualizarPagina();
