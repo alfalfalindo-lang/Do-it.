@@ -1,189 +1,241 @@
-body {
-  margin: 0;
-  font-family: 'ITC American Typewriter', serif;
-  background-image: linear-gradient(#e0e0e0 1px, transparent 1px),
-                    linear-gradient(90deg, #e0e0e0 1px, transparent 1px);
-  background-size: 40px 40px;
-  background-color: #f8f8f8;
+body{
+  margin:0;
+  display:flex;
+  font-family:sans-serif;
+  background:
+  linear-gradient(#f0f0f0 1px, transparent 1px),
+  linear-gradient(90deg,#f0f0f0 1px, transparent 1px);
+  background-size:40px 40px;
+  background-color:white;
 }
 
-/* TOPBAR */
-.topbar {
-  height: 40px;
-  background: #e6e6e6;
-  display: flex;
-  align-items: center;
-  padding: 0 10px;
-  justify-content: space-between;
+/* SIDEBAR */
+.sidebar{
+  width:240px;
+  background:black;
+  color:white;
+  padding:30px 20px;
+  display:flex;
+  flex-direction:column;
+  height:100vh;
+  position:fixed;
 }
 
-.bolinhas { display: flex; }
-
-.bolinha {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  margin-right: 6px;
+.topo-sidebar{
+  display:flex;
+  align-items:center;
+  gap:15px;
+  margin-bottom:40px;
 }
 
-.vermelha { background: #ff5f57; }
-.amarela { background: #febc2e; }
-.verde { background: #28c840; }
-
-.logo {
-  font-weight: bold;
-  font-size: 18px;
+.logo{
+  font-family:'ITC American Typewriter',serif;
+  font-size:22px;
 }
 
-.data {
-  background: white;
-  padding: 5px 10px;
-  border-radius: 10px;
-  font-weight: bold;
+.bolinhas{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
 }
 
-/* LAYOUT */
-.container {
-  display: flex;
-  height: calc(100vh - 40px);
+.bola{
+  width:22px;
+  height:22px;
+  border-radius:50%;
 }
 
-.sidebar {
-  width: 220px;
-  background: white;
-  border-right: 1px solid #ddd;
-  padding: 15px;
-  display: flex;
-  flex-direction: column;
-}
+.vermelha{background:#ff3b30;}
+.amarela{background:#ffcc00;}
+.verde{background:#34c759;}
 
-.sidebar button {
-  margin-bottom: 10px;
-  padding: 8px;
-  border-radius: 8px;
-  border: none;
-  background: #f0f0f0;
-  cursor: pointer;
-}
-
-.sidebar button:hover {
-  background: #ddd;
-}
-
-.notasBtn {
-  background: #f9f9f9;
-  padding: 15px;
-  text-align: center;
-  border-radius: 10px;
-  margin-top: auto;
-  cursor: pointer;
-}
-
-.postit {
-  background: #ffeb3b;
-  width: 100%;
-  height: 100px;
-  margin-top: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: bold;
+.sidebar button{
+  margin-bottom:15px;
+  padding:12px;
+  border-radius:14px;
+  border:none;
+  cursor:pointer;
 }
 
 /* MAIN */
-.main {
-  flex: 1;
-  padding: 20px;
+.main{
+  margin-left:260px;
+  padding:60px;
+  width:100%;
 }
 
-.nova {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 20px;
+/* DATA estilo app calendário */
+.calendar-style{
+  position:absolute;
+  top:30px;
+  right:40px;
+  text-align:center;
+  font-family:'ITC American Typewriter',serif;
 }
 
-.nova input, .nova select {
-  padding: 8px;
+.calendar-style .month{
+  background:#ff3b30;
+  color:white;
+  padding:4px 12px;
+  border-radius:8px 8px 0 0;
+  font-size:14px;
 }
 
-.nova button {
-  background: #28c840;
-  border: none;
-  padding: 8px 15px;
-  border-radius: 20px;
-  color: white;
-  cursor: pointer;
+.calendar-style .day{
+  background:white;
+  border:1px solid #ddd;
+  padding:10px 20px;
+  border-radius:0 0 12px 12px;
+  font-size:28px;
 }
 
-.item {
-  background: white;
-  padding: 10px;
-  border-radius: 8px;
-  margin-bottom: 10px;
-  cursor: pointer;
-  border: 1px solid #ddd;
+/* TAREFAS */
+.tarefa{
+  background:white;
+  padding:20px;
+  border-radius:20px;
+  margin-bottom:20px;
+  box-shadow:0 6px 18px rgba(0,0,0,0.08);
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  gap:15px;
 }
 
-.item.done {
-  text-decoration: line-through;
-  opacity: 0.6;
+.tarefa.feita{
+  text-decoration:line-through;
+  opacity:0.6;
 }
 
-.prioridade {
-  padding: 3px 8px;
-  border-radius: 10px;
-  font-size: 12px;
-  margin-left: 10px;
+.bolinha-tarefa{
+  width:16px;
+  height:16px;
+  border-radius:50%;
 }
 
-.importante { background: #ffcccc; }
-.medio { background: #fff3cd; }
-.tranquilo { background: #d4edda; }
+/* MODAL */
+.modal{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.4);
+  justify-content:center;
+  align-items:center;
+}
 
-/* LIXEIRA */
-.lixeira {
-  position: fixed;
-  bottom: 15px;
-  right: 15px;
-  font-size: 28px;
-  cursor: pointer;
+.modal-box{
+  background:white;
+  padding:40px;
+  border-radius:30px;
+  width:400px;
+  position:relative;
+}
+
+.modal-box input{
+  width:100%;
+  padding:12px;
+  margin-top:15px;
+  border-radius:14px;
+  border:1px solid #ccc;
+}
+
+.botoes-modal{
+  display:flex;
+  gap:10px;
+  margin-top:20px;
+}
+
+.botoes-modal button{
+  flex:1;
+  padding:12px;
+  border-radius:14px;
+  border:none;
+  cursor:pointer;
+}
+
+#cancelar{background:#ddd;}
+#criar{background:black;color:white;}
+
+.fechar, .fechar-notas{
+  position:absolute;
+  top:15px;
+  right:20px;
+  background:none;
+  border:none;
+  font-size:22px;
+  cursor:pointer;
 }
 
 /* NOTAS */
-.notasModal {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.3);
-  justify-content: center;
-  align-items: center;
+.notas-box{
+  background:#fafafa;
+  padding:30px;
+  border-radius:30px;
+  width:500px;
+  position:relative;
+  font-family:'ITC American Typewriter',serif;
 }
 
-.folha {
-  background: white;
-  width: 400px;
-  height: 500px;
-  border: 3px solid gray;
-  border-radius: 10px;
-  position: relative;
-  padding: 20px;
+.bloco-notas{
+  border:2px solid #ccc;
+  border-radius:20px;
+  padding:20px;
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      #ffffff,
+      #ffffff 28px,
+      #e9e9e9 29px
+    );
 }
 
-.folha textarea {
-  width: 100%;
-  height: 90%;
-  border: none;
-  resize: none;
-  font-family: 'ITC American Typewriter', serif;
+textarea{
+  width:100%;
+  height:300px;
+  border:none;
+  resize:none;
+  outline:none;
+  background:transparent;
 }
 
-.fechar {
-  position: absolute;
-  top: 10px;
-  right: 15px;
-  cursor: pointer;
-  font-size: 20px;
+.controle-notas{
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  margin-top:15px;
+}
+
+/* POST IT */
+.postit{
+  width:200px;
+  height:200px;
+  background:#ffeb3b;
+  position:absolute;
+  padding:15px;
+  border-radius:12px;
+  box-shadow:0 10px 25px rgba(0,0,0,0.2);
+  cursor:move;
+}
+
+.postit textarea{
+  width:100%;
+  height:140px;
+  border:none;
+  background:transparent;
+}
+
+.postit .fechar-post{
+  position:absolute;
+  top:8px;
+  right:10px;
+  cursor:pointer;
+}
+
+/* LIXEIRA */
+.lixeira{
+  position:fixed;
+  bottom:30px;
+  right:40px;
+  font-size:35px;
+  cursor:pointer;
 }
