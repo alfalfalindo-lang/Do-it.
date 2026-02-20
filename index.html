@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>do it</title>
+<title>Nivo</title>
 
 <link href="https://fonts.cdnfonts.com/css/itc-american-typewriter" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
@@ -12,18 +12,27 @@
 
 <div class="sidebar">
 
-  <div class="topo-sidebar">
+  <div class="logo-area">
     <div class="bolinhas">
       <div class="bola vermelha"></div>
       <div class="bola amarela"></div>
       <div class="bola verde"></div>
     </div>
-    <h1 class="logo">do it</h1>
+    <h1 class="logo">Nivo</h1>
   </div>
 
-  <button id="novoBtn">Novo</button>
-  <button id="notasBtn">Notas</button>
-  <button id="postitBtn">Post-it</button>
+  <button id="novoBtn" class="novo-btn">＋</button>
+
+  <div class="menu">
+    <button id="todasBtn">Todas</button>
+    <button id="incompletasBtn">Incompletas</button>
+    <button id="metasBtn">Metas</button>
+  </div>
+
+  <div class="bottom-bar">
+    <div id="notasBtn" class="notas-icon">Notas</div>
+    <div id="postitBtn" class="postit-icon">post-it</div>
+  </div>
 
 </div>
 
@@ -38,19 +47,14 @@
 
 </div>
 
-<!-- Lixeira -->
 <div class="lixeira" id="lixeira">🗑</div>
 
-<!-- Modal Nova Tarefa -->
+<!-- Modal -->
 <div class="modal" id="modal">
   <div class="modal-box">
-
     <button class="fechar">×</button>
-
-    <h2>Nova tarefa</h2>
-
-    <input type="text" id="titulo" placeholder="Digite sua tarefa">
-
+    <h2 id="modalTitulo">Nova tarefa</h2>
+    <input type="text" id="titulo" placeholder="Digite aqui">
     <input type="date" id="data">
 
     <div class="cores">
@@ -59,29 +63,7 @@
       <button class="cor verde" data-cor="verde"></button>
     </div>
 
-    <div class="botoes-modal">
-      <button id="cancelar">Cancelar</button>
-      <button id="criar">Criar</button>
-    </div>
-
-  </div>
-</div>
-
-<!-- Modal Notas -->
-<div class="modal" id="modalNotas">
-  <div class="notas-box">
-    <button class="fechar-notas">×</button>
-
-    <div class="bloco-notas">
-      <textarea id="paginaAtual"></textarea>
-    </div>
-
-    <div class="controle-notas">
-      <button id="paginaAnterior">◀</button>
-      <span id="numeroPagina">1</span>
-      <button id="proximaPagina">▶</button>
-      <button id="novaPagina">＋</button>
-    </div>
+    <button id="criar">Criar</button>
   </div>
 </div>
 
