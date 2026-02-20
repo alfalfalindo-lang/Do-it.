@@ -1,44 +1,60 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <title>do it</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<title>do it</title>
+
+<link href="https://fonts.cdnfonts.com/css/itc-american-typewriter" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+
 </head>
 <body>
 
-  <div class="topbar">
+<div class="topbar">
+  <div class="bolinhas">
     <div class="bolinha vermelha"></div>
     <div class="bolinha amarela"></div>
     <div class="bolinha verde"></div>
-    <div class="logo">do it</div>
+  </div>
+  <div class="logo">do it</div>
+  <div class="data" id="dataHoje"></div>
+</div>
+
+<div class="container">
+
+  <div class="sidebar">
+    <button onclick="mostrarTarefas()">Tarefas</button>
+    <button onclick="mostrarIncompletas()">Incompletas</button>
+    <button onclick="mostrarMetas()">Metas</button>
+
+    <div class="notasBtn" onclick="abrirNotas()">Notas</div>
+    <div class="postit">post-it</div>
   </div>
 
-  <div class="container">
-
-    <div class="sidebar">
-      <button onclick="mostrarTarefas()">Tarefas</button>
-      <button onclick="mostrarIncompletas()">Tarefas Incompletas</button>
-      <button onclick="mostrarMetas()">Metas</button>
+  <div class="main">
+    <div class="nova">
+      <input type="text" id="texto" placeholder="Nova tarefa...">
+      <select id="prioridade">
+        <option value="importante">Importante</option>
+        <option value="medio">Médio</option>
+        <option value="tranquilo">Tranquilo</option>
+      </select>
+      <input type="date" id="data">
+      <button onclick="adicionar()">Novo</button>
     </div>
 
-    <div class="main">
-
-      <div class="nova-tarefa">
-        <input type="text" id="texto" placeholder="Digite aqui...">
-        <select id="prioridade">
-          <option value="importante">Importante</option>
-          <option value="medio">Médio</option>
-          <option value="tranquilo">Tranquilo</option>
-        </select>
-        <input type="date" id="data">
-        <button class="btn-novo" onclick="adicionar()">Novo</button>
-      </div>
-
-      <div id="lista"></div>
-
-    </div>
+    <div id="lista"></div>
   </div>
+</div>
+
+<div class="lixeira">🗑</div>
+
+<div class="notasModal" id="notasModal">
+  <div class="folha">
+    <div class="fechar" onclick="fecharNotas()">×</div>
+    <textarea placeholder="Escreva suas notas..."></textarea>
+  </div>
+</div>
 
 <script src="script.js"></script>
 </body>
