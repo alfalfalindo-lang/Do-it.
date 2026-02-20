@@ -1,4 +1,4 @@
-const lista=document.getElementById("listaTarefas");
+const lista=document.getElementById("lista");
 const novoBtn=document.getElementById("novoBtn");
 const modal=document.getElementById("modal");
 const fechar=document.querySelector(".fechar");
@@ -22,6 +22,11 @@ document.getElementById("mesTopo").innerText=
 hoje.toLocaleDateString("pt-BR",{month:"long"});
 document.getElementById("diaTopo").innerText=hoje.getDate();
 
+/* Seleção de cor */
+document.querySelectorAll(".cor").forEach(btn=>{
+ btn.onclick=()=>corSelecionada=btn.dataset.cor;
+});
+
 /* Abrir modal */
 novoBtn.onclick=()=>{
  modal.style.display="flex";
@@ -29,7 +34,7 @@ novoBtn.onclick=()=>{
 
 fechar.onclick=()=>modal.style.display="none";
 
-/* Criar */
+/* Criar item */
 criar.onclick=()=>{
  if(!titulo.value)return;
 
@@ -62,7 +67,7 @@ function render(){
 
  array.forEach((item,index)=>{
   const div=document.createElement("div");
-  div.className="tarefa";
+  div.className="item";
   if(item.feita)div.classList.add("feita");
 
   const bolinha=document.createElement("div");
@@ -87,6 +92,21 @@ function render(){
 }
 
 /* Botões menu */
-todasBtn.onclick=()=>{modo="todas";tipoAtual="tarefa";render();}
-incompletasBtn.onclick=()=>{modo="incompletas";tipoAtual="tarefa";render();}
-metasBtn.onclick=()=>{modo="metas";tipoAtual="meta";render();}
+todasBtn.onclick=()=>{
+ modo="todas";
+ tipoAtual="tarefa";
+ render();
+};
+
+incompletasBtn.onclick=()=>{
+ modo="incompletas";
+ tipoAtual="tarefa";
+ render();
+};
+
+metasBtn.onclick=()=>{
+ modo="metas";
+ tipoAtual="meta";
+ render();
+};
+ 
