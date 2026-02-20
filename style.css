@@ -1,17 +1,23 @@
 body {
   margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
-  background-color: #f4f4f4;
+  font-family: 'ITC American Typewriter', serif;
+  background-image: linear-gradient(#e0e0e0 1px, transparent 1px),
+                    linear-gradient(90deg, #e0e0e0 1px, transparent 1px);
+  background-size: 40px 40px;
+  background-color: #f8f8f8;
 }
 
-/* Topbar */
+/* TOPBAR */
 .topbar {
-  background-color: #e0e0e0;
-  height: 35px;
+  height: 40px;
+  background: #e6e6e6;
   display: flex;
   align-items: center;
   padding: 0 10px;
+  justify-content: space-between;
 }
+
+.bolinhas { display: flex; }
 
 .bolinha {
   width: 12px;
@@ -25,14 +31,21 @@ body {
 .verde { background: #28c840; }
 
 .logo {
-  margin-left: 10px;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.data {
+  background: white;
+  padding: 5px 10px;
+  border-radius: 10px;
   font-weight: bold;
 }
 
-/* Layout */
+/* LAYOUT */
 .container {
   display: flex;
-  height: calc(100vh - 35px);
+  height: calc(100vh - 40px);
 }
 
 .sidebar {
@@ -40,65 +53,75 @@ body {
   background: white;
   border-right: 1px solid #ddd;
   padding: 15px;
+  display: flex;
+  flex-direction: column;
 }
 
 .sidebar button {
-  width: 100%;
   margin-bottom: 10px;
   padding: 8px;
+  border-radius: 8px;
   border: none;
   background: #f0f0f0;
   cursor: pointer;
-  border-radius: 6px;
 }
 
 .sidebar button:hover {
   background: #ddd;
 }
 
+.notasBtn {
+  background: #f9f9f9;
+  padding: 15px;
+  text-align: center;
+  border-radius: 10px;
+  margin-top: auto;
+  cursor: pointer;
+}
+
+.postit {
+  background: #ffeb3b;
+  width: 100%;
+  height: 100px;
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+/* MAIN */
 .main {
   flex: 1;
   padding: 20px;
 }
 
-/* Nova tarefa */
-.nova-tarefa {
+.nova {
   display: flex;
   gap: 10px;
   margin-bottom: 20px;
 }
 
-.nova-tarefa input,
-.nova-tarefa select {
+.nova input, .nova select {
   padding: 8px;
 }
 
-.btn-novo {
-  padding: 8px 15px;
-  border: none;
+.nova button {
   background: #28c840;
-  color: white;
+  border: none;
+  padding: 8px 15px;
   border-radius: 20px;
+  color: white;
   cursor: pointer;
 }
 
-.btn-novo:hover {
-  background: #20a837;
-}
-
-/* Item */
 .item {
   background: white;
   padding: 10px;
-  margin-bottom: 10px;
   border-radius: 8px;
+  margin-bottom: 10px;
   cursor: pointer;
   border: 1px solid #ddd;
-  transition: 0.2s;
-}
-
-.item:hover {
-  background: #f9f9f9;
 }
 
 .item.done {
@@ -106,11 +129,9 @@ body {
   opacity: 0.6;
 }
 
-/* Prioridade */
 .prioridade {
-  display: inline-block;
-  padding: 4px 8px;
-  border-radius: 12px;
+  padding: 3px 8px;
+  border-radius: 10px;
   font-size: 12px;
   margin-left: 10px;
 }
@@ -118,3 +139,51 @@ body {
 .importante { background: #ffcccc; }
 .medio { background: #fff3cd; }
 .tranquilo { background: #d4edda; }
+
+/* LIXEIRA */
+.lixeira {
+  position: fixed;
+  bottom: 15px;
+  right: 15px;
+  font-size: 28px;
+  cursor: pointer;
+}
+
+/* NOTAS */
+.notasModal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.3);
+  justify-content: center;
+  align-items: center;
+}
+
+.folha {
+  background: white;
+  width: 400px;
+  height: 500px;
+  border: 3px solid gray;
+  border-radius: 10px;
+  position: relative;
+  padding: 20px;
+}
+
+.folha textarea {
+  width: 100%;
+  height: 90%;
+  border: none;
+  resize: none;
+  font-family: 'ITC American Typewriter', serif;
+}
+
+.fechar {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  cursor: pointer;
+  font-size: 20px;
+}
