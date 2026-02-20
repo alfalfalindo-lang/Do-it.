@@ -9,8 +9,6 @@ body{
   background-color:white;
 }
 
-/* SIDEBAR */
-
 .sidebar{
   width:240px;
   background:black;
@@ -57,8 +55,6 @@ body{
   cursor:pointer;
 }
 
-/* MAIN */
-
 .main{
   margin-left:260px;
   padding:60px;
@@ -88,8 +84,6 @@ body{
   font-size:28px;
 }
 
-/* TAREFAS */
-
 .tarefa{
   background:white;
   padding:20px;
@@ -112,8 +106,6 @@ body{
   height:16px;
   border-radius:50%;
 }
-
-/* MODAL */
 
 .modal{
   display:none;
@@ -167,8 +159,6 @@ body{
   cursor:pointer;
 }
 
-/* NOTAS */
-
 .notas-box{
   background:#fafafa;
   padding:30px;
@@ -199,7 +189,28 @@ textarea{
   background:transparent;
 }
 
-/* LIXEIRA */
+.postit{
+  width:200px;
+  height:200px;
+  background:#ffeb3b;
+  position:absolute;
+  padding:15px;
+  border-radius:12px;
+  box-shadow:0 10px 25px rgba(0,0,0,0.2);
+  cursor:move;
+}
+
+.postit textarea{
+  width:100%;
+  height:140px;
+}
+
+.postit .fechar-post{
+  position:absolute;
+  top:8px;
+  right:10px;
+  cursor:pointer;
+}
 
 .lixeira{
   position:fixed;
