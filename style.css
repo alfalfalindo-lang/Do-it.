@@ -219,3 +219,43 @@ textarea{
   font-size:35px;
   cursor:pointer;
 }
+/* ===== CORREÇÕES WINDOWS ===== */
+
+/* evita bug de largura por causa da scrollbar */
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  overflow-x: hidden;
+}
+
+/* força layout consistente */
+body {
+  display: flex;
+  font-family: 'ITC American Typewriter', serif;
+}
+
+/* evita bug de 100vh no Windows */
+.main {
+  min-height: 100vh;
+}
+
+/* corrige distorção da fonte no Windows */
+h1, h2, button, input, textarea {
+  font-weight: normal;
+  letter-spacing: 0.5px;
+}
+
+/* evita que a sidebar quebre */
+.sidebar {
+  min-width: 220px;
+}
+
+/* suaviza diferença de renderização */
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
