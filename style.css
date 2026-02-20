@@ -1,14 +1,7 @@
-@import url('https://fonts.cdnfonts.com/css/itc-american-typewriter');
-
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:'ITC American Typewriter', serif;
-}
-
 body{
+  margin:0;
   display:flex;
+  font-family:sans-serif;
   background:white;
 }
 
@@ -20,7 +13,6 @@ body{
   padding:30px 20px;
   display:flex;
   flex-direction:column;
-  justify-content:space-between;
   height:100vh;
   position:fixed;
 }
@@ -29,6 +21,7 @@ body{
   display:flex;
   align-items:center;
   gap:15px;
+  margin-bottom:30px;
 }
 
 .logo{
@@ -42,8 +35,8 @@ body{
 }
 
 .bola{
-  width:20px;
-  height:20px;
+  width:18px;
+  height:18px;
   border-radius:50%;
 }
 
@@ -52,7 +45,6 @@ body{
 .verde{background:#34c759;}
 
 .novo-btn{
-  margin:25px 0;
   width:45px;
   height:45px;
   border-radius:50%;
@@ -60,6 +52,7 @@ body{
   background:white;
   font-size:22px;
   cursor:pointer;
+  margin-bottom:30px;
 }
 
 .menu button{
@@ -73,38 +66,6 @@ body{
   cursor:pointer;
 }
 
-/* Bottom icons */
-.bottom-bar{
-  display:flex;
-  gap:10px;
-}
-
-.postit-icon{
-  background:#ffeb3b;
-  width:100px;
-  height:100px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  border-radius:8px;
-  cursor:pointer;
-  color:black;
-  font-weight:bold;
-}
-
-.notas-icon{
-  background:#ddd;
-  width:100px;
-  height:100px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  border-radius:8px;
-  cursor:pointer;
-  color:black;
-  font-weight:bold;
-}
-
 /* MAIN */
 .main{
   margin-left:270px;
@@ -112,7 +73,7 @@ body{
   width:100%;
 }
 
-/* Calendar */
+/* CALENDAR STYLE */
 .calendar-style{
   position:absolute;
   top:30px;
@@ -137,7 +98,7 @@ body{
 }
 
 /* LISTA */
-.tarefa{
+.item{
   background:white;
   padding:20px;
   border-radius:20px;
@@ -149,7 +110,7 @@ body{
   gap:15px;
 }
 
-.tarefa.feita{
+.item.feita{
   text-decoration:line-through;
   opacity:0.6;
 }
@@ -203,14 +164,5 @@ body{
   background:none;
   border:none;
   font-size:20px;
-  cursor:pointer;
-}
-
-/* LIXEIRA */
-.lixeira{
-  position:fixed;
-  bottom:30px;
-  right:40px;
-  font-size:35px;
   cursor:pointer;
 }
