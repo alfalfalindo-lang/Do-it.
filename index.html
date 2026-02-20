@@ -2,57 +2,86 @@
 <html lang="pt-br">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>do it</title>
 
 <link href="https://fonts.cdnfonts.com/css/itc-american-typewriter" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
-
 </head>
 <body>
 
-<div class="topbar">
-  <div class="bolinhas">
-    <div class="bolinha vermelha"></div>
-    <div class="bolinha amarela"></div>
-    <div class="bolinha verde"></div>
+<div class="sidebar">
+
+  <div class="topo-sidebar">
+    <div class="bolinhas">
+      <div class="bola vermelha"></div>
+      <div class="bola amarela"></div>
+      <div class="bola verde"></div>
+    </div>
+    <h1 class="logo">do it</h1>
   </div>
-  <div class="logo">do it</div>
-  <div class="data" id="dataHoje"></div>
+
+  <button id="novoBtn">Novo</button>
+  <button id="notasBtn">Notas</button>
+  <button id="postitBtn">Post-it</button>
+
 </div>
 
-<div class="container">
+<div class="main">
 
-  <div class="sidebar">
-    <button onclick="mostrarTarefas()">Tarefas</button>
-    <button onclick="mostrarIncompletas()">Incompletas</button>
-    <button onclick="mostrarMetas()">Metas</button>
-
-    <div class="notasBtn" onclick="abrirNotas()">Notas</div>
-    <div class="postit">post-it</div>
+  <div class="calendar-style">
+    <div class="month" id="mesTopo"></div>
+    <div class="day" id="diaTopo"></div>
   </div>
 
-  <div class="main">
-    <div class="nova">
-      <input type="text" id="texto" placeholder="Nova tarefa...">
-      <select id="prioridade">
-        <option value="importante">Importante</option>
-        <option value="medio">Médio</option>
-        <option value="tranquilo">Tranquilo</option>
-      </select>
-      <input type="date" id="data">
-      <button onclick="adicionar()">Novo</button>
+  <div id="listaTarefas"></div>
+
+</div>
+
+<!-- Lixeira -->
+<div class="lixeira" id="lixeira">🗑</div>
+
+<!-- Modal Nova Tarefa -->
+<div class="modal" id="modal">
+  <div class="modal-box">
+
+    <button class="fechar">×</button>
+
+    <h2>Nova tarefa</h2>
+
+    <input type="text" id="titulo" placeholder="Digite sua tarefa">
+
+    <input type="date" id="data">
+
+    <div class="cores">
+      <button class="cor vermelha" data-cor="vermelha"></button>
+      <button class="cor amarela" data-cor="amarela"></button>
+      <button class="cor verde" data-cor="verde"></button>
     </div>
 
-    <div id="lista"></div>
+    <div class="botoes-modal">
+      <button id="cancelar">Cancelar</button>
+      <button id="criar">Criar</button>
+    </div>
+
   </div>
 </div>
 
-<div class="lixeira">🗑</div>
+<!-- Modal Notas -->
+<div class="modal" id="modalNotas">
+  <div class="notas-box">
+    <button class="fechar-notas">×</button>
 
-<div class="notasModal" id="notasModal">
-  <div class="folha">
-    <div class="fechar" onclick="fecharNotas()">×</div>
-    <textarea placeholder="Escreva suas notas..."></textarea>
+    <div class="bloco-notas">
+      <textarea id="paginaAtual"></textarea>
+    </div>
+
+    <div class="controle-notas">
+      <button id="paginaAnterior">◀</button>
+      <span id="numeroPagina">1</span>
+      <button id="proximaPagina">▶</button>
+      <button id="novaPagina">＋</button>
+    </div>
   </div>
 </div>
 
