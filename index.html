@@ -1,60 +1,44 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>do it</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <title>do it</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div class="sidebar">
+  <div class="topbar">
+    <div class="bolinha vermelha"></div>
+    <div class="bolinha amarela"></div>
+    <div class="bolinha verde"></div>
+    <div class="logo">do it</div>
+  </div>
 
-  <div class="logo-area">
-    <div class="bolinhas">
-      <div class="bola vermelha"></div>
-      <div class="bola amarela"></div>
-      <div class="bola verde"></div>
+  <div class="container">
+
+    <div class="sidebar">
+      <button onclick="mostrarTarefas()">Tarefas</button>
+      <button onclick="mostrarIncompletas()">Tarefas Incompletas</button>
+      <button onclick="mostrarMetas()">Metas</button>
     </div>
-    <h1 class="logo">do it</h1>
-  </div>
 
-  <button id="novoBtn" class="novo-btn">＋</button>
+    <div class="main">
 
-  <div class="menu">
-    <button id="todasBtn">Todas</button>
-    <button id="incompletasBtn">Incompletas</button>
-    <button id="metasBtn">Metas</button>
-  </div>
+      <div class="nova-tarefa">
+        <input type="text" id="texto" placeholder="Digite aqui...">
+        <select id="prioridade">
+          <option value="importante">Importante</option>
+          <option value="medio">Médio</option>
+          <option value="tranquilo">Tranquilo</option>
+        </select>
+        <input type="date" id="data">
+        <button class="btn-novo" onclick="adicionar()">Novo</button>
+      </div>
 
-</div>
+      <div id="lista"></div>
 
-<div class="main">
-
-  <div class="calendar-style">
-    <div class="month" id="mesTopo"></div>
-    <div class="day" id="diaTopo"></div>
-  </div>
-
-  <div id="lista"></div>
-
-</div>
-
-<!-- Modal -->
-<div class="modal" id="modal">
-  <div class="modal-box">
-    <button class="fechar">×</button>
-    <h2 id="modalTitulo">Nova tarefa</h2>
-    <input type="text" id="titulo" placeholder="Digite aqui">
-    <input type="date" id="data">
-    <div class="cores">
-      <button class="cor vermelha" data-cor="vermelha"></button>
-      <button class="cor amarela" data-cor="amarela"></button>
-      <button class="cor verde" data-cor="verde"></button>
     </div>
-    <button id="criar">Criar</button>
   </div>
-</div>
 
 <script src="script.js"></script>
 </body>
