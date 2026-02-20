@@ -1,143 +1,81 @@
-const novoBtn=document.getElementById("novoBtn");
-const notasBtn=document.getElementById("notasBtn");
-const postitBtn=document.getElementById("postitBtn");
-const modal=document.getElementById("modal");
-const cancelar=document.getElementById("cancelar");
-const fechar=document.querySelector(".fechar");
-const criar=document.getElementById("criar");
-const lista=document.getElementById("listaTarefas");
-const titulo=document.getElementById("titulo");
-const dataInput=document.getElementById("data");
-const lixeira=document.getElementById("lixeira");
-
+let tarefas=[];
+let metas=[];
+let modo="tarefas";
 let corSelecionada="vermelha";
 
-/* DATA TOPO */
+/* DATA */
 const hoje=new Date();
-document.getElementById("mesTopo").innerText=
-hoje.toLocaleDateString("pt-BR",{month:"long"});
-document.getElementById("diaTopo").innerText=hoje.getDate();
+mesTopo.innerText=hoje.toLocaleDateString("pt-BR",{month:"long"});
+diaTopo.innerText=hoje.getDate();
 
-/* Selecionar cor */
+/* BOTÕES */
+tarefasBtn.onclick=()=>{modo="tarefas";renderizar();}
+metasBtn.onclick=()=>{modo="metas";renderizar();}
+incompletasBtn.onclick=()=>{modo="incompletas";renderizar();}
+
+novoBtn.onclick=()=>modal.style.display="flex";
+cancelar.onclick=()=>modal.style.display="none";
+document.querySelector(".fechar").onclick=()=>modal.style.display="none";
+
+/* COR */
 document.querySelectorAll(".cor").forEach(btn=>{
  btn.onclick=()=>corSelecionada=btn.dataset.cor;
 });
 
-/* Modal */
-novoBtn.onclick=()=>modal.style.display="flex";
-cancelar.onclick=()=>modal.style.display="none";
-fechar.onclick=()=>modal.style.display="none";
-
-/* Criar tarefa */
+/* CRIAR */
 criar.onclick=()=>{
  if(!titulo.value)return;
 
- const div=document.createElement("div");
- div.className="tarefa";
+ const nova={
+   titulo:titulo.value,
+   data:data.value,
+   cor:corSelecionada,
+   feita:false
+ };
 
- const bolinha=document.createElement("div");
- bolinha.className="bolinha-tarefa";
- bolinha.style.background=
- corSelecionada==="vermelha"?"#ff3b30":
- corSelecionada==="amarela"?"#ffcc00":"#34c759";
-
- const texto=document.createElement("div");
- texto.innerHTML=`<strong>${titulo.value}</strong><br><small>${dataInput.value}</small>`;
-
- div.appendChild(bolinha);
- div.appendChild(texto);
-
- div.onclick=()=>div.classList.toggle("feita");
-
- lista.appendChild(div);
+ if(modo==="metas") metas.push(nova);
+ else tarefas.push(nova);
 
  titulo.value="";
  modal.style.display="none";
+ renderizar();
 };
 
-/* POST IT */
-postitBtn.onclick=()=>{
- const post=document.createElement("div");
- post.className="postit";
- post.style.top="200px";
- post.style.left="300px";
+/* RENDER */
+function renderizar(){
+ listaTarefas.innerHTML="";
 
- post.innerHTML=`
- <div class="fechar-post">×</div>
- <textarea></textarea>
- `;
+ let listaAtual=[];
 
- document.body.appendChild(post);
+ if(modo==="tarefas") listaAtual=tarefas;
+ if(modo==="metas") listaAtual=metas;
+ if(modo==="incompletas")
+   listaAtual=tarefas.filter(t=>!t.feita);
 
- post.querySelector(".fechar-post").onclick=()=>post.remove();
+ listaAtual.forEach(item=>{
+   const div=document.createElement("div");
+   div.className="tarefa";
+   if(item.feita) div.classList.add("feita");
 
- post.onmousedown=function(e){
-   document.onmousemove=function(e2){
-     post.style.left=e2.pageX-100+"px";
-     post.style.top=e2.pageY-100+"px";
+   const bolinha=document.createElement("div");
+   bolinha.className="bolinha-tarefa";
+   bolinha.style.background=
+     item.cor==="vermelha"?"#ff3b30":
+     item.cor==="amarela"?"#ffcc00":"#34c759";
+
+   const texto=document.createElement("div");
+   texto.innerHTML=`<strong>${item.titulo}</strong><br><small>${item.data}</small>`;
+
+   div.appendChild(bolinha);
+   div.appendChild(texto);
+
+   div.onclick=()=>{
+     item.feita=!item.feita;
+     renderizar();
    };
-   document.onmouseup=function(){
-     document.onmousemove=null;
-   };
- };
 
- post.onmouseup=function(){
-   const lixoRect=lixeira.getBoundingClientRect();
-   const postRect=post.getBoundingClientRect();
-
-   if(
-     postRect.right>lixoRect.left &&
-     postRect.left<lixoRect.right &&
-     postRect.bottom>lixoRect.top &&
-     postRect.top<lixoRect.bottom
-   ){
-     post.remove();
-   }
- };
-};
-
-/* NOTAS */
-const modalNotas=document.getElementById("modalNotas");
-const fecharNotas=document.querySelector(".fechar-notas");
-const textarea=document.getElementById("paginaAtual");
-const numeroPagina=document.getElementById("numeroPagina");
-const paginaAnterior=document.getElementById("paginaAnterior");
-const proximaPagina=document.getElementById("proximaPagina");
-const novaPagina=document.getElementById("novaPagina");
-
-let paginas=[""];
-let paginaAtual=0;
-
-notasBtn.onclick=()=>modalNotas.style.display="flex";
-fecharNotas.onclick=()=>modalNotas.style.display="none";
-
-function atualizarPagina(){
- textarea.value=paginas[paginaAtual];
- numeroPagina.innerText=paginaAtual+1;
+   listaTarefas.appendChild(div);
+ });
 }
 
-textarea.oninput=()=>{
- paginas[paginaAtual]=textarea.value;
-};
-
-paginaAnterior.onclick=()=>{
- if(paginaAtual>0){
-  paginaAtual--;
-  atualizarPagina();
- }
-};
-
-proximaPagina.onclick=()=>{
- if(paginaAtual<paginas.length-1){
-  paginaAtual++;
-  atualizarPagina();
- }
-};
-
-novaPagina.onclick=()=>{
- paginas.push("");
- paginaAtual=paginas.length-1;
- atualizarPagina();
-};
-
-atualizarPagina();
+renderizar();
