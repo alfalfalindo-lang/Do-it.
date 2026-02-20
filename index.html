@@ -22,6 +22,9 @@
   </div>
 
   <button id="novoBtn">Novo</button>
+  <button id="tarefasBtn">Tarefas</button>
+  <button id="incompletasBtn">Incompletas</button>
+  <button id="metasBtn">Metas</button>
   <button id="notasBtn">Notas</button>
   <button id="postitBtn">Post-it</button>
 
@@ -38,19 +41,14 @@
 
 </div>
 
-<!-- Lixeira -->
 <div class="lixeira" id="lixeira">🗑</div>
 
 <!-- Modal Nova Tarefa -->
 <div class="modal" id="modal">
   <div class="modal-box">
-
     <button class="fechar">×</button>
-
     <h2>Nova tarefa</h2>
-
     <input type="text" id="titulo" placeholder="Digite sua tarefa">
-
     <input type="date" id="data">
 
     <div class="cores">
@@ -63,7 +61,6 @@
       <button id="cancelar">Cancelar</button>
       <button id="criar">Criar</button>
     </div>
-
   </div>
 </div>
 
@@ -71,11 +68,9 @@
 <div class="modal" id="modalNotas">
   <div class="notas-box">
     <button class="fechar-notas">×</button>
-
     <div class="bloco-notas">
       <textarea id="paginaAtual"></textarea>
     </div>
-
     <div class="controle-notas">
       <button id="paginaAnterior">◀</button>
       <span id="numeroPagina">1</span>
