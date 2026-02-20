@@ -1,112 +1,103 @@
-const lista=document.getElementById("lista");
-const novoBtn=document.getElementById("novoBtn");
-const modal=document.getElementById("modal");
-const fechar=document.querySelector(".fechar");
-const criar=document.getElementById("criar");
-const titulo=document.getElementById("titulo");
-const dataInput=document.getElementById("data");
+let tarefas = [];
+let metas = [];
+let modo = "tarefas";
 
-const todasBtn=document.getElementById("todasBtn");
-const incompletasBtn=document.getElementById("incompletasBtn");
-const metasBtn=document.getElementById("metasBtn");
+function adicionar() {
+  let texto = document.getElementById("texto").value;
+  let prioridade = document.getElementById("prioridade").value;
+  let data = document.getElementById("data").value;
 
-let tarefas=[];
-let metas=[];
-let modo="todas";
-let tipoAtual="tarefa";
-let corSelecionada="vermelha";
+  if (texto === "") return;
 
-/* DATA TOPO */
-const hoje=new Date();
-document.getElementById("mesTopo").innerText=
-hoje.toLocaleDateString("pt-BR",{month:"long"});
-document.getElementById("diaTopo").innerText=hoje.getDate();
-
-/* Seleção de cor */
-document.querySelectorAll(".cor").forEach(btn=>{
- btn.onclick=()=>corSelecionada=btn.dataset.cor;
-});
-
-/* Abrir modal */
-novoBtn.onclick=()=>{
- modal.style.display="flex";
-};
-
-fechar.onclick=()=>modal.style.display="none";
-
-/* Criar item */
-criar.onclick=()=>{
- if(!titulo.value)return;
-
- const item={
-  texto:titulo.value,
-  data:dataInput.value,
-  feita:false,
-  cor:corSelecionada
- };
-
- if(tipoAtual==="tarefa"){
-  tarefas.push(item);
- }else{
-  metas.push(item);
- }
-
- titulo.value="";
- modal.style.display="none";
- render();
-};
-
-/* Render */
-function render(){
- lista.innerHTML="";
- let array=[];
-
- if(modo==="todas") array=tarefas;
- if(modo==="incompletas") array=tarefas.filter(t=>!t.feita);
- if(modo==="metas") array=metas;
-
- array.forEach((item,index)=>{
-  const div=document.createElement("div");
-  div.className="item";
-  if(item.feita)div.classList.add("feita");
-
-  const bolinha=document.createElement("div");
-  bolinha.className="bolinha";
-  bolinha.style.background=
-  item.cor==="vermelha"?"#ff3b30":
-  item.cor==="amarela"?"#ffcc00":"#34c759";
-
-  const texto=document.createElement("div");
-  texto.innerHTML=`<strong>${item.texto}</strong><br><small>${item.data}</small>`;
-
-  div.appendChild(bolinha);
-  div.appendChild(texto);
-
-  div.onclick=()=>{
-    item.feita=!item.feita;
-    render();
+  let item = {
+    texto,
+    prioridade,
+    data,
+    concluida: false
   };
 
-  lista.appendChild(div);
- });
+  if (modo === "metas") {
+    metas.push(item);
+  } else {
+    tarefas.push(item);
+  }
+
+  document.getElementById("texto").value = "";
+  renderizar();
 }
 
-/* Botões menu */
-todasBtn.onclick=()=>{
- modo="todas";
- tipoAtual="tarefa";
- render();
-};
+function renderizar() {
+  let lista = document.getElementById("lista");
+  lista.innerHTML = "";
 
-incompletasBtn.onclick=()=>{
- modo="incompletas";
- tipoAtual="tarefa";
- render();
-};
+  let array = modo === "metas" ? metas : tarefas;
 
-metasBtn.onclick=()=>{
- modo="metas";
- tipoAtual="meta";
- render();
-};
- 
+  array.forEach(item => {
+    let div = document.createElement("div");
+    div.className = "item";
+    if (item.concluida) div.classList.add("done");
+
+    div.innerHTML = `
+      ${item.texto}
+      <span class="prioridade ${item.prioridade}">
+        ${item.prioridade}
+      </span>
+      ${item.data ? "<small> - " + item.data + "</small>" : ""}
+    `;
+
+    div.onclick = () => {
+      item.concluida = !item.concluida;
+
+      // Se estiver na aba incompletas e marcar como concluída
+      if (modo === "incompletas" && item.concluida) {
+        renderizarIncompletas();
+      } else {
+        renderizar();
+      }
+    };
+
+    lista.appendChild(div);
+  });
+}
+
+function mostrarTarefas() {
+  modo = "tarefas";
+  renderizar();
+}
+
+function mostrarMetas() {
+  modo = "metas";
+  renderizar();
+}
+
+function mostrarIncompletas() {
+  modo = "incompletas";
+  renderizarIncompletas();
+}
+
+function renderizarIncompletas() {
+  let lista = document.getElementById("lista");
+  lista.innerHTML = "";
+
+  tarefas
+    .filter(t => !t.concluida)
+    .forEach(item => {
+      let div = document.createElement("div");
+      div.className = "item";
+
+      div.innerHTML = `
+        ${item.texto}
+        <span class="prioridade ${item.prioridade}">
+          ${item.prioridade}
+        </span>
+        ${item.data ? "<small> - " + item.data + "</small>" : ""}
+      `;
+
+      div.onclick = () => {
+        item.concluida = true;
+        renderizarIncompletas();
+      };
+
+      lista.appendChild(div);
+    });
+}
