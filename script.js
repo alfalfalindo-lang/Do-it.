@@ -9,6 +9,17 @@ let modo = "tarefas";
 let corSelecionada = "vermelha";
 let paginaAtualIndex = 0;
 
+/* ======== LIMPAR DADOS CORROMPIDOS ======== */
+
+function limparDadosInvalidos() {
+  tarefas = tarefas.filter(t => t && t.titulo);
+  metas = metas.filter(m => m && m.titulo);
+  postits = postits.filter(p => p && p.top && p.left);
+  salvarTudo();
+}
+
+limparDadosInvalidos();
+
 /* ================= SALVAR ================= */
 
 function salvarTudo() {
@@ -83,6 +94,8 @@ function renderizar() {
 
   listaAtual.forEach(item => {
 
+    if (!item || !item.titulo) return; // proteção extra
+
     const div = document.createElement("div");
     div.className = "tarefa";
     if (item.feita) div.classList.add("feita");
@@ -94,7 +107,7 @@ function renderizar() {
       item.cor === "amarela" ? "#ffcc00" : "#34c759";
 
     const texto = document.createElement("div");
-    texto.innerHTML = `<strong>${item.titulo}</strong><br><small>${item.data}</small>`;
+    texto.innerHTML = `<strong>${item.titulo}</strong><br><small>${item.data || ""}</small>`;
 
     div.appendChild(bolinha);
     div.appendChild(texto);
@@ -202,7 +215,6 @@ function criarPostit(obj) {
 }
 
 postitBtn.onclick = () => {
-
   const novo = {
     top: "150px",
     left: "350px",
@@ -214,5 +226,4 @@ postitBtn.onclick = () => {
   criarPostit(novo);
 };
 
-/* carregar post-its salvos */
 postits.forEach(p => criarPostit(p));
