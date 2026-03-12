@@ -97,14 +97,21 @@ border-radius:50%;
 .verde{background:#28c840;}
 
 
-/* BOTÃO NOVA TAREFA */
+/* BOTÃO + */
 
 .criarTopo{
 
 position:fixed;
 
-top:20px;
+top:18px;
 left:250px;
+
+width:36px;
+height:36px;
+
+display:flex;
+align-items:center;
+justify-content:center;
 
 background:#2a2a2a;
 
@@ -112,9 +119,9 @@ color:white;
 
 border:none;
 
-padding:8px 14px;
-
 border-radius:8px;
+
+font-size:22px;
 
 cursor:pointer;
 
@@ -391,9 +398,9 @@ height:100%;
 background:
 repeating-linear-gradient(
 to bottom,
-transparent,
-transparent 27px,
-rgba(255,255,255,0.15) 28px
+transparent 0px,
+transparent 31px,
+rgba(255,255,255,0.15) 32px
 );
 
 border:none;
@@ -406,11 +413,11 @@ resize:none;
 
 font-size:18px;
 
-line-height:28px;
+line-height:32px;
 
 font-family:'ITC American Typewriter';
 
-padding:10px;
+padding:8px 10px;
 
 }
 
@@ -464,7 +471,7 @@ cursor:pointer;
 }
 
 
-/* REMOVER BORDAS AO CLICAR */
+/* REMOVER BORDA AO CLICAR */
 
 textarea:focus,
 input:focus,
