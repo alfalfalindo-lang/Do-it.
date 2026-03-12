@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
 
 <meta charset="UTF-8">
@@ -28,14 +29,18 @@
 
 </div>
 
-<button id="novoBtn">novo</button>
+<button id="novoBtn">nova tarefa</button>
+<button id="novaMetaBtn">nova meta</button>
+
 <button id="tarefasBtn">tarefas</button>
-<button id="incompletasBtn">incompletas</button>
 <button id="metasBtn">metas</button>
+<button id="incompletasBtn">incompletas</button>
+
 <button id="notasBtn">notas</button>
 <button id="postitBtn">post-it</button>
 
 </div>
+
 
 <div class="main">
 
@@ -48,7 +53,11 @@
 
 </div>
 
+
 <div class="lixeira" id="lixeira">🗑</div>
+
+
+<!-- modal tarefa -->
 
 <div class="modal" id="modal">
 
@@ -56,47 +65,31 @@
 
 <button class="fechar">✕</button>
 
-<h2>nova tarefa</h2>
+<h2 id="tituloModal">nova tarefa</h2>
 
-<input type="text" id="titulo" placeholder="tarefa">
+<input type="text" id="titulo" placeholder="digite">
 
 <input type="date" id="data">
 
 <div class="cores">
-<button class="cor vermelha" data-cor="vermelha"></button>
-<button class="cor amarela" data-cor="amarela"></button>
-<button class="cor verde" data-cor="verde"></button>
+
+<button class="cor vermelha" data-cor="#ff3b30"></button>
+<button class="cor amarela" data-cor="#ffd60a"></button>
+<button class="cor verde" data-cor="#34c759"></button>
+
 </div>
 
 <div class="botoes-modal">
+
 <button id="cancelar">cancelar</button>
 <button id="criar">criar</button>
-</div>
 
 </div>
 
 </div>
 
-<div class="modal" id="modalNotas">
-
-<div class="notas-box">
-
-<button class="fechar-notas">✕</button>
-
-<div class="bloco-notas">
-<textarea id="paginaAtual"></textarea>
 </div>
 
-<div class="controle-notas">
-<button id="paginaAnterior">◀</button>
-<span id="numeroPagina">1</span>
-<button id="proximaPagina">▶</button>
-<button id="novaPagina">＋</button>
-</div>
-
-</div>
-
-</div>
 
 <script src="script.js"></script>
 
