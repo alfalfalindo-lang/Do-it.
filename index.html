@@ -1,186 +1,106 @@
-let tarefas=JSON.parse(localStorage.getItem("tarefas"))||[];
-let metas=JSON.parse(localStorage.getItem("metas"))||[];
-let postits=JSON.parse(localStorage.getItem("postits"))||[];
+<!DOCTYPE html>
+<html lang="pt-br">
 
-let modo="tarefas";
+<head>
 
-let corSelecionada="#ff3b30";
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-/* data */
+<title>do it</title>
 
-const hoje=new Date();
+<link href="https://fonts.cdnfonts.com/css/itc-american-typewriter" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
 
-mesTopo.innerText=hoje.toLocaleDateString("pt-BR",{month:"long"});
-diaTopo.innerText=hoje.getDate();
+</head>
 
-/* salvar */
+<body>
 
-function salvar(){
+<div class="sidebar">
 
-localStorage.setItem("tarefas",JSON.stringify(tarefas));
-localStorage.setItem("metas",JSON.stringify(metas));
-localStorage.setItem("postits",JSON.stringify(postits));
+<div class="topo-sidebar">
 
-}
+<div class="bolinhas">
+<div class="bola vermelha"></div>
+<div class="bola amarela"></div>
+<div class="bola verde"></div>
+</div>
 
-/* render */
+<h1 class="logo">do it</h1>
 
-function render(){
+</div>
 
-listaTarefas.innerHTML="";
+<button id="tarefasBtn">tarefas</button>
+<button id="metasBtn">metas</button>
 
-let lista=(modo==="metas")?metas:tarefas;
+<button id="notasBtn">notas</button>
+<button id="postitBtn">post-it</button>
 
-lista.forEach((t,i)=>{
+</div>
 
-let div=document.createElement("div");
 
-div.className="tarefa";
+<button class="criarTopo" id="novoBtn">nova tarefa</button>
 
-div.innerHTML=`
-<div class="bolinha" style="background:${t.cor}"></div>
-<div>${t.titulo}</div>
-`;
 
-div.onclick=()=>{
+<div class="main">
 
-lista.splice(i,1);
+<div class="calendar-style">
+<div class="month" id="mesTopo"></div>
+<div class="day" id="diaTopo"></div>
+</div>
 
-salvar();
+<div id="listaTarefas"></div>
 
-render();
+</div>
 
-};
 
-listaTarefas.appendChild(div);
+<div class="lixeira" id="lixeira">🗑</div>
 
-});
 
-}
+<!-- MODAL -->
 
-render();
+<div class="modal" id="modal">
 
-/* criar */
+<div class="modal-box">
 
-criar.onclick=()=>{
+<button class="fechar">✕</button>
 
-let obj={
+<h2>nova tarefa</h2>
 
-titulo:titulo.value,
-cor:corSelecionada
+<input type="text" id="titulo" placeholder="digite">
 
-};
+<input type="date" id="data">
 
-if(modo==="metas")metas.push(obj);
-else tarefas.push(obj);
+<div class="cores">
 
-salvar();
+<button class="cor vermelha" data-cor="#ff5f57"></button>
+<button class="cor amarela" data-cor="#ffd60a"></button>
+<button class="cor verde" data-cor="#30d158"></button>
 
-render();
+</div>
 
-modal.style.display="none";
+<button id="criar" class="criarMinimal">criar</button>
 
-};
+</div>
 
-/* modal */
+</div>
 
-novoBtn.onclick=()=>modal.style.display="flex";
 
-cancelar.onclick=()=>modal.style.display="none";
+<!-- NOTAS -->
 
-document.querySelector(".fechar").onclick=()=>modal.style.display="none";
+<div class="modal" id="modalNotas">
 
-/* cores */
+<div class="notas-box">
 
-document.querySelectorAll(".cor").forEach(btn=>{
+<button class="fechar-notas">✕</button>
 
-btn.onclick=()=>corSelecionada=btn.dataset.cor;
+<textarea id="paginaAtual"></textarea>
 
-});
+</div>
 
-/* modos */
+</div>
 
-tarefasBtn.onclick=()=>{modo="tarefas";render()}
-metasBtn.onclick=()=>{modo="metas";render()}
 
-/* notas */
+<script src="script.js"></script>
 
-notasBtn.onclick=()=>modalNotas.style.display="flex";
-
-document.querySelector(".fechar-notas").onclick=()=>modalNotas.style.display="none";
-
-/* post it */
-
-postitBtn.onclick=()=>{
-
-let obj={top:"200px",left:"300px",texto:""};
-
-postits.push(obj);
-
-criarPostit(obj);
-
-salvar();
-
-};
-
-function criarPostit(p){
-
-let div=document.createElement("div");
-
-div.className="postit";
-
-div.style.top=p.top;
-div.style.left=p.left;
-
-div.innerHTML=`<textarea>${p.texto}</textarea>`;
-
-document.body.appendChild(div);
-
-/* drag */
-
-div.onmousedown=e=>{
-
-let offsetX=e.clientX-div.offsetLeft;
-let offsetY=e.clientY-div.offsetTop;
-
-document.onmousemove=e=>{
-
-div.style.left=e.clientX-offsetX+"px";
-div.style.top=e.clientY-offsetY+"px";
-
-p.left=div.style.left;
-p.top=div.style.top;
-
-};
-
-document.onmouseup=()=>{
-
-document.onmousemove=null;
-
-let lixo=lixeira.getBoundingClientRect();
-let post=div.getBoundingClientRect();
-
-if(
-
-post.right>lixo.left &&
-post.left<lixo.right &&
-post.bottom>lixo.top &&
-post.top<lixo.bottom
-
-){
-
-div.remove();
-
-postits=postits.filter(x=>x!==p);
-
-salvar();
-
-}
-
-};
-
-};
-
-}
-
-postits.forEach(p=>criarPostit(p));
+</body>
+</html>
