@@ -1,111 +1,186 @@
-<!DOCTYPE html>
-<html lang="pt-br">
+let tarefas=JSON.parse(localStorage.getItem("tarefas"))||[];
+let metas=JSON.parse(localStorage.getItem("metas"))||[];
+let postits=JSON.parse(localStorage.getItem("postits"))||[];
 
-<head>
+let modo="tarefas";
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+let corSelecionada="#ff3b30";
 
-<title>do it</title>
+/* data */
 
-<link href="https://fonts.cdnfonts.com/css/itc-american-typewriter" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+const hoje=new Date();
 
-</head>
+mesTopo.innerText=hoje.toLocaleDateString("pt-BR",{month:"long"});
+diaTopo.innerText=hoje.getDate();
 
-<body>
+/* salvar */
 
-<div class="sidebar">
+function salvar(){
 
-<div class="topo-sidebar">
+localStorage.setItem("tarefas",JSON.stringify(tarefas));
+localStorage.setItem("metas",JSON.stringify(metas));
+localStorage.setItem("postits",JSON.stringify(postits));
 
-<div class="bolinhas">
-<div class="bola vermelha"></div>
-<div class="bola amarela"></div>
-<div class="bola verde"></div>
-</div>
+}
 
-<h1 class="logo">do it</h1>
+/* render */
 
-</div>
+function render(){
 
-<button id="tarefasBtn">tarefas</button>
-<button id="metasBtn">metas</button>
+listaTarefas.innerHTML="";
 
-<button id="notasBtn">notas</button>
-<button id="postitBtn">post-it</button>
+let lista=(modo==="metas")?metas:tarefas;
 
-</div>
+lista.forEach((t,i)=>{
 
+let div=document.createElement("div");
 
-<div class="main">
+div.className="tarefa";
 
-<div class="calendar-style">
-<div class="month" id="mesTopo"></div>
-<div class="day" id="diaTopo"></div>
-</div>
+div.innerHTML=`
+<div class="bolinha" style="background:${t.cor}"></div>
+<div>${t.titulo}</div>
+`;
 
-<div id="listaTarefas"></div>
+div.onclick=()=>{
 
-</div>
+lista.splice(i,1);
 
+salvar();
 
-<div class="lixeira" id="lixeira">🗑</div>
+render();
 
+};
 
-<button class="criarBtn" id="novoBtn">+</button>
+listaTarefas.appendChild(div);
 
+});
 
-<!-- modal -->
+}
 
-<div class="modal" id="modal">
+render();
 
-<div class="modal-box">
+/* criar */
 
-<button class="fechar">✕</button>
+criar.onclick=()=>{
 
-<h2 id="tituloModal">nova tarefa</h2>
+let obj={
 
-<input type="text" id="titulo" placeholder="digite">
+titulo:titulo.value,
+cor:corSelecionada
 
-<input type="date" id="data">
+};
 
-<div class="cores">
+if(modo==="metas")metas.push(obj);
+else tarefas.push(obj);
 
-<button class="cor vermelha" data-cor="#ff3b30"></button>
-<button class="cor amarela" data-cor="#ffd60a"></button>
-<button class="cor verde" data-cor="#34c759"></button>
+salvar();
 
-</div>
+render();
 
-<div class="botoes-modal">
+modal.style.display="none";
 
-<button id="cancelar">cancelar</button>
-<button id="criar">criar</button>
+};
 
-</div>
+/* modal */
 
-</div>
+novoBtn.onclick=()=>modal.style.display="flex";
 
-</div>
+cancelar.onclick=()=>modal.style.display="none";
 
+document.querySelector(".fechar").onclick=()=>modal.style.display="none";
 
-<!-- notas -->
+/* cores */
 
-<div class="modal" id="modalNotas">
+document.querySelectorAll(".cor").forEach(btn=>{
 
-<div class="notas-box">
+btn.onclick=()=>corSelecionada=btn.dataset.cor;
 
-<button class="fechar-notas">✕</button>
+});
 
-<textarea id="paginaAtual"></textarea>
+/* modos */
 
-</div>
+tarefasBtn.onclick=()=>{modo="tarefas";render()}
+metasBtn.onclick=()=>{modo="metas";render()}
 
-</div>
+/* notas */
 
+notasBtn.onclick=()=>modalNotas.style.display="flex";
 
-<script src="script.js"></script>
+document.querySelector(".fechar-notas").onclick=()=>modalNotas.style.display="none";
 
-</body>
-</html>
+/* post it */
+
+postitBtn.onclick=()=>{
+
+let obj={top:"200px",left:"300px",texto:""};
+
+postits.push(obj);
+
+criarPostit(obj);
+
+salvar();
+
+};
+
+function criarPostit(p){
+
+let div=document.createElement("div");
+
+div.className="postit";
+
+div.style.top=p.top;
+div.style.left=p.left;
+
+div.innerHTML=`<textarea>${p.texto}</textarea>`;
+
+document.body.appendChild(div);
+
+/* drag */
+
+div.onmousedown=e=>{
+
+let offsetX=e.clientX-div.offsetLeft;
+let offsetY=e.clientY-div.offsetTop;
+
+document.onmousemove=e=>{
+
+div.style.left=e.clientX-offsetX+"px";
+div.style.top=e.clientY-offsetY+"px";
+
+p.left=div.style.left;
+p.top=div.style.top;
+
+};
+
+document.onmouseup=()=>{
+
+document.onmousemove=null;
+
+let lixo=lixeira.getBoundingClientRect();
+let post=div.getBoundingClientRect();
+
+if(
+
+post.right>lixo.left &&
+post.left<lixo.right &&
+post.bottom>lixo.top &&
+post.top<lixo.bottom
+
+){
+
+div.remove();
+
+postits=postits.filter(x=>x!==p);
+
+salvar();
+
+}
+
+};
+
+};
+
+}
+
+postits.forEach(p=>criarPostit(p));
