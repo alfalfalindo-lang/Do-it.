@@ -3,30 +3,17 @@ let metas=JSON.parse(localStorage.getItem("metas"))||[];
 let postits=JSON.parse(localStorage.getItem("postits"))||[];
 
 let modo="tarefas";
-let tipoCriacao="tarefa";
 
 let corSelecionada="#ff3b30";
 
-/* DATA */
+/* data */
 
 const hoje=new Date();
 
 mesTopo.innerText=hoje.toLocaleDateString("pt-BR",{month:"long"});
 diaTopo.innerText=hoje.getDate();
 
-/* RESET METAS MENSAL */
-
-const mesAtual=hoje.getMonth();
-const mesSalvo=localStorage.getItem("mesMetas");
-
-if(mesSalvo!=mesAtual){
-
-metas=[];
-localStorage.setItem("mesMetas",mesAtual);
-
-}
-
-/* SALVAR */
+/* salvar */
 
 function salvar(){
 
@@ -36,35 +23,19 @@ localStorage.setItem("postits",JSON.stringify(postits));
 
 }
 
-/* RENDER */
+/* render */
 
 function render(){
 
 listaTarefas.innerHTML="";
 
-let lista=[];
+let lista=(modo==="metas")?metas:tarefas;
 
-if(modo==="tarefas")lista=tarefas;
-if(modo==="metas")lista=metas;
-
-if(modo==="incompletas"){
-
-lista=[
-
-...tarefas.filter(t=>!t.feita),
-...metas.filter(t=>!t.feita)
-
-];
-
-}
-
-lista.forEach(t=>{
+lista.forEach((t,i)=>{
 
 let div=document.createElement("div");
 
 div.className="tarefa";
-
-if(t.feita)div.classList.add("feita");
 
 div.innerHTML=`
 <div class="bolinha" style="background:${t.cor}"></div>
@@ -73,7 +44,7 @@ div.innerHTML=`
 
 div.onclick=()=>{
 
-t.feita=!t.feita;
+lista.splice(i,1);
 
 salvar();
 
@@ -89,19 +60,18 @@ listaTarefas.appendChild(div);
 
 render();
 
-/* CRIAR */
+/* criar */
 
 criar.onclick=()=>{
 
 let obj={
 
 titulo:titulo.value,
-cor:corSelecionada,
-feita:false
+cor:corSelecionada
 
 };
 
-if(tipoCriacao==="meta")metas.push(obj);
+if(modo==="metas")metas.push(obj);
 else tarefas.push(obj);
 
 salvar();
@@ -112,55 +82,38 @@ modal.style.display="none";
 
 };
 
-/* MODAL */
+/* modal */
 
-novoBtn.onclick=()=>{
-
-tipoCriacao="tarefa";
-
-tituloModal.innerText="nova tarefa";
-
-modal.style.display="flex";
-
-};
-
-novaMetaBtn.onclick=()=>{
-
-tipoCriacao="meta";
-
-tituloModal.innerText="nova meta";
-
-modal.style.display="flex";
-
-};
+novoBtn.onclick=()=>modal.style.display="flex";
 
 cancelar.onclick=()=>modal.style.display="none";
 
 document.querySelector(".fechar").onclick=()=>modal.style.display="none";
 
-/* CORES */
+/* cores */
 
 document.querySelectorAll(".cor").forEach(btn=>{
 
-btn.onclick=()=>{
-
-corSelecionada=btn.dataset.cor;
-
-};
+btn.onclick=()=>corSelecionada=btn.dataset.cor;
 
 });
 
-/* MODOS */
+/* modos */
 
-tarefasBtn.onclick=()=>{modo="tarefas";render();}
-metasBtn.onclick=()=>{modo="metas";render();}
-incompletasBtn.onclick=()=>{modo="incompletas";render();}
+tarefasBtn.onclick=()=>{modo="tarefas";render()}
+metasBtn.onclick=()=>{modo="metas";render()}
 
-/* POST IT */
+/* notas */
+
+notasBtn.onclick=()=>modalNotas.style.display="flex";
+
+document.querySelector(".fechar-notas").onclick=()=>modalNotas.style.display="none";
+
+/* post it */
 
 postitBtn.onclick=()=>{
 
-let obj={top:"150px",left:"350px",texto:""};
+let obj={top:"200px",left:"300px",texto:""};
 
 postits.push(obj);
 
@@ -183,7 +136,7 @@ div.innerHTML=`<textarea>${p.texto}</textarea>`;
 
 document.body.appendChild(div);
 
-/* DRAG */
+/* drag */
 
 div.onmousedown=e=>{
 
@@ -203,8 +156,6 @@ p.top=div.style.top;
 document.onmouseup=()=>{
 
 document.onmousemove=null;
-
-/* APAGAR NA LIXEIRA */
 
 let lixo=lixeira.getBoundingClientRect();
 let post=div.getBoundingClientRect();
