@@ -3,17 +3,16 @@ let metas=JSON.parse(localStorage.getItem("metas"))||[];
 let postits=JSON.parse(localStorage.getItem("postits"))||[];
 
 let modo="tarefas";
+let corSelecionada="#ff5f57";
 
-let corSelecionada="#ff3b30";
-
-/* data */
+/* DATA */
 
 const hoje=new Date();
 
 mesTopo.innerText=hoje.toLocaleDateString("pt-BR",{month:"long"});
 diaTopo.innerText=hoje.getDate();
 
-/* salvar */
+/* SALVAR */
 
 function salvar(){
 
@@ -23,7 +22,7 @@ localStorage.setItem("postits",JSON.stringify(postits));
 
 }
 
-/* render */
+/* RENDER */
 
 function render(){
 
@@ -60,7 +59,13 @@ listaTarefas.appendChild(div);
 
 render();
 
-/* criar */
+/* MODAL */
+
+novoBtn.onclick=()=>modal.style.display="flex";
+
+document.querySelector(".fechar").onclick=()=>modal.style.display="none";
+
+/* CRIAR */
 
 criar.onclick=()=>{
 
@@ -82,15 +87,7 @@ modal.style.display="none";
 
 };
 
-/* modal */
-
-novoBtn.onclick=()=>modal.style.display="flex";
-
-cancelar.onclick=()=>modal.style.display="none";
-
-document.querySelector(".fechar").onclick=()=>modal.style.display="none";
-
-/* cores */
+/* CORES */
 
 document.querySelectorAll(".cor").forEach(btn=>{
 
@@ -98,18 +95,18 @@ btn.onclick=()=>corSelecionada=btn.dataset.cor;
 
 });
 
-/* modos */
+/* MODOS */
 
 tarefasBtn.onclick=()=>{modo="tarefas";render()}
 metasBtn.onclick=()=>{modo="metas";render()}
 
-/* notas */
+/* NOTAS */
 
 notasBtn.onclick=()=>modalNotas.style.display="flex";
 
 document.querySelector(".fechar-notas").onclick=()=>modalNotas.style.display="none";
 
-/* post it */
+/* POST IT */
 
 postitBtn.onclick=()=>{
 
@@ -135,8 +132,6 @@ div.style.left=p.left;
 div.innerHTML=`<textarea>${p.texto}</textarea>`;
 
 document.body.appendChild(div);
-
-/* drag */
 
 div.onmousedown=e=>{
 
