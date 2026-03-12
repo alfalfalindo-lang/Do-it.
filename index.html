@@ -1,97 +1,316 @@
-<!DOCTYPE html>
-<html lang="pt-br">
+*{
+box-sizing:border-box;
+margin:0;
+padding:0;
+}
 
-<head>
+body{
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+font-family:'ITC American Typewriter',serif;
 
-<title>do it</title>
+display:flex;
 
-<link href="https://fonts.cdnfonts.com/css/itc-american-typewriter" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+height:100vh;
 
-</head>
+background:#2b2b2b;
 
-<body>
+/* GRID */
 
-<div class="sidebar">
+background-image:
+linear-gradient(rgba(255,255,255,0.06) 1px, transparent 1px),
+linear-gradient(90deg, rgba(255,255,255,0.06) 1px, transparent 1px);
 
-<div class="topo-sidebar">
+background-size:40px 40px;
 
-<div class="bolinhas">
-<div class="bola vermelha"></div>
-<div class="bola amarela"></div>
-<div class="bola verde"></div>
-</div>
+color:#eee;
 
-<h1 class="logo">do it</h1>
-
-</div>
-
-<button id="novoBtn">nova tarefa</button>
-<button id="novaMetaBtn">nova meta</button>
-
-<button id="tarefasBtn">tarefas</button>
-<button id="metasBtn">metas</button>
-<button id="incompletasBtn">incompletas</button>
-
-<button id="notasBtn">notas</button>
-<button id="postitBtn">post-it</button>
-
-</div>
+}
 
 
-<div class="main">
+/* SIDEBAR */
 
-<div class="calendar-style">
-<div class="month" id="mesTopo"></div>
-<div class="day" id="diaTopo"></div>
-</div>
+.sidebar{
 
-<div id="listaTarefas"></div>
+width:230px;
 
-</div>
+background:#3a3a3a;
+
+padding:25px;
+
+display:flex;
+flex-direction:column;
+gap:12px;
+
+border-right:1px solid rgba(255,255,255,0.08);
+
+}
+
+.sidebar button{
+
+background:none;
+
+border:none;
+
+color:#fff;
+
+text-align:left;
+
+padding:8px;
+
+font-family:'ITC American Typewriter';
+
+cursor:pointer;
+
+border-radius:6px;
+
+}
+
+.sidebar button:hover{
+
+background:rgba(255,255,255,0.1);
+
+}
+
+.logo{
+
+font-size:26px;
+
+margin-top:6px;
+
+}
+
+/* bolinhas */
+
+.bolinhas{
+
+display:flex;
+gap:6px;
+
+}
+
+.bola{
+
+width:12px;
+height:12px;
+
+border-radius:50%;
+
+}
+
+.vermelha{background:#ff5f57;}
+.amarela{background:#ffbd2e;}
+.verde{background:#28c840;}
 
 
-<div class="lixeira" id="lixeira">🗑</div>
+/* MAIN */
+
+.main{
+
+flex:1;
+
+padding:60px;
+
+overflow:auto;
+
+}
 
 
-<!-- modal tarefa -->
+/* DATA */
 
-<div class="modal" id="modal">
+.calendar-style{
 
-<div class="modal-box">
+position:fixed;
 
-<button class="fechar">✕</button>
+top:30px;
+right:40px;
 
-<h2 id="tituloModal">nova tarefa</h2>
+text-align:right;
 
-<input type="text" id="titulo" placeholder="digite">
+}
 
-<input type="date" id="data">
+.month{
 
-<div class="cores">
+font-size:14px;
+opacity:0.7;
 
-<button class="cor vermelha" data-cor="#ff3b30"></button>
-<button class="cor amarela" data-cor="#ffd60a"></button>
-<button class="cor verde" data-cor="#34c759"></button>
+}
 
-</div>
+.day{
 
-<div class="botoes-modal">
+font-size:46px;
 
-<button id="cancelar">cancelar</button>
-<button id="criar">criar</button>
-
-</div>
-
-</div>
-
-</div>
+}
 
 
-<script src="script.js"></script>
+/* TAREFAS */
 
-</body>
-</html>
+#listaTarefas{
+
+margin-top:60px;
+
+display:flex;
+flex-direction:column;
+
+gap:10px;
+
+}
+
+.tarefa{
+
+display:flex;
+
+align-items:center;
+
+gap:12px;
+
+background:#3b3b3b;
+
+padding:10px;
+
+border-radius:8px;
+
+cursor:pointer;
+
+}
+
+.tarefa:hover{
+
+background:#4a4a4a;
+
+}
+
+.feita{
+
+opacity:0.4;
+
+text-decoration:line-through;
+
+}
+
+.bolinha{
+
+width:12px;
+height:12px;
+
+border-radius:50%;
+
+}
+
+
+/* MODAL */
+
+.modal{
+
+position:fixed;
+
+inset:0;
+
+background:rgba(0,0,0,0.5);
+
+display:none;
+
+align-items:center;
+justify-content:center;
+
+}
+
+.modal-box{
+
+background:#3a3a3a;
+
+padding:30px;
+
+border-radius:12px;
+
+width:330px;
+
+display:flex;
+flex-direction:column;
+
+gap:14px;
+
+position:relative;
+
+}
+
+
+/* BOTAO X */
+
+.fechar{
+
+position:absolute;
+
+top:10px;
+right:10px;
+
+background:#2b2b2b;
+
+color:white;
+
+border:none;
+
+width:26px;
+height:26px;
+
+border-radius:6px;
+
+cursor:pointer;
+
+}
+
+
+/* INPUT */
+
+.modal-box input{
+
+background:#2f2f2f;
+
+border:none;
+
+padding:10px;
+
+border-radius:8px;
+
+color:white;
+
+}
+
+
+/* CORES */
+
+.cores{
+
+display:flex;
+
+gap:10px;
+
+}
+
+.cor{
+
+width:22px;
+height:22px;
+
+border-radius:50%;
+
+border:none;
+
+cursor:pointer;
+
+}
+
+
+/* LIXEIRA */
+
+.lixeira{
+
+position:fixed;
+
+bottom:20px;
+right:20px;
+
+font-size:26px;
+
+cursor:pointer;
+
+}
