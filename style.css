@@ -1,21 +1,15 @@
-/* ================= RESET ================= */
-
 *{
 box-sizing:border-box;
 margin:0;
 padding:0;
 }
 
-/* ================= BODY ================= */
-
 body{
 
-font-family:'ITC American Typewriter', serif;
+font-family:'ITC American Typewriter',serif;
 color:white;
 height:100vh;
 display:flex;
-
-/* GRID MAIS VISÍVEL */
 
 background-color:#000;
 
@@ -27,28 +21,22 @@ background-size:40px 40px;
 
 }
 
-/* efeito fosco */
-
 body::before{
-
 content:"";
 position:fixed;
 inset:0;
-
 background:rgba(0,0,0,0.55);
-
 pointer-events:none;
-
 }
 
-/* ================= SIDEBAR ================= */
+/* sidebar */
 
 .sidebar{
 
 width:230px;
 height:100vh;
 
-background:rgba(20,20,20,0.9);
+background:#141414;
 
 padding:25px;
 
@@ -60,15 +48,36 @@ border-right:1px solid rgba(255,255,255,0.08);
 
 }
 
-/* topo */
+.sidebar button{
+
+font-family:'ITC American Typewriter',serif;
+
+background:transparent;
+border:none;
+
+color:#f2f2f2;
+
+text-align:left;
+
+padding:8px;
+
+border-radius:6px;
+
+cursor:pointer;
+
+font-size:15px;
+
+}
+
+.sidebar button:hover{
+background:rgba(255,255,255,0.08);
+}
 
 .topo-sidebar{
 display:flex;
 flex-direction:column;
-gap:12px;
+gap:10px;
 }
-
-/* bolinhas mac */
 
 .bolinhas{
 display:flex;
@@ -87,49 +96,16 @@ border-radius:50%;
 
 .logo{
 font-size:26px;
-margin-top:4px;
 }
 
-/* ================= BOTÕES ================= */
-
-.sidebar button{
-
-font-family:'ITC American Typewriter', serif;
-
-background:transparent;
-border:none;
-
-color:white;
-
-text-align:left;
-
-padding:8px;
-border-radius:6px;
-
-cursor:pointer;
-font-size:15px;
-
-transition:0.2s;
-
-}
-
-.sidebar button:hover{
-
-background:rgba(255,255,255,0.08);
-
-}
-
-/* ================= MAIN ================= */
+/* main */
 
 .main{
-
 flex:1;
 padding:60px;
-overflow:auto;
-
 }
 
-/* ================= DATA MINIMALISTA ================= */
+/* data */
 
 .calendar-style{
 
@@ -139,35 +115,24 @@ right:35px;
 
 text-align:right;
 
-color:white;
-
 }
 
 .month{
-
 font-size:14px;
 opacity:0.6;
-text-transform:uppercase;
-letter-spacing:1px;
-
 }
 
 .day{
-
 font-size:48px;
-font-weight:500;
-
 }
 
-/* ================= TAREFAS ================= */
+/* tarefas */
 
 #listaTarefas{
-
+margin-top:60px;
 display:flex;
 flex-direction:column;
 gap:10px;
-margin-top:40px;
-
 }
 
 .tarefa{
@@ -178,39 +143,30 @@ gap:12px;
 
 background:rgba(255,255,255,0.05);
 
-padding:10px 12px;
+padding:10px;
+
 border-radius:10px;
 
 cursor:pointer;
 
-transition:0.2s;
-
 }
 
 .tarefa:hover{
-
 background:rgba(255,255,255,0.1);
-
 }
 
 .feita{
-
-opacity:0.5;
+opacity:0.4;
 text-decoration:line-through;
-
 }
 
-/* bolinha tarefa */
-
 .bolinha-tarefa{
-
 width:12px;
 height:12px;
 border-radius:50%;
-
 }
 
-/* ================= MODAL ================= */
+/* modal */
 
 .modal{
 
@@ -220,12 +176,11 @@ inset:0;
 background:rgba(0,0,0,0.7);
 
 display:none;
+
 align-items:center;
 justify-content:center;
 
 }
-
-/* caixa criar tarefa */
 
 .modal-box{
 
@@ -241,77 +196,32 @@ display:flex;
 flex-direction:column;
 gap:14px;
 
-color:white;
-
 }
-
-/* inputs */
 
 .modal-box input{
 
 background:#2a2a2a;
-
 border:none;
-
 padding:10px;
-
 border-radius:8px;
+color:white;
+
+}
+
+.fechar{
+
+position:absolute;
+
+margin-left:280px;
+
+background:#000;
 
 color:white;
 
-font-family:'ITC American Typewriter', serif;
-
-}
-
-/* placeholder branco */
-
-.modal-box input::placeholder{
-color:#bbb;
-}
-
-/* cores */
-
-.cores{
-
-display:flex;
-gap:10px;
-
-}
-
-.cor{
-
-width:20px;
-height:20px;
-
-border-radius:50%;
 border:none;
 
-cursor:pointer;
-
-}
-
-.cor.vermelha{background:#ff3b30;}
-.cor.amarela{background:#ffcc00;}
-.cor.verde{background:#34c759;}
-
-/* botões modal */
-
-.botoes-modal{
-
-display:flex;
-justify-content:space-between;
-
-}
-
-.botoes-modal button{
-
-padding:6px 12px;
-
-background:#2a2a2a;
-
-border:none;
-
-color:white;
+width:30px;
+height:30px;
 
 border-radius:6px;
 
@@ -319,28 +229,26 @@ cursor:pointer;
 
 }
 
-/* ================= NOTAS ================= */
+/* notas */
 
 .notas-box{
 
-background:#1c1c1c;
+background:#1e1e1e;
 
 width:600px;
 height:500px;
 
 border-radius:14px;
 
+padding:20px;
+
 display:flex;
 flex-direction:column;
-
-padding:20px;
 
 }
 
 .bloco-notas{
-
 flex:1;
-
 }
 
 .bloco-notas textarea{
@@ -349,41 +257,26 @@ width:100%;
 height:100%;
 
 background:transparent;
-
 border:none;
-
 color:white;
-
-font-family:'ITC American Typewriter', serif;
 
 resize:none;
-
 outline:none;
 
-font-size:16px;
+font-family:'ITC American Typewriter',serif;
 
 }
 
-/* controle paginas */
+.fechar-notas{
 
-.controle-notas{
-
-display:flex;
-justify-content:center;
-gap:10px;
-margin-top:10px;
-
-}
-
-.controle-notas button{
-
-background:#2a2a2a;
-
-border:none;
+background:#000;
 
 color:white;
 
-padding:5px 10px;
+border:none;
+
+width:30px;
+height:30px;
 
 border-radius:6px;
 
@@ -391,7 +284,7 @@ cursor:pointer;
 
 }
 
-/* ================= POST IT ================= */
+/* postit */
 
 .postit{
 
@@ -416,27 +309,16 @@ width:100%;
 height:100%;
 
 border:none;
+
 background:transparent;
 
 resize:none;
+
 outline:none;
 
-font-family:'ITC American Typewriter', serif;
-
 }
 
-.fechar-post{
-
-position:absolute;
-top:5px;
-right:8px;
-
-cursor:pointer;
-font-weight:bold;
-
-}
-
-/* ================= LIXEIRA ================= */
+/* lixeira */
 
 .lixeira{
 
@@ -445,18 +327,8 @@ position:fixed;
 bottom:20px;
 right:20px;
 
-font-size:24px;
+font-size:28px;
 
 cursor:pointer;
-
-opacity:0.7;
-
-transition:0.2s;
-
-}
-
-.lixeira:hover{
-
-opacity:1;
 
 }
