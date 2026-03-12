@@ -1,229 +1,202 @@
-/* ================= ESTADO ================= */
+let tarefas=JSON.parse(localStorage.getItem("tarefas"))||[];
+let metas=JSON.parse(localStorage.getItem("metas"))||[];
+let postits=JSON.parse(localStorage.getItem("postits"))||[];
+let paginas=JSON.parse(localStorage.getItem("paginas"))||[""];
 
-let tarefas = JSON.parse(localStorage.getItem("tarefas")) || [];
-let metas = JSON.parse(localStorage.getItem("metas")) || [];
-let paginas = JSON.parse(localStorage.getItem("paginas")) || [""];
-let postits = JSON.parse(localStorage.getItem("postits")) || [];
+let modo="tarefas";
+let corSelecionada="vermelha";
 
-let modo = "tarefas";
-let corSelecionada = "vermelha";
-let paginaAtualIndex = 0;
+/* data */
 
-/* ======== LIMPAR DADOS CORROMPIDOS ======== */
+const hoje=new Date();
 
-function limparDadosInvalidos() {
-  tarefas = tarefas.filter(t => t && t.titulo);
-  metas = metas.filter(m => m && m.titulo);
-  postits = postits.filter(p => p && p.top && p.left);
-  salvarTudo();
+mesTopo.innerText=hoje.toLocaleDateString("pt-BR",{month:"long"});
+diaTopo.innerText=hoje.getDate();
+
+/* reset metas mês */
+
+const mesSalvo=localStorage.getItem("mesMetas");
+
+if(mesSalvo!=hoje.getMonth()){
+
+metas=[];
+localStorage.setItem("mesMetas",hoje.getMonth());
+
 }
 
-limparDadosInvalidos();
+/* salvar */
 
-/* ================= SALVAR ================= */
+function salvar(){
 
-function salvarTudo() {
-  localStorage.setItem("tarefas", JSON.stringify(tarefas));
-  localStorage.setItem("metas", JSON.stringify(metas));
-  localStorage.setItem("paginas", JSON.stringify(paginas));
-  localStorage.setItem("postits", JSON.stringify(postits));
+localStorage.setItem("tarefas",JSON.stringify(tarefas));
+localStorage.setItem("metas",JSON.stringify(metas));
+localStorage.setItem("postits",JSON.stringify(postits));
+localStorage.setItem("paginas",JSON.stringify(paginas));
+
 }
 
-/* ================= DATA ================= */
+/* render */
 
-const hoje = new Date();
-mesTopo.innerText = hoje.toLocaleDateString("pt-BR", { month: "long" });
-diaTopo.innerText = hoje.getDate();
+function render(){
 
-/* ================= MODO ================= */
+listaTarefas.innerHTML="";
 
-tarefasBtn.onclick = () => { modo = "tarefas"; renderizar(); };
-metasBtn.onclick = () => { modo = "metas"; renderizar(); };
-incompletasBtn.onclick = () => { modo = "incompletas"; renderizar(); };
+let lista=[];
 
-/* ================= MODAL ================= */
+if(modo==="tarefas")lista=tarefas;
+if(modo==="metas")lista=metas;
 
-novoBtn.onclick = () => modal.style.display = "flex";
-cancelar.onclick = () => modal.style.display = "none";
-document.querySelector(".fechar").onclick = () => modal.style.display = "none";
+if(modo==="incompletas"){
+lista=[
+...tarefas.filter(t=>!t.feita),
+...metas.filter(t=>!t.feita)
+];
+}
 
-/* ================= CORES ================= */
+lista.forEach(t=>{
 
-document.querySelectorAll(".cor").forEach(btn => {
-  btn.onclick = () => corSelecionada = btn.dataset.cor;
+let div=document.createElement("div");
+
+div.className="tarefa";
+
+if(t.feita)div.classList.add("feita");
+
+div.innerHTML=`
+<div class="bolinha-tarefa" style="background:${t.cor}"></div>
+<div>${t.titulo}</div>
+`;
+
+div.onclick=()=>{
+
+t.feita=!t.feita;
+
+salvar();
+
+render();
+
+};
+
+listaTarefas.appendChild(div);
+
 });
 
-/* ================= CRIAR ================= */
-
-criar.onclick = () => {
-
-  if (!titulo.value) return;
-
-  const nova = {
-    titulo: titulo.value,
-    data: data.value,
-    cor: corSelecionada,
-    feita: false
-  };
-
-  if (modo === "metas") metas.push(nova);
-  else tarefas.push(nova);
-
-  salvarTudo();
-  titulo.value = "";
-  modal.style.display = "none";
-  renderizar();
-};
-
-/* ================= RENDER ================= */
-
-function renderizar() {
-
-  listaTarefas.innerHTML = "";
-
-  let listaAtual = [];
-
-  if (modo === "tarefas") listaAtual = tarefas;
-  if (modo === "metas") listaAtual = metas;
-  if (modo === "incompletas") {
-    listaAtual = [
-      ...tarefas.filter(t => !t.feita),
-      ...metas.filter(m => !m.feita)
-    ];
-  }
-
-  listaAtual.forEach(item => {
-
-    if (!item || !item.titulo) return; // proteção extra
-
-    const div = document.createElement("div");
-    div.className = "tarefa";
-    if (item.feita) div.classList.add("feita");
-
-    const bolinha = document.createElement("div");
-    bolinha.className = "bolinha-tarefa";
-    bolinha.style.background =
-      item.cor === "vermelha" ? "#ff3b30" :
-      item.cor === "amarela" ? "#ffcc00" : "#34c759";
-
-    const texto = document.createElement("div");
-    texto.innerHTML = `<strong>${item.titulo}</strong><br><small>${item.data || ""}</small>`;
-
-    div.appendChild(bolinha);
-    div.appendChild(texto);
-
-    div.onclick = () => {
-      item.feita = !item.feita;
-      salvarTudo();
-      renderizar();
-    };
-
-    listaTarefas.appendChild(div);
-  });
 }
 
-renderizar();
+render();
 
-/* ================= NOTAS ================= */
+/* criar tarefa */
 
-notasBtn.onclick = () => {
-  modalNotas.style.display = "flex";
-  paginaAtual.value = paginas[paginaAtualIndex];
-  numeroPagina.innerText = paginaAtualIndex + 1;
+criar.onclick=()=>{
+
+let obj={
+titulo:titulo.value,
+data:data.value,
+cor:corSelecionada,
+feita:false
 };
 
-document.querySelector(".fechar-notas").onclick = () => {
-  paginas[paginaAtualIndex] = paginaAtual.value;
-  salvarTudo();
-  modalNotas.style.display = "none";
+if(modo==="metas")metas.push(obj);
+else tarefas.push(obj);
+
+salvar();
+render();
+
+modal.style.display="none";
+
 };
 
-paginaAnterior.onclick = () => {
-  if (paginaAtualIndex > 0) {
-    paginas[paginaAtualIndex] = paginaAtual.value;
-    paginaAtualIndex--;
-    paginaAtual.value = paginas[paginaAtualIndex];
-    numeroPagina.innerText = paginaAtualIndex + 1;
-  }
+/* cores */
+
+document.querySelectorAll(".cor").forEach(btn=>{
+
+btn.onclick=()=>corSelecionada=btn.dataset.cor;
+
+});
+
+/* modal */
+
+novoBtn.onclick=()=>modal.style.display="flex";
+cancelar.onclick=()=>modal.style.display="none";
+document.querySelector(".fechar").onclick=()=>modal.style.display="none";
+
+/* mudar modo */
+
+tarefasBtn.onclick=()=>{modo="tarefas";render();}
+metasBtn.onclick=()=>{modo="metas";render();}
+incompletasBtn.onclick=()=>{modo="incompletas";render();}
+
+/* postit */
+
+postitBtn.onclick=()=>{
+
+let obj={top:"150px",left:"300px",texto:""};
+
+postits.push(obj);
+
+criarPostit(obj);
+
+salvar();
+
 };
 
-proximaPagina.onclick = () => {
-  if (paginaAtualIndex < paginas.length - 1) {
-    paginas[paginaAtualIndex] = paginaAtual.value;
-    paginaAtualIndex++;
-    paginaAtual.value = paginas[paginaAtualIndex];
-    numeroPagina.innerText = paginaAtualIndex + 1;
-  }
+function criarPostit(p){
+
+let div=document.createElement("div");
+
+div.className="postit";
+
+div.style.top=p.top;
+div.style.left=p.left;
+
+div.innerHTML=`<textarea>${p.texto}</textarea>`;
+
+document.body.appendChild(div);
+
+/* drag */
+
+div.onmousedown=e=>{
+
+let offsetX=e.clientX-div.offsetLeft;
+let offsetY=e.clientY-div.offsetTop;
+
+document.onmousemove=e=>{
+
+div.style.left=e.clientX-offsetX+"px";
+div.style.top=e.clientY-offsetY+"px";
+
+p.left=div.style.left;
+p.top=div.style.top;
+
 };
 
-novaPagina.onclick = () => {
-  paginas[paginaAtualIndex] = paginaAtual.value;
-  paginas.push("");
-  paginaAtualIndex = paginas.length - 1;
-  paginaAtual.value = "";
-  numeroPagina.innerText = paginaAtualIndex + 1;
-  salvarTudo();
-};
+document.onmouseup=()=>{
 
-/* ================= POST-IT ================= */
+document.onmousemove=null;
 
-function criarPostit(obj) {
+/* lixeira */
 
-  const post = document.createElement("div");
-  post.className = "postit";
-  post.style.top = obj.top;
-  post.style.left = obj.left;
+let lixo=lixeira.getBoundingClientRect();
+let post=div.getBoundingClientRect();
 
-  post.innerHTML = `
-    <span class="fechar-post">×</span>
-    <textarea>${obj.texto}</textarea>
-  `;
+if(
+post.right>lixo.left &&
+post.left<lixo.right &&
+post.bottom>lixo.top &&
+post.top<lixo.bottom
+){
 
-  document.body.appendChild(post);
+div.remove();
 
-  const textarea = post.querySelector("textarea");
+postits=postits.filter(x=>x!==p);
 
-  textarea.oninput = () => {
-    obj.texto = textarea.value;
-    salvarTudo();
-  };
+salvar();
 
-  post.querySelector(".fechar-post").onclick = () => {
-    post.remove();
-    postits = postits.filter(p => p !== obj);
-    salvarTudo();
-  };
-
-  let offsetX, offsetY;
-
-  post.onmousedown = function(e) {
-    offsetX = e.clientX - post.offsetLeft;
-    offsetY = e.clientY - post.offsetTop;
-
-    document.onmousemove = function(e) {
-      post.style.left = (e.clientX - offsetX) + "px";
-      post.style.top = (e.clientY - offsetY) + "px";
-      obj.left = post.style.left;
-      obj.top = post.style.top;
-      salvarTudo();
-    };
-
-    document.onmouseup = function() {
-      document.onmousemove = null;
-    };
-  };
 }
 
-postitBtn.onclick = () => {
-  const novo = {
-    top: "150px",
-    left: "350px",
-    texto: ""
-  };
-
-  postits.push(novo);
-  salvarTudo();
-  criarPostit(novo);
 };
 
-postits.forEach(p => criarPostit(p));
+};
+
+}
+
+postits.forEach(p=>criarPostit(p));
