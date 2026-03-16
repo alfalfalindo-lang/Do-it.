@@ -1,106 +1,127 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>do it</title>
-
 <link href="https://fonts.cdnfonts.com/css/itc-american-typewriter" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
-
 </head>
-
 <body>
 
 <div class="sidebar">
+  <div class="topo-sidebar">
+    <div class="bolinhas">
+      <div class="bola vermelha"></div>
+      <div class="bola amarela"></div>
+      <div class="bola verde"></div>
+    </div>
+    <h1 class="logo">do it</h1>
+  </div>
 
-<div class="topo-sidebar">
+  <div class="sidebar-section">
+    <button id="tarefasBtn" class="sidebar-btn active"><span>tarefas</span><span class="badge" id="badgeTarefas"></span></button>
+    <button id="metasBtn" class="sidebar-btn"><span>metas</span><span class="badge" id="badgeMetas"></span></button>
+    <button id="arquivoBtn" class="sidebar-btn"><span>arquivo</span><span class="badge" id="badgeArquivo"></span></button>
+  </div>
 
-<div class="bolinhas">
-<div class="bola vermelha"></div>
-<div class="bola amarela"></div>
-<div class="bola verde"></div>
+  <div class="sidebar-divider"></div>
+
+  <div class="sidebar-section">
+    <button id="notasBtn" class="sidebar-btn">notas</button>
+    <button id="postitBtn" class="sidebar-btn">post-it</button>
+  </div>
+
+  <div class="sidebar-divider"></div>
+
+  <div class="sidebar-section">
+    <p class="sidebar-label">filtrar por categoria</p>
+    <button class="filtro-btn active" data-cat="todas">todas</button>
+    <button class="filtro-btn" data-cat="trabalho">💼 trabalho</button>
+    <button class="filtro-btn" data-cat="estudo">📚 estudo</button>
+    <button class="filtro-btn" data-cat="pessoal">🏠 pessoal</button>
+  </div>
+
+  <div class="sidebar-divider"></div>
+
+  <div class="sidebar-section">
+    <p class="sidebar-label">filtrar por cor</p>
+    <div class="filtro-cores">
+      <button class="filtro-cor-btn active" data-filtrocor="todas" title="todas"><div class="cor-all">◉</div></button>
+      <button class="filtro-cor-btn" data-filtrocor="#ff5f57" title="vermelho"><div class="bola-filtro" style="background:#ff5f57"></div></button>
+      <button class="filtro-cor-btn" data-filtrocor="#ffd60a" title="amarelo"><div class="bola-filtro" style="background:#ffd60a"></div></button>
+      <button class="filtro-cor-btn" data-filtrocor="#30d158" title="verde"><div class="bola-filtro" style="background:#30d158"></div></button>
+    </div>
+  </div>
 </div>
-
-<h1 class="logo">do it</h1>
-
-</div>
-
-<button id="tarefasBtn">tarefas</button>
-<button id="metasBtn">metas</button>
-
-<button id="notasBtn">notas</button>
-<button id="postitBtn">post-it</button>
-
-</div>
-
 
 <button class="criarTopo" id="novoBtn">+</button>
 
-
 <div class="main">
-
-<div class="calendar-style">
-<div class="month" id="mesTopo"></div>
-<div class="day" id="diaTopo"></div>
+  <div class="calendar-style">
+    <div class="month" id="mesTopo"></div>
+    <div class="day" id="diaTopo"></div>
+  </div>
+  <div class="busca-wrap">
+    <input type="text" id="campoBusca" placeholder="buscar..." autocomplete="off">
+  </div>
+  <div id="listaTarefas"></div>
 </div>
-
-<div id="listaTarefas"></div>
-
-</div>
-
 
 <div class="lixeira" id="lixeira">🗑</div>
 
-
-<!-- MODAL -->
-
+<!-- MODAL TAREFA -->
 <div class="modal" id="modal">
-
-<div class="modal-box">
-
-<button class="fechar">✕</button>
-
-<h2>nova tarefa</h2>
-
-<input type="text" id="titulo" placeholder="digite">
-
-<input type="date" id="data">
-
-<div class="cores">
-
-<button class="cor vermelha" data-cor="#ff5f57"></button>
-<button class="cor amarela" data-cor="#ffd60a"></button>
-<button class="cor verde" data-cor="#30d158"></button>
-
+  <div class="modal-box">
+    <button class="fechar" id="fecharModal">✕</button>
+    <h2>nova tarefa</h2>
+    <input type="text" id="titulo" placeholder="título">
+    <input type="date" id="data">
+    <div class="modal-row">
+      <label class="modal-label">cor</label>
+      <div class="cores">
+        <button class="cor vermelha selected" data-cor="#ff5f57"></button>
+        <button class="cor amarela" data-cor="#ffd60a"></button>
+        <button class="cor verde" data-cor="#30d158"></button>
+      </div>
+    </div>
+    <div class="modal-row">
+      <label class="modal-label">categoria</label>
+      <div class="cats">
+        <button class="cat-btn selected" data-cat="trabalho">💼 trabalho</button>
+        <button class="cat-btn" data-cat="estudo">📚 estudo</button>
+        <button class="cat-btn" data-cat="pessoal">🏠 pessoal</button>
+      </div>
+    </div>
+    <div class="modal-row">
+      <label class="modal-label recorrente-label">
+        <input type="checkbox" id="recorrenteCheck"> recorrente
+      </label>
+      <div id="recorrenteOpcoes" class="recorrente-opcoes hidden">
+        <select id="frequencia">
+          <option value="diaria">diária</option>
+          <option value="semanal">semanal</option>
+        </select>
+      </div>
+    </div>
+    <button id="criar" class="criarMinimal">criar</button>
+  </div>
 </div>
 
-<button id="criar" class="criarMinimal">criar</button>
-
-</div>
-
-</div>
-
-
-<!-- NOTAS -->
-
+<!-- MODAL NOTAS -->
 <div class="modal" id="modalNotas">
-
-<div class="notas-box">
-
-<button class="fechar-notas">✕</button>
-
-<textarea id="paginaAtual"></textarea>
-
+  <div class="notas-box">
+    <button class="fechar-notas">✕</button>
+    <div class="notas-nav">
+      <button id="paginaAnterior">‹</button>
+      <span id="paginaInfo"></span>
+      <button id="proximaPagina">›</button>
+      <button id="novaPagina">+</button>
+    </div>
+    <textarea id="paginaAtual"></textarea>
+  </div>
 </div>
-
-</div>
-
 
 <script src="script.js"></script>
-
 </body>
 </html>
