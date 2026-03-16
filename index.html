@@ -18,22 +18,17 @@
     </div>
     <h1 class="logo">do it</h1>
   </div>
-
   <div class="sidebar-section">
     <button id="tarefasBtn" class="sidebar-btn active"><span>tarefas</span><span class="badge" id="badgeTarefas"></span></button>
     <button id="metasBtn" class="sidebar-btn"><span>metas</span><span class="badge" id="badgeMetas"></span></button>
     <button id="arquivoBtn" class="sidebar-btn"><span>arquivo</span><span class="badge" id="badgeArquivo"></span></button>
   </div>
-
   <div class="sidebar-divider"></div>
-
   <div class="sidebar-section">
     <button id="notasBtn" class="sidebar-btn">notas</button>
     <button id="postitBtn" class="sidebar-btn">post-it</button>
   </div>
-
   <div class="sidebar-divider"></div>
-
   <div class="sidebar-section">
     <p class="sidebar-label">filtrar por categoria</p>
     <button class="filtro-btn active" data-cat="todas">todas</button>
@@ -41,9 +36,7 @@
     <button class="filtro-btn" data-cat="estudo">📚 estudo</button>
     <button class="filtro-btn" data-cat="pessoal">🏠 pessoal</button>
   </div>
-
   <div class="sidebar-divider"></div>
-
   <div class="sidebar-section">
     <p class="sidebar-label">filtrar por cor</p>
     <div class="filtro-cores">
@@ -76,7 +69,41 @@
     <button class="fechar" id="fecharModal">✕</button>
     <h2>nova tarefa</h2>
     <input type="text" id="titulo" placeholder="título">
-    <input type="date" id="data">
+
+    <!-- DATA CUSTOMIZADA -->
+    <div class="modal-row">
+      <label class="modal-label">data</label>
+      <div class="custom-date-wrap">
+        <input type="text" id="dataDisplay" placeholder="dd/mm/aaaa" readonly class="date-display">
+        <div class="mini-cal" id="miniCal"></div>
+      </div>
+    </div>
+
+    <!-- HORÁRIO -->
+    <div class="modal-row">
+      <label class="modal-label">horário</label>
+      <div class="horario-wrap">
+        <input type="text" id="horaInput" placeholder="hh" maxlength="2" class="time-part">
+        <span class="time-sep">:</span>
+        <input type="text" id="minInput" placeholder="mm" maxlength="2" class="time-part">
+      </div>
+    </div>
+
+    <!-- DIAS DA SEMANA -->
+    <div class="modal-row">
+      <label class="modal-label">dias da semana</label>
+      <div class="dias-semana">
+        <button class="dia-btn" data-dia="seg">seg</button>
+        <button class="dia-btn" data-dia="ter">ter</button>
+        <button class="dia-btn" data-dia="qua">qua</button>
+        <button class="dia-btn" data-dia="qui">qui</button>
+        <button class="dia-btn" data-dia="sex">sex</button>
+        <button class="dia-btn" data-dia="sab">sáb</button>
+        <button class="dia-btn" data-dia="dom">dom</button>
+      </div>
+    </div>
+
+    <!-- COR -->
     <div class="modal-row">
       <label class="modal-label">cor</label>
       <div class="cores">
@@ -85,6 +112,8 @@
         <button class="cor verde" data-cor="#30d158"></button>
       </div>
     </div>
+
+    <!-- CATEGORIA -->
     <div class="modal-row">
       <label class="modal-label">categoria</label>
       <div class="cats">
@@ -93,6 +122,8 @@
         <button class="cat-btn" data-cat="pessoal">🏠 pessoal</button>
       </div>
     </div>
+
+    <!-- RECORRENTE -->
     <div class="modal-row">
       <label class="modal-label recorrente-label">
         <input type="checkbox" id="recorrenteCheck"> recorrente
@@ -104,6 +135,7 @@
         </select>
       </div>
     </div>
+
     <button id="criar" class="criarMinimal">criar</button>
   </div>
 </div>
