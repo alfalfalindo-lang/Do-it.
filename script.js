@@ -274,28 +274,41 @@ function criarPostit(p){
   `;
   document.body.appendChild(div);
   div.querySelector("textarea").addEventListener("input",function(){ p.texto=this.value; salvar(); });
+
   div.querySelectorAll(".postit-edge").forEach(edge=>{
-    edge.onmousedown=e=>{
-      e.preventDefault();
-      const ox=e.clientX-div.offsetLeft, oy=e.clientY-div.offsetTop;
-      document.onmousemove=e=>{
-        div.style.left=(e.clientX-ox)+"px";
-        div.style.top =(e.clientY-oy)+"px";
+
+    function iniciarArrasto(clientX, clientY){
+      const ox=clientX-div.offsetLeft, oy=clientY-div.offsetTop;
+
+      function mover(clientX, clientY){
+        div.style.left=(clientX-ox)+"px";
+        div.style.top =(clientY-oy)+"px";
         p.left=div.style.left; p.top=div.style.top;
         const lx=document.getElementById("lixeira").getBoundingClientRect();
         const px=div.getBoundingClientRect();
         document.getElementById("lixeira").classList.toggle("highlight",px.right>lx.left&&px.left<lx.right&&px.bottom>lx.top&&px.top<lx.bottom);
-      };
-      document.onmouseup=()=>{
-        document.onmousemove=null;
+      }
+
+      function soltar(){
         document.getElementById("lixeira").classList.remove("highlight");
         const lx=document.getElementById("lixeira").getBoundingClientRect();
         const px=div.getBoundingClientRect();
         if(px.right>lx.left&&px.left<lx.right&&px.bottom>lx.top&&px.top<lx.bottom){
           div.remove(); postits=postits.filter(x=>x!==p); salvar();
         } else { salvar(); }
-      };
-    };
+      }
+
+      /* MOUSE */
+      document.onmousemove=e=>mover(e.clientX,e.clientY);
+      document.onmouseup=()=>{ document.onmousemove=null; document.onmouseup=null; soltar(); };
+
+      /* TOUCH */
+      edge.ontouchmove=e=>{ e.preventDefault(); mover(e.touches[0].clientX,e.touches[0].clientY); };
+      edge.ontouchend=()=>{ edge.ontouchmove=null; edge.ontouchend=null; soltar(); };
+    }
+
+    edge.onmousedown=e=>{ e.preventDefault(); iniciarArrasto(e.clientX,e.clientY); };
+    edge.ontouchstart=e=>{ e.preventDefault(); iniciarArrasto(e.touches[0].clientX,e.touches[0].clientY); };
   });
 }
 
