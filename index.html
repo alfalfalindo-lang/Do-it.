@@ -60,19 +60,30 @@
       <button class="filtro-cor-btn" data-filtrocor="#30d158" title="verde"><div class="bola-filtro" style="background:#30d158"></div></button>
     </div>
   </div>
+  <div class="sidebar-divider"></div>
+  <div class="sidebar-section sidebar-bottom">
+    <p class="sidebar-label" id="progressLabel">progresso</p>
+    <div class="progress-bar-wrap">
+      <div class="progress-bar-fill" id="progressBar"></div>
+    </div>
+    <p class="progress-text" id="progressText"></p>
+  </div>
 </div>
 
-<button class="criarTopo" id="novoBtn">+</button>
+<button class="criarTopo" id="novoBtn" title="nova tarefa">+</button>
 
 <div class="main">
   <div class="calendar-style">
     <div class="month" id="mesTopo"></div>
     <div class="day" id="diaTopo"></div>
   </div>
-  <div class="busca-wrap">
-    <input type="text" id="campoBusca" placeholder="buscar..." autocomplete="off">
+  <div class="main-inner">
+    <div class="busca-wrap">
+      <span class="busca-icon">⌕</span>
+      <input type="text" id="campoBusca" placeholder="buscar tarefas..." autocomplete="off">
+    </div>
+    <div id="listaTarefas"></div>
   </div>
-  <div id="listaTarefas"></div>
 </div>
 
 <!-- CALENDÁRIO FULL -->
@@ -99,7 +110,7 @@
 <div class="modal" id="modal">
   <div class="modal-box">
     <button class="fechar" id="fecharModal">✕</button>
-    <h2>nova tarefa</h2>
+    <h2 id="modalTitulo">nova tarefa</h2>
     <input type="text" id="titulo" placeholder="título">
     <div class="modal-row">
       <label class="modal-label">data</label>
@@ -145,6 +156,14 @@
       </div>
     </div>
     <div class="modal-row">
+      <label class="modal-label">prioridade</label>
+      <div class="prioridades">
+        <button class="prio-btn" data-prio="baixa">baixa</button>
+        <button class="prio-btn selected" data-prio="normal">normal</button>
+        <button class="prio-btn" data-prio="alta">alta</button>
+      </div>
+    </div>
+    <div class="modal-row">
       <label class="modal-label recorrente-label">
         <input type="checkbox" id="recorrenteCheck"> recorrente
       </label>
@@ -155,7 +174,28 @@
         </select>
       </div>
     </div>
-    <button id="criar" class="criarMinimal">criar</button>
+    <div class="modal-row">
+      <label class="modal-label">nota rápida</label>
+      <textarea id="notaRapida" placeholder="detalhes opcionais..." rows="2" class="nota-rapida-input"></textarea>
+    </div>
+    <div class="modal-acoes">
+      <button id="criar" class="criarMinimal">criar</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL DETALHE TAREFA -->
+<div class="modal" id="modalDetalhe">
+  <div class="modal-box">
+    <button class="fechar" id="fecharDetalhe">✕</button>
+    <div class="detalhe-cor-barra" id="detalheCorBarra"></div>
+    <h2 id="detalheTitulo"></h2>
+    <div id="detalheInfos" class="detalhe-infos"></div>
+    <div id="detalheNota" class="detalhe-nota"></div>
+    <div class="modal-acoes detalhe-acoes">
+      <button id="detalheEditar" class="criarMinimal">editar</button>
+      <button id="detalheConcluir" class="criarMinimal btn-concluir">concluir ✓</button>
+    </div>
   </div>
 </div>
 
