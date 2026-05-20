@@ -1,418 +1,124 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-
 <head>
-
 <meta charset="UTF-8">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>do it</title>
-
 <link href="https://fonts.cdnfonts.com/css/itc-american-typewriter" rel="stylesheet">
-
 <link rel="stylesheet" href="style.css">
-
 <link rel="manifest" href="manifest.json">
-
 <meta name="theme-color" content="#2b2b2b">
-
 <meta name="apple-mobile-web-app-capable" content="yes">
-
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-
 <meta name="apple-mobile-web-app-title" content="do it">
-
 <link rel="apple-touch-icon" href="icon-192.png">
-
 <script>
-
-if("serviceWorker" in navigator){
-
-  window.addEventListener("load", () => {
-
-    navigator.serviceWorker.register("/service-worker.js");
-
-  });
-
-}
-
+  if("serviceWorker" in navigator){
+    window.addEventListener("load", () => {
+      navigator.serviceWorker.register("/service-worker.js");
+    });
+  }
 </script>
-
 </head>
-
 <body>
 
-<!-- SIDEBAR -->
-
 <div class="sidebar">
-
   <div class="topo-sidebar">
-
     <div class="bolinhas">
-
       <div class="bola vermelha"></div>
-
       <div class="bola amarela"></div>
-
       <div class="bola verde"></div>
-
     </div>
-
     <h1 class="logo">do it</h1>
-
   </div>
-
-  <!-- MODOS -->
-
   <div class="sidebar-section">
-
-    <button id="tarefasBtn" class="sidebar-btn active">
-
-      <span>tarefas</span>
-
-      <span class="badge" id="badgeTarefas"></span>
-
-    </button>
-
-    <button id="metasBtn" class="sidebar-btn">
-
-      <span>metas</span>
-
-      <span class="badge" id="badgeMetas"></span>
-
-    </button>
-
-    <button id="arquivoBtn" class="sidebar-btn">
-
-      <span>arquivo</span>
-
-      <span class="badge" id="badgeArquivo"></span>
-
-    </button>
-
-    <button id="calendarioBtn" class="sidebar-btn">
-
-      calendário
-
-    </button>
-
+    <button id="tarefasBtn" class="sidebar-btn active"><span>tarefas</span><span class="badge" id="badgeTarefas"></span></button>
+    <button id="metasBtn" class="sidebar-btn"><span>metas</span><span class="badge" id="badgeMetas"></span></button>
+    <button id="arquivoBtn" class="sidebar-btn"><span>arquivo</span><span class="badge" id="badgeArquivo"></span></button>
+    <button id="calendarioBtn" class="sidebar-btn">calendário</button>
   </div>
-
   <div class="sidebar-divider"></div>
-
-  <!-- UTILIDADES -->
-
   <div class="sidebar-section">
-
-    <button id="notasBtn" class="sidebar-btn">
-
-      notas
-
-    </button>
-
-    <button id="postitBtn" class="sidebar-btn">
-
-      post-it
-
-    </button>
-
+    <button id="notasBtn" class="sidebar-btn">notas</button>
+    <button id="postitBtn" class="sidebar-btn">post-it</button>
   </div>
-
   <div class="sidebar-divider"></div>
-
-  <!-- FILTRO CATEGORIA -->
-
   <div class="sidebar-section">
-
-    <p class="sidebar-label">
-
-      filtrar por categoria
-
-    </p>
-
-    <button class="filtro-btn active" data-cat="todas">
-
-      todas
-
-    </button>
-
-    <button class="filtro-btn" data-cat="trabalho">
-
-      💼 trabalho
-
-    </button>
-
-    <button class="filtro-btn" data-cat="estudo">
-
-      📚 estudo
-
-    </button>
-
-    <button class="filtro-btn" data-cat="pessoal">
-
-      🏠 pessoal
-
-    </button>
-
+    <p class="sidebar-label">filtrar por categoria</p>
+    <button class="filtro-btn active" data-cat="todas">todas</button>
+    <button class="filtro-btn" data-cat="trabalho">💼 trabalho</button>
+    <button class="filtro-btn" data-cat="estudo">📚 estudo</button>
+    <button class="filtro-btn" data-cat="pessoal">🏠 pessoal</button>
   </div>
-
   <div class="sidebar-divider"></div>
-
-  <!-- FILTRO COR -->
-
   <div class="sidebar-section">
-
-    <p class="sidebar-label">
-
-      filtrar por cor
-
-    </p>
-
+    <p class="sidebar-label">filtrar por cor</p>
     <div class="filtro-cores">
-
-      <button class="filtro-cor-btn active" data-filtrocor="todas">
-
-        <div class="cor-all">◉</div>
-
-      </button>
-
-      <button class="filtro-cor-btn" data-filtrocor="#ff5f57">
-
-        <div class="bola-filtro" style="background:#ff5f57"></div>
-
-      </button>
-
-      <button class="filtro-cor-btn" data-filtrocor="#ffd60a">
-
-        <div class="bola-filtro" style="background:#ffd60a"></div>
-
-      </button>
-
-      <button class="filtro-cor-btn" data-filtrocor="#30d158">
-
-        <div class="bola-filtro" style="background:#30d158"></div>
-
-      </button>
-
+      <button class="filtro-cor-btn active" data-filtrocor="todas" title="todas"><div class="cor-all">◉</div></button>
+      <button class="filtro-cor-btn" data-filtrocor="#ff5f57" title="vermelho"><div class="bola-filtro" style="background:#ff5f57"></div></button>
+      <button class="filtro-cor-btn" data-filtrocor="#ffd60a" title="amarelo"><div class="bola-filtro" style="background:#ffd60a"></div></button>
+      <button class="filtro-cor-btn" data-filtrocor="#30d158" title="verde"><div class="bola-filtro" style="background:#30d158"></div></button>
     </div>
-
   </div>
-
 </div>
 
-<!-- BOTÃO NOVA TAREFA -->
-
-<button class="criarTopo" id="novoBtn">
-
-  +
-
-</button>
-
-<!-- MAIN -->
+<button class="criarTopo" id="novoBtn">+</button>
 
 <div class="main">
-
   <div class="calendar-style">
-
     <div class="month" id="mesTopo"></div>
-
     <div class="day" id="diaTopo"></div>
-
   </div>
-
-  <!-- BUSCA -->
-
   <div class="busca-wrap">
-
-    <input
-
-      type="text"
-
-      id="campoBusca"
-
-      placeholder="buscar..."
-
-      autocomplete="off"
-
-    >
-
+    <input type="text" id="campoBusca" placeholder="buscar..." autocomplete="off">
   </div>
-
-  <!-- LISTA -->
-
   <div id="listaTarefas"></div>
-
 </div>
 
 <!-- CALENDÁRIO FULL -->
-
 <div class="cal-full-overlay" id="calFullOverlay">
-
   <div class="cal-full">
-
     <div class="cal-full-header">
-
       <div class="cal-full-nav">
-
-        <button class="cal-full-nav-btn" id="calFullPrev">
-
-          ‹
-
-        </button>
-
+        <button class="cal-full-nav-btn" id="calFullPrev">‹</button>
         <span class="cal-full-title" id="calFullTitle"></span>
-
-        <button class="cal-full-nav-btn" id="calFullNext">
-
-          ›
-
-        </button>
-
-        <button class="cal-full-nav-btn cal-today-btn" id="calFullHoje">
-
-          hoje
-
-        </button>
-
+        <button class="cal-full-nav-btn" id="calFullNext">›</button>
+        <button class="cal-full-nav-btn cal-today-btn" id="calFullHoje">hoje</button>
       </div>
-
       <div class="cal-view-toggle">
-
-        <button class="cal-view-btn active" data-view="mes" id="btnViewMes">
-
-          mês
-
-        </button>
-
-        <button class="cal-view-btn" data-view="semana" id="btnViewSemana">
-
-          semana
-
-        </button>
-
+        <button class="cal-view-btn active" data-view="mes" id="btnViewMes">mês</button>
+        <button class="cal-view-btn" data-view="semana" id="btnViewSemana">semana</button>
       </div>
-
-      <button class="cal-full-fechar" id="calFullFechar">
-
-        ✕
-
-      </button>
-
+      <button class="cal-full-fechar" id="calFullFechar">✕</button>
     </div>
-
     <div class="cal-full-body" id="calFullBody"></div>
-
   </div>
-
 </div>
 
-<!-- MODAL NOVA TAREFA -->
-
+<!-- MODAL TAREFA -->
 <div class="modal" id="modal">
-
   <div class="modal-box">
-
-    <button class="fechar" id="fecharModal">
-
-      ✕
-
-    </button>
-
+    <button class="fechar" id="fecharModal">✕</button>
     <h2>nova tarefa</h2>
-
     <input type="text" id="titulo" placeholder="título">
-
-    <!-- DATA -->
-
     <div class="modal-row">
-
-      <label class="modal-label">
-
-        data
-
-      </label>
-
+      <label class="modal-label">data</label>
       <div class="custom-date-wrap">
-
-        <input
-
-          type="text"
-
-          id="dataDisplay"
-
-          placeholder="dd/mm/aaaa"
-
-          readonly
-
-          class="date-display"
-
-        >
-
+        <input type="text" id="dataDisplay" placeholder="dd/mm/aaaa" readonly class="date-display">
         <div class="mini-cal" id="miniCal"></div>
-
       </div>
-
     </div>
-
-    <!-- HORÁRIO -->
-
     <div class="modal-row">
-
-      <label class="modal-label">
-
-        horário
-
-      </label>
-
+      <label class="modal-label">horário</label>
       <div class="horario-wrap">
-
-        <input
-
-          type="text"
-
-          id="horaInput"
-
-          placeholder="hh"
-
-          maxlength="2"
-
-          class="time-part"
-
-        >
-
+        <input type="text" id="horaInput" placeholder="hh" maxlength="2" class="time-part">
         <span class="time-sep">:</span>
-
-        <input
-
-          type="text"
-
-          id="minInput"
-
-          placeholder="mm"
-
-          maxlength="2"
-
-          class="time-part"
-
-        >
-
+        <input type="text" id="minInput" placeholder="mm" maxlength="2" class="time-part">
       </div>
-
     </div>
-
-    <!-- DIAS -->
-
     <div class="modal-row">
-
-      <label class="modal-label">
-
-        dias da semana
-
-      </label>
-
+      <label class="modal-label">dias da semana</label>
       <div class="dias-semana">
-
         <button class="dia-btn" data-dia="seg">seg</button>
         <button class="dia-btn" data-dia="ter">ter</button>
         <button class="dia-btn" data-dia="qua">qua</button>
@@ -420,144 +126,55 @@ if("serviceWorker" in navigator){
         <button class="dia-btn" data-dia="sex">sex</button>
         <button class="dia-btn" data-dia="sab">sáb</button>
         <button class="dia-btn" data-dia="dom">dom</button>
-
       </div>
-
     </div>
-
-    <!-- COR -->
-
     <div class="modal-row">
-
-      <label class="modal-label">
-
-        cor
-
-      </label>
-
+      <label class="modal-label">cor</label>
       <div class="cores">
-
         <button class="cor vermelha selected" data-cor="#ff5f57"></button>
-
         <button class="cor amarela" data-cor="#ffd60a"></button>
-
         <button class="cor verde" data-cor="#30d158"></button>
-
       </div>
-
     </div>
-
-    <!-- CATEGORIA -->
-
     <div class="modal-row">
-
-      <label class="modal-label">
-
-        categoria
-
-      </label>
-
+      <label class="modal-label">categoria</label>
       <div class="cats">
-
-        <button class="cat-btn selected" data-cat="trabalho">
-
-          💼 trabalho
-
-        </button>
-
-        <button class="cat-btn" data-cat="estudo">
-
-          📚 estudo
-
-        </button>
-
-        <button class="cat-btn" data-cat="pessoal">
-
-          🏠 pessoal
-
-        </button>
-
+        <button class="cat-btn selected" data-cat="trabalho">💼 trabalho</button>
+        <button class="cat-btn" data-cat="estudo">📚 estudo</button>
+        <button class="cat-btn" data-cat="pessoal">🏠 pessoal</button>
       </div>
-
     </div>
-
-    <!-- RECORRENTE -->
-
     <div class="modal-row">
-
       <label class="modal-label recorrente-label">
-
-        <input type="checkbox" id="recorrenteCheck">
-
-        recorrente
-
+        <input type="checkbox" id="recorrenteCheck"> recorrente
       </label>
-
       <div id="recorrenteOpcoes" class="recorrente-opcoes hidden">
-
         <select id="frequencia">
-
           <option value="diaria">diária</option>
-
           <option value="semanal">semanal</option>
-
         </select>
-
       </div>
-
     </div>
-
-    <!-- BOTÃO -->
-
-    <button id="criar" class="criarMinimal">
-
-      criar
-
-    </button>
-
+    <button id="criar" class="criarMinimal">criar</button>
   </div>
-
 </div>
 
 <!-- MODAL NOTAS -->
-
 <div class="modal" id="modalNotas">
-
   <div class="notas-box">
-
-    <button class="fechar-notas">
-
-      ✕
-
-    </button>
-
+    <button class="fechar-notas">✕</button>
     <div class="notas-nav">
-
       <button id="paginaAnterior">‹</button>
-
       <span id="paginaInfo"></span>
-
       <button id="proximaPagina">›</button>
-
       <button id="novaPagina">+</button>
-
     </div>
-
     <textarea id="paginaAtual"></textarea>
-
   </div>
-
 </div>
 
-<!-- LIXEIRA -->
-
-<div class="lixeira" id="lixeira">
-
-🗑
-
-</div>
+<div class="lixeira" id="lixeira">🗑</div>
 
 <script src="script.js"></script>
-
 </body>
 </html>
