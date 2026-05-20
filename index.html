@@ -35,6 +35,7 @@
     <button id="tarefasBtn" class="sidebar-btn active"><span>tarefas</span><span class="badge" id="badgeTarefas"></span></button>
     <button id="metasBtn" class="sidebar-btn"><span>metas</span><span class="badge" id="badgeMetas"></span></button>
     <button id="arquivoBtn" class="sidebar-btn"><span>arquivo</span><span class="badge" id="badgeArquivo"></span></button>
+    <button id="calendarioBtn" class="sidebar-btn">calendário</button>
   </div>
   <div class="sidebar-divider"></div>
   <div class="sidebar-section">
@@ -74,7 +75,25 @@
   <div id="listaTarefas"></div>
 </div>
 
-<div class="lixeira" id="lixeira">🗑</div>
+<!-- CALENDÁRIO FULL -->
+<div class="cal-full-overlay" id="calFullOverlay">
+  <div class="cal-full">
+    <div class="cal-full-header">
+      <div class="cal-full-nav">
+        <button class="cal-full-nav-btn" id="calFullPrev">‹</button>
+        <span class="cal-full-title" id="calFullTitle"></span>
+        <button class="cal-full-nav-btn" id="calFullNext">›</button>
+        <button class="cal-full-nav-btn cal-today-btn" id="calFullHoje">hoje</button>
+      </div>
+      <div class="cal-view-toggle">
+        <button class="cal-view-btn active" data-view="mes" id="btnViewMes">mês</button>
+        <button class="cal-view-btn" data-view="semana" id="btnViewSemana">semana</button>
+      </div>
+      <button class="cal-full-fechar" id="calFullFechar">✕</button>
+    </div>
+    <div class="cal-full-body" id="calFullBody"></div>
+  </div>
+</div>
 
 <!-- MODAL TAREFA -->
 <div class="modal" id="modal">
@@ -153,6 +172,8 @@
     <textarea id="paginaAtual"></textarea>
   </div>
 </div>
+
+<div class="lixeira" id="lixeira">🗑</div>
 
 <script src="script.js"></script>
 </body>
