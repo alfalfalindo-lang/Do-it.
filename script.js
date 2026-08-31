@@ -129,11 +129,14 @@ function criarElementoTarefa(t, fonte){
   div.dataset.idx = t._idx;
 
   let atrasada = false;
-  if(t.data){
-    const td = parseData(t.data); td.setHours(0,0,0,0);
-    const hj = new Date(); hj.setHours(0,0,0,0);
-    if(td < hj) atrasada = true;
-  }
+let diasRestantes = null;
+if(t.data){
+  const td = parseData(t.data); td.setHours(0,0,0,0);
+  const hj = new Date(); hj.setHours(0,0,0,0);
+  if(td < hj) atrasada = true;
+  const diffMs = td.getTime() - hj.getTime();
+  diasRestantes = Math.round(diffMs / (1000 * 60 * 60 * 24));
+}
 
   const cats = {trabalho:"💼", estudo:"📚", pessoal:"🏠"};
   const horaLabel = t.hora ? `<span class="tag">⏰ ${t.hora}</span>` : "";
@@ -142,13 +145,19 @@ function criarElementoTarefa(t, fonte){
   const prioMap   = {alta:"‼", baixa:"↓"};
   const prioLabel = (t.prioridade&&t.prioridade!=="normal") ? `<span class="tag tag-prio tag-prio-${t.prioridade}">${prioMap[t.prioridade]}</span>` : "";
   const notaLabel = t.nota ? `<div class="tarefa-nota-preview">${t.nota}</div>` : "";
-  const atrasadaLabel = atrasada ? `<span class="tag tag-atrasada">atrasada</span>` : "";
+ const atrasadaLabel = atrasada ? `<span class="tag tag-atrasada">atrasada</span>` : "";
 
+let prazoLabel = "";
+if(!atrasada && diasRestantes !== null && diasRestantes <= 3){
+  if(diasRestantes === 0) prazoLabel = `<span class="tag tag-prazo">vence hoje</span>`;
+  else if(diasRestantes === 1) prazoLabel = `<span class="tag tag-prazo">vence amanhã</span>`;
+  else prazoLabel = `<span class="tag tag-prazo">faltam ${diasRestantes} dias</span>`;
+}
   div.innerHTML = `
     <div class="bolinha" style="background:${t.cor}"></div>
     <div class="tarefa-info">
       <div class="tarefa-titulo">${t.titulo}</div>
-      <div class="tarefa-meta">${prioLabel}${horaLabel}${catLabel}${recLabel}${atrasadaLabel}</div>
+     <div class="tarefa-meta">${prioLabel}${horaLabel}${catLabel}${recLabel}${atrasadaLabel}${prazoLabel}</div>
       ${notaLabel}
     </div>
     <div class="tarefa-acoes">
