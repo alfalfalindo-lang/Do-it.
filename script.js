@@ -1,8 +1,29 @@
+function tocarSomConclusao(){
+  try{
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const osc = ctx.createOscillator();
+    const volume = ctx.createGain();
+    osc.connect(volume);
+    volume.connect(ctx.destination);
+    osc.frequency.value = 880;
+    volume.gain.value = 0.15;
+    osc.start();
+    osc.stop(ctx.currentTime + 0.15);
+  }catch(erro){
+    console.log("som não suportado neste navegador");
+  }
+
+  if(navigator.vibrate){
+    navigator.vibrate(80);
+  }
+}
+
 let tarefas = JSON.parse(localStorage.getItem("tarefas")) || [];
 let metas   = JSON.parse(localStorage.getItem("metas"))   || [];
 let arquivo = JSON.parse(localStorage.getItem("arquivo")) || [];
 let notas   = JSON.parse(localStorage.getItem("notas"))   || [""];
 let postits = JSON.parse(localStorage.getItem("postits")) || [];
+let streak  = JSON.parse(localStorage.getItem("streak")) || {contador: 0, ultimaData: null};
 
 let modo            = "tarefas";
 let corSelecionada  = "#ff5f57";
@@ -34,12 +55,34 @@ function salvar(){
   localStorage.setItem("arquivo", JSON.stringify(arquivo));
   localStorage.setItem("notas",   JSON.stringify(notas));
   localStorage.setItem("postits", JSON.stringify(postits));
+  localStorage.setItem("streak",  JSON.stringify(streak));
+}
+
+function atualizarStreak(){
+  const hj = new Date(); hj.setHours(0,0,0,0);
+  const hojeStr = hj.toISOString().slice(0,10);
+
+  if(streak.ultimaData === hojeStr) return;
+
+  const ontem = new Date(hj); ontem.setDate(hj.getDate()-1);
+  const ontemStr = ontem.toISOString().slice(0,10);
+
+  if(streak.ultimaData === ontemStr){
+    streak.contador += 1;
+  } else {
+    streak.contador = 1;
+  }
+
+  streak.ultimaData = hojeStr;
 }
 
 function atualizarBadges(){
   document.getElementById("badgeTarefas").innerText = tarefas.length || "";
   document.getElementById("badgeMetas").innerText   = metas.length   || "";
   document.getElementById("badgeArquivo").innerText = arquivo.length  || "";
+  document.getElementById("streakTexto").innerText = streak.contador > 0
+    ? `🔥 ${streak.contador} dia${streak.contador>1?"s":""} seguidos`
+    : "";
 }
 
 function atualizarProgresso(){
@@ -129,14 +172,14 @@ function criarElementoTarefa(t, fonte){
   div.dataset.idx = t._idx;
 
   let atrasada = false;
-let diasRestantes = null;
-if(t.data){
-  const td = parseData(t.data); td.setHours(0,0,0,0);
-  const hj = new Date(); hj.setHours(0,0,0,0);
-  if(td < hj) atrasada = true;
-  const diffMs = td.getTime() - hj.getTime();
-  diasRestantes = Math.round(diffMs / (1000 * 60 * 60 * 24));
-}
+  let diasRestantes = null;
+  if(t.data){
+    const td = parseData(t.data); td.setHours(0,0,0,0);
+    const hj = new Date(); hj.setHours(0,0,0,0);
+    if(td < hj) atrasada = true;
+    const diffMs = td.getTime() - hj.getTime();
+    diasRestantes = Math.round(diffMs / (1000 * 60 * 60 * 24));
+  }
 
   const cats = {trabalho:"💼", estudo:"📚", pessoal:"🏠"};
   const horaLabel = t.hora ? `<span class="tag">⏰ ${t.hora}</span>` : "";
@@ -145,19 +188,20 @@ if(t.data){
   const prioMap   = {alta:"‼", baixa:"↓"};
   const prioLabel = (t.prioridade&&t.prioridade!=="normal") ? `<span class="tag tag-prio tag-prio-${t.prioridade}">${prioMap[t.prioridade]}</span>` : "";
   const notaLabel = t.nota ? `<div class="tarefa-nota-preview">${t.nota}</div>` : "";
- const atrasadaLabel = atrasada ? `<span class="tag tag-atrasada">atrasada</span>` : "";
+  const atrasadaLabel = atrasada ? `<span class="tag tag-atrasada">atrasada</span>` : "";
 
-let prazoLabel = "";
-if(!atrasada && diasRestantes !== null && diasRestantes <= 3){
-  if(diasRestantes === 0) prazoLabel = `<span class="tag tag-prazo">vence hoje</span>`;
-  else if(diasRestantes === 1) prazoLabel = `<span class="tag tag-prazo">vence amanhã</span>`;
-  else prazoLabel = `<span class="tag tag-prazo">faltam ${diasRestantes} dias</span>`;
-}
+  let prazoLabel = "";
+  if(!atrasada && diasRestantes !== null && diasRestantes <= 3){
+    if(diasRestantes === 0) prazoLabel = `<span class="tag tag-prazo">vence hoje</span>`;
+    else if(diasRestantes === 1) prazoLabel = `<span class="tag tag-prazo">vence amanhã</span>`;
+    else prazoLabel = `<span class="tag tag-prazo">faltam ${diasRestantes} dias</span>`;
+  }
+
   div.innerHTML = `
     <div class="bolinha" style="background:${t.cor}"></div>
     <div class="tarefa-info">
       <div class="tarefa-titulo">${t.titulo}</div>
-     <div class="tarefa-meta">${prioLabel}${horaLabel}${catLabel}${recLabel}${atrasadaLabel}${prazoLabel}</div>
+      <div class="tarefa-meta">${prioLabel}${horaLabel}${catLabel}${recLabel}${atrasadaLabel}${prazoLabel}</div>
       ${notaLabel}
     </div>
     <div class="tarefa-acoes">
@@ -179,10 +223,12 @@ if(!atrasada && diasRestantes !== null && diasRestantes <= 3){
   div.querySelector(".concluir-btn").onclick = e => {
     e.stopPropagation();
     div.classList.add("concluindo");
+    tocarSomConclusao();
     setTimeout(() => {
       const i = fonte.indexOf(t);
       if(i > -1) fonte.splice(i,1);
       arquivo.unshift({...t, arquivadoEm: new Date().toISOString()});
+      atualizarStreak();
       salvar(); render();
       if(calFullOverlay.classList.contains("aberto")) renderCalFull();
     }, 480);
@@ -253,6 +299,7 @@ function abrirDetalhe(t, fonte){
     const i = fonte.indexOf(t);
     if(i > -1) fonte.splice(i,1);
     arquivo.unshift({...t, arquivadoEm: new Date().toISOString()});
+    atualizarStreak();
     salvar(); render();
     if(calFullOverlay.classList.contains("aberto")) renderCalFull();
   };
@@ -452,7 +499,35 @@ function criarPostit(p){
   document.body.appendChild(div);
   div.querySelector("textarea").addEventListener("input",function(){ p.texto=this.value; salvar(); });
   div.querySelectorAll(".postit-edge").forEach(edge => {
-    function iniciarArrasto(clientX,clientY){ const ox=clientX-div.offsetLeft,oy=clientY-div.offsetTop; function mover(cx,cy){div.style.left=(cx-ox)+"px";div.style.top=(cy-oy)+"px";p.left=div.style.left;p.top=div.style.top;const lx=document.getElementById("lixeira").getBoundingClientRect();const px=div.getBoundingClientRect();document.getElementById("lixeira").classList.toggle("highlight",px.right>lx.left&&px.left<lx.right&&px.bottom>lx.top&&px.top<lx.bottom);} function soltar(){document.getElementById("lixeira").classList.remove("highlight");const lx=document.getElementById("lixeira").getBoundingClientRect();const px=div.getBoundingClientRect();if(px.right>lx.left&&px.left<lx.right&&px.bottom>lx.top&&px.top<lx.bottom){div.remove();postits=postits.filter(x=>x!==p);salvar();}else{salvar();}} document.onmousemove=e=>mover(e.clientX,e.clientY); document.onmouseup=()=>{document.onmousemove=null;document.onmouseup=null;soltar();}; edge.ontouchmove=e=>{e.preventDefault();mover(e.touches[0].clientX,e.touches[0].clientY);}; edge.ontouchend=()=>{edge.ontouchmove=null;edge.ontouchend=null;soltar();}; }
+    function iniciarArrasto(clientX,clientY){
+      const ox=clientX-div.offsetLeft, oy=clientY-div.offsetTop;
+      function mover(cx,cy){
+        div.style.left=(cx-ox)+"px"; div.style.top=(cy-oy)+"px";
+        p.left=div.style.left; p.top=div.style.top;
+        const lx=document.getElementById("lixeira").getBoundingClientRect();
+        const px=div.getBoundingClientRect();
+        document.getElementById("lixeira").classList.toggle("highlight",px.right>lx.left&&px.left<lx.right&&px.bottom>lx.top&&px.top<lx.bottom);
+      }
+      function soltar(){
+        document.getElementById("lixeira").classList.remove("highlight");
+        const lx=document.getElementById("lixeira").getBoundingClientRect();
+        const px=div.getBoundingClientRect();
+        const estaSobreLixeira = px.right>lx.left&&px.left<lx.right&&px.bottom>lx.top&&px.top<lx.bottom;
+        if(estaSobreLixeira){
+          if(confirm("apagar este post-it?")){
+            div.remove();
+            postits=postits.filter(x=>x!==p);
+          }
+          salvar();
+        } else {
+          salvar();
+        }
+      }
+      document.onmousemove=e=>mover(e.clientX,e.clientY);
+      document.onmouseup=()=>{document.onmousemove=null;document.onmouseup=null;soltar();};
+      edge.ontouchmove=e=>{e.preventDefault();mover(e.touches[0].clientX,e.touches[0].clientY);};
+      edge.ontouchend=()=>{edge.ontouchmove=null;edge.ontouchend=null;soltar();};
+    }
     edge.onmousedown=e=>{e.preventDefault();iniciarArrasto(e.clientX,e.clientY);}; edge.ontouchstart=e=>{e.preventDefault();iniciarArrasto(e.touches[0].clientX,e.touches[0].clientY);};
   });
 }
