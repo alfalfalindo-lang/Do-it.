@@ -207,6 +207,7 @@ function criarElementoTarefa(t, fonte){
     <div class="tarefa-acoes">
       <button class="tarefa-acao-btn editar-btn" title="editar">✎</button>
       <button class="concluir-btn" title="concluir">✓</button>
+      <button class="tarefa-acao-btn excluir-btn" title="excluir">🗑</button>
     </div>
   `;
 
@@ -232,6 +233,16 @@ function criarElementoTarefa(t, fonte){
       salvar(); render();
       if(calFullOverlay.classList.contains("aberto")) renderCalFull();
     }, 480);
+  };
+
+  div.querySelector(".excluir-btn").onclick = e => {
+    e.stopPropagation();
+    if(confirm(`excluir "${t.titulo}" para sempre?`)){
+      const i = fonte.indexOf(t);
+      if(i > -1) fonte.splice(i,1);
+      salvar(); render();
+      if(calFullOverlay.classList.contains("aberto")) renderCalFull();
+    }
   };
 
   div.addEventListener("dragstart", () => { dragIdx=Number(div.dataset.idx); setTimeout(()=>div.classList.add("dragging"),0); });
@@ -268,12 +279,19 @@ function renderArquivo(lista){
         </div>
       </div>
       <button class="tarefa-acao-btn restaurar-btn" title="restaurar">↩</button>
+      <button class="tarefa-acao-btn excluir-btn" title="excluir para sempre">🗑</button>
     `;
     div.querySelector(".restaurar-btn").onclick = () => {
       const item = arquivo.splice(i,1)[0];
       delete item.arquivadoEm;
       tarefas.unshift(item);
       salvar(); render();
+    };
+    div.querySelector(".excluir-btn").onclick = () => {
+      if(confirm(`excluir "${t.titulo}" para sempre?`)){
+        arquivo.splice(i,1);
+        salvar(); render();
+      }
     };
     lista.appendChild(div);
   });
