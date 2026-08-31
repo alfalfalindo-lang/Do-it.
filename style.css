@@ -100,6 +100,8 @@ body{
 .arquivo-item .tarefa-acoes{opacity:1;}
 .restaurar-btn{opacity:0.6;}
 .restaurar-btn:hover{opacity:1;}
+.excluir-btn{opacity:0.6;}
+.excluir-btn:hover{opacity:1;color:#ff5f57;border-color:rgba(255,95,87,0.4);}
 .secao-label{font-size:11px;opacity:0.4;text-transform:uppercase;letter-spacing:1px;margin:16px 0 6px 2px;}
 
 /* ── MODAL ── */
