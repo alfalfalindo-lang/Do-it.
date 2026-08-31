@@ -85,6 +85,8 @@ body{
 .tag-prio-alta{background:rgba(255,95,87,0.2);color:#ff8a85;opacity:1;}
 .tag-prio-baixa{background:rgba(255,255,255,0.06);opacity:0.5;}
 .tag-atrasada{background:rgba(255,150,50,0.2);color:#ffaa66;opacity:1;}
+.tag-atrasada{background:rgba(255,150,50,0.2);color:#ffaa66;opacity:1;}
+.tag-prazo{background:rgba(255,214,10,0.2);color:#ffd60a;opacity:1;}
 
 /* ações */
 .tarefa-acoes{display:flex;gap:6px;flex-shrink:0;opacity:0;transition:opacity 0.15s;}
